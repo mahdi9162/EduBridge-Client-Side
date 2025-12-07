@@ -40,3 +40,12 @@ h5,
 h6 {
   font-family: 'Merriweather Sans', sans-serif;
 }
+
+/* Navbar */
+.nav-link {
+  @apply relative pb-1 font-medium transition-all duration-200 ease-out text-[#0F1A33] opacity-80 hover:text-[#244C98] hover:opacity-100;
+}
+
+.nav-link-active {
+  @apply text-[#244C98] font-semibold opacity-100 border-b-2 border-[#244C98];
+}
