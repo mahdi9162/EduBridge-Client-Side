@@ -5,6 +5,8 @@ import TuitionsList from '../pages/public/Tuitions/TuitionsList';
 import TutorsList from '../pages/public/Tutors/TutorsList';
 import About from '../pages/public/About/About';
 import Contact from '../pages/public/Contact/Contact';
+import Signup from '../pages/public/Auth/Signup';
+import Login from '../pages/public/Auth/Login';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         Component: Contact,
+      },
+      {
+        path: 'signup',
+        Component: Signup,
+      },
+      {
+        path: 'login',
+        Component: Login,
       },
     ],
   },

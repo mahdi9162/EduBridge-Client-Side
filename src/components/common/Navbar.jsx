@@ -12,22 +12,22 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="tuitions" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
+        <NavLink to="/tuitions" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
           Tuitions
         </NavLink>
       </li>
       <li>
-        <NavLink to="tutors" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
+        <NavLink to="/tutors" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
           Tutors
         </NavLink>
       </li>
       <li>
-        <NavLink to="about" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
+        <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
           About
         </NavLink>
       </li>
       <li>
-        <NavLink to="contact" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
+        <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
           Contact
         </NavLink>
       </li>
@@ -57,7 +57,7 @@ const Navbar = () => {
             <ul className="flex px-1 gap-x-5">{links}</ul>
           </div>
           <div className="navbar-end">
-            <Link className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">Sign Up</Link>
+            <Link to='signup' className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">Sign Up</Link>
           </div>
         </div>
       </Container>
