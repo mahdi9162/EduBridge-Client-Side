@@ -5,11 +5,18 @@ import { useFormContext } from 'react-hook-form';
 const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
   const {
     register,
-    formState: { error },
+    watch,
+    formState: { errors },
   } = useFormContext();
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const handleEmailButton = () => {
-    setCurrentStep(2);
+    const emailValue = watch('email');
+
+    if (emailValue.length > 0 && !errors.email) {
+      setCurrentStep(2);
+    }
   };
   // user student
   const handleUserStudent = () => {
@@ -20,17 +27,19 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
   const handleUserTeacher = () => {
     setUserType('teacher');
   };
+
   return (
     <>
       {currentStep === 1 && (
         <>
           <legend className="text-left ml-17 mb-3 opacity-50 text-sm">What's your email?</legend>
           <input
-            {...register('email', { required: true })}
+            {...register('email', { required: true, pattern: { value: emailRegex, message: 'Enter a valid email address' } })}
             type="email"
             placeholder="Enter your email address"
             className="input w-[600px]"
           />
+          {errors.email && <p className='text-left ml-18 mt-1 text-sm text-red-400/80'>{errors.email.message}</p>}
           {/* Continue With */}
           <div className="mt-6 ml-17 flex flex-col items-start gap-3">
             <p className="text-sm text-slate-500">Continue with -</p>
@@ -39,8 +48,8 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
               {/* Student option */}
               <label className="flex items-center gap-2 cursor-pointer text-sm text-slate-700">
                 <input
-                  {...register('radio')}
-                  onChange={handleUserStudent}
+                  {...register('userType')}
+                  onClick={handleUserStudent}
                   type="radio"
                   name="userType"
                   value="student"
@@ -56,8 +65,8 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
               {/* Teacher option */}
               <label className="flex items-center gap-2 cursor-pointer text-sm text-slate-700">
                 <input
-                  {...register('radio')}
-                  onChange={handleUserTeacher}
+                  {...register('userType')}
+                  onClick={handleUserTeacher}
                   type="radio"
                   name="userType"
                   value="teacher"
