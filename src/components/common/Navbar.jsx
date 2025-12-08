@@ -2,37 +2,21 @@ import React from 'react';
 import Container from '../Container/Container';
 import { Link, NavLink } from 'react-router';
 import Logo from './Logo';
+import useAuth from '../../hooks/useAuth';
+import NavbarProfileDropdown from './NavbarProfileDropdown';
 
 const Navbar = () => {
   const links = [
-    <>
-      <li>
-        <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/tuitions" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
-          Tuitions
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/tutors" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
-          Tutors
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/about" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
-          About
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/contact" className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
-          Contact
-        </NavLink>
-      </li>
-    </>,
+    { id: 1, name: 'Home', path: '/' },
+    { id: 2, name: 'Tuitions', path: '/tuitions' },
+    { id: 3, name: 'Tutors', path: '/tutors' },
+    { id: 4, name: 'About', path: '/about' },
+    { id: 5, name: 'Contact', path: '/contact' },
   ];
+
+  const { user } = useAuth();
+  
+  
 
   return (
     <>
@@ -46,7 +30,13 @@ const Navbar = () => {
                 </svg>
               </div>
               <ul tabIndex="-1" className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                {links}
+                {links.map((link) => (
+                  <li key={link.id}>
+                    <NavLink to={link.path} className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
+                      {link.name}
+                    </NavLink>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="text-xl">
@@ -54,10 +44,24 @@ const Navbar = () => {
             </div>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="flex px-1 gap-x-5">{links}</ul>
+            <ul className="flex px-1 gap-x-5">
+              {' '}
+              {links.map((link) => (
+                <li key={link.id}>
+                  <NavLink to={link.path} className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}>
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="navbar-end">
-            <Link to='signup' className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">Sign Up</Link>
+            {!user && (
+              <Link to="signup" className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">
+                Sign Up
+              </Link>
+            )}
+            {user && <NavbarProfileDropdown></NavbarProfileDropdown>}
           </div>
         </div>
       </Container>

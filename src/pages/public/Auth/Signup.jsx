@@ -7,16 +7,40 @@ import EmailAndRoleStep from './components/signup/EmailAndRoleStep';
 import BasicInfoStep from './components/signup/BasicInfoStep';
 import PasswordStep from './components/signup/PasswordStep';
 import { FormProvider, useForm } from 'react-hook-form';
+import useAuth from '../../../hooks/useAuth';
+import Loading from '../../../components/Loading/Loading';
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState('student');
+  const { loading, signUpWithEmailPass, updateUserProfile, user } = useAuth();
 
   const methods = useForm();
   const { handleSubmit } = methods;
 
-  const handleSignupForm = (data) => {
-    console.log(data);
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
+  const handleSignupForm = async (data) => {
+    const { email, password, name } = data;
+
+    const profile = {
+      displayName: name,
+    };
+
+    try {
+      // Signup with email and pass
+      const res = await signUpWithEmailPass(email, password);
+      
+      
+
+      //   Update User Profile
+      await updateUserProfile(profile);
+      alert('Signup successful! Welcome ' + name);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
