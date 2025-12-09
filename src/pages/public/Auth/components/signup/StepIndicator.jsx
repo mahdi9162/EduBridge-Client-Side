@@ -3,7 +3,7 @@ import React from 'react';
 const StepIndicator = ({ currentStep }) => {
   return (
     <>
-      <ul className="steps steps-vertical lg:steps-horizontal w-full">
+      <ul className="steps steps-vertical md:steps-horizontal w-full">
         <li className="step step-primary">
           <span className="text-xs">Enter Your Email Address</span>
         </li>

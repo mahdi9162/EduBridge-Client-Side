@@ -33,21 +33,21 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
     <>
       {currentStep === 1 && (
         <>
-          <legend className="text-left ml-17 mb-3 opacity-50 text-sm">What's your email?</legend>
+          <legend className="text-left lg:ml-17 mb-3 opacity-50 text-xs lg:text-sm">What's your email?</legend>
           <input
             {...register('email', { required: true, pattern: { value: emailRegex, message: 'Enter a valid email address' } })}
             type="email"
             placeholder="Enter your email address"
-            className="input w-[600px]"
+            className="input w-full lg:w-[600px] placeholder:text-xs lg:placeholder:text-sm"
           />
           {errors.email && <p className="text-left ml-18 mt-1 text-sm text-red-400/80">{errors.email.message}</p>}
           {/* Continue With */}
-          <div className="mt-6 ml-17 flex flex-col items-start gap-3">
-            <p className="text-sm text-slate-500">Continue with -</p>
+          <div className="mt-6 lg:ml-17 flex flex-col items-start gap-3 w-full">
+            <p className="text-xs lg:text-sm text-slate-500">Continue with -</p>
 
-            <div className="flex items-center gap-8 bg-white/80 px-4 py-2 rounded-full border border-slate-200 shadow-sm">
+            <div className="flex items-center gap-8 bg-white/80 px-4 py-2 rounded-full border border-slate-200 shadow-sm ">
               {/* Student option */}
-              <label className="flex items-center gap-2 cursor-pointer text-sm text-slate-700">
+              <label className="flex items-center gap-2 cursor-pointer text-xs lg:text-sm text-slate-700">
                 <input
                   {...register('userType')}
                   onClick={handleUserStudent}
@@ -64,7 +64,7 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
               <span className="h-5 w-px bg-slate-200" />
 
               {/* Teacher option */}
-              <label className="flex items-center gap-2 cursor-pointer text-sm text-slate-700">
+              <label className="flex items-center gap-2 cursor-pointer text-xs lg:text-sm text-slate-700">
                 <input
                   {...register('userType')}
                   onClick={handleUserTeacher}
@@ -79,11 +79,11 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
           </div>
 
           {/* Button */}
-          <CommonButton onClick={handleEmailButton} className="btn-secondary mt-8 w-[600px] rounded-full">
+          <CommonButton onClick={handleEmailButton} className="btn-secondary mt-8 w-full lg:w-[600px] text-xs md:text-base rounded-full">
             Next
           </CommonButton>
-          <div className="divider w-[600px] mx-auto">OR</div>
-          <GoogleButton className="w-[600px]"></GoogleButton>
+          <div className="divider lg:w-[600px] mx-auto">OR</div>
+          <GoogleButton className="w-full lg:w-[600px]"></GoogleButton>
         </>
       )}
     </>

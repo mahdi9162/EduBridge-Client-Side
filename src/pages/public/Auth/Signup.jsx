@@ -58,20 +58,20 @@ const Signup = () => {
   };
 
   return (
-    <Container>
-      <section className="mt-10 mb-10 py-16">
-        <div className="flex flex-col md:flex-row gap-10 lg:gap-16">
+    <Container className='px-3'>
+      <section className="mt-4 md:mt-8 mb-10 pt-4 pb-8 md:py-8 lg:py-16">
+        <div className="flex flex-col justify-center md:flex-row gap-10 lg:gap-16">
           {/* left side image  */}
 
-          <figure className="w-full md:w-1/2 flex justify-center overflow-hidden">
-            <img src={signupImg} className="w-full max-w-[600px] h-auto rounded-2xl" alt="EduBridge Image" />
+          <figure className=" hidden lg:flex w-full md:w-1/2 justify-center overflow-hidden">
+            <img src={signupImg} className="w-full max-w-[200px] lg:max-w-[600px] h-auto rounded-2xl" alt="EduBridge Image" />
           </figure>
 
           {/* right side form */}
           <div className="w-full md:w-1/2 text-center">
             <div className="mb-10">
-              <h3 className="text-4xl mb-2">Create an account</h3>
-              <p>
+              <h3 className="text-2xl font-bold lg:text-4xl mb-2">Create an account</h3>
+              <p className='text-xs md:text-base'>
                 Already have an account?
                 <Link to="/login" className="underline">
                   {''} Log in

@@ -18,8 +18,8 @@ const Navbar = () => {
 
   return (
     <>
-      <Container>
-        <div className="navbar bg-[#F4F6FA] mt-5 rounded-full px-10 py-3 md:py-4 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
+      <Container className='px-3'>
+        <div className="navbar bg-[#F4F6FA] mt-5 rounded-full px-3 md:px-10 py-3 md:py-4 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
           <div className="navbar-start">
             <div className="dropdown">
               <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -37,7 +37,7 @@ const Navbar = () => {
                 ))}
               </ul>
             </div>
-            <div className="text-xl">
+            <div>
               <Logo></Logo>
             </div>
           </div>
@@ -55,11 +55,11 @@ const Navbar = () => {
           </div>
           <div className="navbar-end">
             {!user && (
-              <div className='flex gap-5'>
-                <Link to="/signup" className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">
+              <div className='flex gap-2 md:gap-5'>
+                <Link to="/signup" className="btn btn-secondary hover:bg-primary transition-all duration-500 rounded-xl px-3 py-1.5 text-[11px] font-medium shadow-sm hover:shadow-md md:px-4 md:py-2 md:text-sm">
                   Sign Up
                 </Link>
-                <Link to="/login" className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">
+                <Link to="/login" className="btn btn-secondary shadow-sm hover:shadow-md hover:bg-primary px-3 py-1.5 rounded-xl transition-all duration-500 text-xs text-[11px] font-medium md:px-4 md:py-2 md:text-sm">
                   Log In
                 </Link>
               </div>

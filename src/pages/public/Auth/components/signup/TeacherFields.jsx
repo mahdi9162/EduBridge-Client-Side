@@ -50,35 +50,37 @@ const TeacherFields = ({ setCurrentStep }) => {
   return (
     <>
       {/* Name */}
-      <legend className="text-left ml-17 mb-1 opacity-50 text-sm">Full Name</legend>
+      <legend className="text-left lg:ml-17 mb-1 opacity-50 text-xs md:text-sm">Full Name</legend>
       <input
         type="text"
         {...register('name', { required: 'Enter a valid name' })}
         name="name"
         placeholder="Enter your Name"
-        className="input w-[600px]"
+        className="input w-full lg:w-[600px] placeholder:text-xs lg:placeholder:text-sm"
       />
-      {errors.name && <p className="text-left ml-18 mt-1 text-sm text-red-400/80">{errors.name.message}</p>}
+      {errors.name && <p className="text-left lg:ml-18 mt-1 text-sm text-red-400/80">{errors.name.message}</p>}
+
       {/* Phone */}
-      <legend className="text-left ml-17 mb-1 mt-4 opacity-50 text-sm">Phone</legend>
+      <legend className="text-left lg:ml-17 mb-1 mt-4 opacity-50 text-xs md:text-sm">Phone</legend>
       <input
         type="tel"
         {...register('phone', { required: true, pattern: { value: phoneRegex, message: 'Enter a valid phone number' } })}
         name="phone"
         placeholder="Enter your Phone No"
-        className="input w-[600px]"
+        className="input w-full lg:w-[600px] placeholder:text-xs lg:placeholder:text-sm"
       />
-      {errors.phone && <p className="text-left ml-18 mt-1 text-sm text-red-400/80">{errors.phone.message}</p>}
-      {/* class + subject */}
-      <div className="flex w-[600px] mx-auto gap-4">
-        {/* Class */}
+      {errors.phone && <p className="text-left lg:ml-18 mt-1 text-sm text-red-400/80">{errors.phone.message}</p>}
+
+      {/* Teaching level + Subject */}
+      <div className="flex flex-col lg:flex-row w-full lg:w-[600px] mx-auto lg:gap-4">
+        {/* Teaching Level */}
         <div className="flex-1">
-          <legend className="text-left mb-1 mt-4 opacity-50 text-sm">Teaching Level</legend>
+          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">Teaching Level</legend>
           <select
             {...register('teachingClass', { required: true })}
             name="teachingClass"
             defaultValue="Select your teaching level"
-            className="select select-primary border-neutral"
+            className="select select-primary border-neutral w-full text-xs lg:text-sm"
           >
             <option disabled={true}>Select your teaching level</option>
             {classes.map((c, i) => (
@@ -86,14 +88,15 @@ const TeacherFields = ({ setCurrentStep }) => {
             ))}
           </select>
         </div>
+
         {/* Subject */}
         <div className="flex-1">
-          <legend className="text-left mb-1 mt-4 opacity-50 text-sm">Subject</legend>
+          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">Subject</legend>
           <select
             {...register('subject', { required: true })}
             name="subject"
             defaultValue="Select your subject"
-            className="select select-primary border-neutral"
+            className="select select-primary border-neutral w-full text-xs lg:text-sm"
           >
             <option disabled={true}>Select your subject</option>
             {subjects.map((s, i) => (
@@ -102,17 +105,17 @@ const TeacherFields = ({ setCurrentStep }) => {
           </select>
         </div>
       </div>
-      {/* District + Experience */}
 
-      <div className="flex w-[600px] mx-auto gap-4">
-        {/* district */}
+      {/* District + Experience */}
+      <div className="flex flex-col lg:flex-row w-full lg:w-[600px] mx-auto lg:gap-4">
+        {/* District */}
         <div className="flex-1">
-          <legend className="text-left mb-1 mt-4 opacity-50 text-sm">District</legend>
+          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">District</legend>
           <select
             {...register('district', { required: true })}
             name="district"
             defaultValue="Select your district"
-            className="select select-primary border-neutral"
+            className="select select-primary border-neutral w-full text-xs lg:text-sm"
           >
             <option disabled={true}>Select your district</option>
             {districts.map((d, i) => (
@@ -120,14 +123,15 @@ const TeacherFields = ({ setCurrentStep }) => {
             ))}
           </select>
         </div>
+
         {/* Experience */}
         <div className="flex-1">
-          <legend className="text-left mb-1 mt-4 opacity-50 text-sm">Experience</legend>
+          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">Experience</legend>
           <select
             {...register('experience', { required: true })}
             name="experience"
             defaultValue="Select your experience"
-            className="select select-primary border-neutral"
+            className="select select-primary border-neutral w-full text-xs lg:text-sm"
           >
             <option disabled={true}>Select your experience</option>
             {experienceLevels.map((e, i) => (
@@ -138,7 +142,7 @@ const TeacherFields = ({ setCurrentStep }) => {
       </div>
 
       {/* Button */}
-      <CommonButton onClick={handleBasicInfo} className="btn btn-secondary mt-8 w-[600px] rounded-full">
+      <CommonButton onClick={handleBasicInfo} className="btn btn-secondary mt-8 w-full lg:w-[600px] rounded-full text-xs lg:text-sm">
         Next
       </CommonButton>
     </>
