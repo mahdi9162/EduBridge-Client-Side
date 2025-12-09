@@ -1,6 +1,7 @@
 import React from 'react';
-import GoogleButton from '../GoogleButton/GoogleButton';
+import GoogleButton from '../../../../../components/Buttons/GoogleButton/GoogleButton';
 import { useFormContext } from 'react-hook-form';
+import CommonButton from '../../../../../components/Buttons/CommonButton/CommonButton';
 
 const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
   const {
@@ -39,7 +40,7 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
             placeholder="Enter your email address"
             className="input w-[600px]"
           />
-          {errors.email && <p className='text-left ml-18 mt-1 text-sm text-red-400/80'>{errors.email.message}</p>}
+          {errors.email && <p className="text-left ml-18 mt-1 text-sm text-red-400/80">{errors.email.message}</p>}
           {/* Continue With */}
           <div className="mt-6 ml-17 flex flex-col items-start gap-3">
             <p className="text-sm text-slate-500">Continue with -</p>
@@ -78,11 +79,11 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
           </div>
 
           {/* Button */}
-          <button onClick={handleEmailButton} className="btn btn-secondary mt-8 w-[600px] rounded-full">
+          <CommonButton onClick={handleEmailButton} className="btn-secondary mt-8 w-[600px] rounded-full">
             Next
-          </button>
+          </CommonButton>
           <div className="divider w-[600px] mx-auto">OR</div>
-          <GoogleButton></GoogleButton>
+          <GoogleButton className="w-[600px]"></GoogleButton>
         </>
       )}
     </>

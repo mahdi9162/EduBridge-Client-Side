@@ -1,7 +1,7 @@
 import React from 'react';
-import useAuth from '../../../../../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 
-const GoogleButton = () => {
+const GoogleButton = ({className = ''}) => {
   const { signInWithGoogle } = useAuth();
 
   const handleGoogleSignin = (e) => {
@@ -14,7 +14,7 @@ const GoogleButton = () => {
   };
   return (
     <>
-      <button onClick={handleGoogleSignin} type='button' className="btn bg-white text-black border-[#e5e5e5] w-[600px] rounded-full">
+      <button onClick={handleGoogleSignin} type="button" className={`btn bg-white text-black border-[#e5e5e5] rounded-full ${className}`}>
         <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <g>
             <path d="m0 0H512V512H0" fill="#fff"></path>

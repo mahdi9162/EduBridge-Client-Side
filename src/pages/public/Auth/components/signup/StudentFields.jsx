@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import CommonButton from '../../../../../components/Buttons/CommonButton/CommonButton';
 
 const StudentFields = ({ setCurrentStep }) => {
   const [districts, setDistricts] = useState([]);
@@ -113,9 +114,9 @@ const StudentFields = ({ setCurrentStep }) => {
         ))}
       </select>
       {/* Button */}
-      <button onClick={handleBasicInfo} className="btn btn-secondary mt-8 w-[600px] rounded-full">
+      <CommonButton onClick={handleBasicInfo} className="btn btn-secondary mt-8 w-[600px] rounded-full">
         Next
-      </button>
+      </CommonButton>
     </>
   );
 };

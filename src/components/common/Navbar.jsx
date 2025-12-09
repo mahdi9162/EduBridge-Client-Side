@@ -15,8 +15,6 @@ const Navbar = () => {
   ];
 
   const { user } = useAuth();
-  
-  
 
   return (
     <>
@@ -57,12 +55,17 @@ const Navbar = () => {
           </div>
           <div className="navbar-end">
             {!user && (
-              <Link to="signup" className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">
-                Sign Up
-              </Link>
+              <div className='flex gap-5'>
+                <Link to="/signup" className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">
+                  Sign Up
+                </Link>
+                <Link to="/login" className="btn btn-secondary shadow-sm hover:bg-primary hover:shadow-lg transition-all duration-500">
+                  Log In
+                </Link>
+              </div>
             )}
             {user && <NavbarProfileDropdown></NavbarProfileDropdown>}
-          </div>
+          </div>          
         </div>
       </Container>
     </>

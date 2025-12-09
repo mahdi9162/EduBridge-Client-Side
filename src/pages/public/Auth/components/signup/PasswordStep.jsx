@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import CommonButton from '../../../../../components/Buttons/CommonButton/CommonButton';
 
 const PasswordStep = ({ currentStep }) => {
   const {
@@ -39,7 +40,7 @@ const PasswordStep = ({ currentStep }) => {
           />
           {errors.confirmPassword && <p className="text-left ml-18 mt-1 text-xs text-red-400/80">{errors.confirmPassword.message}</p>}
           {/* Button */}
-          <button className="btn btn-secondary mt-8 w-[600px] rounded-full">Sign Up</button>
+          <CommonButton className='mt-8 w-[600px] rounded-full'>Sign Up</CommonButton>
         </>
       )}
     </>
