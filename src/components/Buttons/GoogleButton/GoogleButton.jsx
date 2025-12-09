@@ -1,21 +1,61 @@
 import React from 'react';
 import useAuth from '../../../hooks/useAuth';
+import { useNavigate } from 'react-router';
+import axiosInstance from '../../../hooks/useAxiosInstance';
+import { signupUser } from '../../../services/authService';
 
 const GoogleButton = ({ className = '' }) => {
   const { signInWithGoogle, user } = useAuth();
+  const navigate = useNavigate();
 
-  const handleGoogleSignin = (e) => {
-    if (user) {
-      return;
-    }
-
+  const handleGoogleSignin = async (e) => {
     e.preventDefault();
-    signInWithGoogle()
-      .then(() => {})
-      .catch((err) => {
-        console.log(err);
-      });
+
+    if (user) return;
+
+    try {
+      // Login
+      const res = await signInWithGoogle();
+      const loggedInUser = res.user;
+      const firebaseToken = loggedInUser?.accessToken;
+
+      if (!firebaseToken) {
+        console.error('Google login: Failed to get Firebase token');
+        return;
+      }
+
+      try {
+        await signupUser({
+          firebaseUID: loggedInUser.uid,
+          name: loggedInUser.displayName || '',
+          email: loggedInUser.email,
+          classLevel: '',
+          teachingClass: '',
+          subject: '',
+          phone: '',
+          district: '',
+          userType: 'student', // default role
+        });
+      } catch (err) {
+        if (err.response && err.response.status === 400 && err.response.data?.message === 'Email already exists') {
+          console.log('Google signup: user already exists, continuing to JWT…');
+        } else {
+          console.error('Google signup error:', err);
+          return;
+        }
+      }
+
+      const tokenRes = await axiosInstance.post('/api/auth/jwt', { token: firebaseToken });
+      const { token, userType } = tokenRes.data;
+
+      localStorage.setItem('access-token', token);
+      localStorage.setItem('user-type', userType);
+      navigate('/');
+    } catch (err) {
+      console.error('Google login error:', err);
+    }
   };
+
   return (
     <>
       <button onClick={handleGoogleSignin} type="button" className={`btn bg-white text-black border-[#e5e5e5] rounded-full ${className}`}>
