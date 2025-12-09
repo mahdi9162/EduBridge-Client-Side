@@ -13,7 +13,7 @@ import Loading from '../../../components/Loading/Loading';
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState('student');
-  const { loading, signUpWithEmailPass, updateUserProfile, user } = useAuth();
+  const { loading, signUpWithEmailPass, updateUserProfile } = useAuth();
 
   const methods = useForm();
   const { handleSubmit } = methods;
@@ -32,6 +32,7 @@ const Signup = () => {
     try {
       // Signup with email and pass
       const res = await signUpWithEmailPass(email, password);
+      console.log(res);
       
       
 

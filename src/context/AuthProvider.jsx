@@ -3,20 +3,19 @@ import { AuthContext } from './AuthContext';
 import { auth } from '../firebase/firebase.config';
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 
 const provider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  
 
   //   Signup With Email and Pass
   const signUpWithEmailPass = (email, password) => {
@@ -32,7 +31,6 @@ const AuthProvider = ({ children }) => {
 
   //   Signin With Google
   const signInWithGoogle = () => {
-    setLoading(true);
     return signInWithPopup(auth, provider);
   };
 
