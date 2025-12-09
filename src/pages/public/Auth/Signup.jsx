@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import signupImg from '../../../assets/signup.webp';
 import Container from '../../../components/Container/Container';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import StepIndicator from './components/signup/StepIndicator';
 import EmailAndRoleStep from './components/signup/EmailAndRoleStep';
 import BasicInfoStep from './components/signup/BasicInfoStep';
@@ -14,6 +14,7 @@ const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState('student');
   const { loading, signUpWithEmailPass, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
 
   const methods = useForm();
   const { handleSubmit } = methods;
@@ -33,12 +34,11 @@ const Signup = () => {
       // Signup with email and pass
       const res = await signUpWithEmailPass(email, password);
       console.log(res);
-      
-      
 
       //   Update User Profile
       await updateUserProfile(profile);
       alert('Signup successful! Welcome ' + name);
+      navigate('/');
     } catch (error) {
       console.log(error);
     }

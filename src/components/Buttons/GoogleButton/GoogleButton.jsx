@@ -1,10 +1,14 @@
 import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 
-const GoogleButton = ({className = ''}) => {
-  const { signInWithGoogle } = useAuth();
+const GoogleButton = ({ className = '' }) => {
+  const { signInWithGoogle, user } = useAuth();
 
   const handleGoogleSignin = (e) => {
+    if (user) {
+      return;
+    }
+
     e.preventDefault();
     signInWithGoogle()
       .then(() => {})

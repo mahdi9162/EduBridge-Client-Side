@@ -5,16 +5,38 @@ import FbButton from '../../../components/Buttons/FbButton/FbButton';
 import Container from '../../../components/Container/Container';
 import { useForm } from 'react-hook-form';
 import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
+import Loading from '../../../components/Loading/Loading';
 
 const Login = () => {
+  const { loading, signInWithEmailPass } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm();
 
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}[\]:;"'<>,.?/\\|]).{8,15}$/;
+
+  const handleUserSignin = async (data) => {
+    const { email, password } = data;
+    try {
+      const res = await signInWithEmailPass(email, password);
+      console.log(res);
+
+      alert('Login successful! Welcome back 👋');
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container>
@@ -29,7 +51,7 @@ const Login = () => {
           {/* left side */}
           <div className="mt-14">
             <div className="w-[320px]">
-              <form>
+              <form onSubmit={handleSubmit(handleUserSignin)}>
                 {/* Email */}
                 <legend className="text-left mb-3 opacity-50 text-sm">Email</legend>
                 <input
