@@ -1,6 +1,6 @@
-import { instance } from './apiClient';
+import axiosInstance from '../hooks/useAxiosInstance';
 
 // signup api for save the user profile in mongodb
 export const signupUser = (userData) => {
-  return instance.post('/signup', userData);
+  return axiosInstance.post('/signup', userData);
 };

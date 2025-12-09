@@ -14,7 +14,7 @@ import { signupUser } from '../../../services/authService';
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState('student');
-  const { loading, signUpWithEmailPass, updateUserProfile, user } = useAuth();
+  const { loading, signUpWithEmailPass, updateUserProfile } = useAuth();
   const navigate = useNavigate();
 
   const methods = useForm();
@@ -42,7 +42,7 @@ const Signup = () => {
       navigate('/');
 
       await signupUser({
-        firebaseUid: userProfile.uid,
+        firebaseUID: userProfile.uid,
         name: name,
         email: email,
         classLevel: classLevel || '',

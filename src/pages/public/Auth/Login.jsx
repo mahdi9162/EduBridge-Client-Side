@@ -8,6 +8,7 @@ import CommonButton from '../../../components/Buttons/CommonButton/CommonButton'
 import { Link, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../../components/Loading/Loading';
+import axiosInstance from '../../../hooks/useAxiosInstance';
 
 const Login = () => {
   const { loading, signInWithEmailPass } = useAuth();
@@ -29,7 +30,21 @@ const Login = () => {
     const { email, password } = data;
     try {
       const res = await signInWithEmailPass(email, password);
-      console.log(res);
+      const userProfile = res.user;
+
+      const firebaseToken = userProfile?.accessToken;
+
+      if (firebaseToken) {
+        console.log('Firebase Access Token to be sent');
+
+        const tokenRes = await axiosInstance.post('/api/auth/jwt', { token: firebaseToken });
+        const { token, userType} = tokenRes.data;
+
+        localStorage.setItem('access-token', token);
+        localStorage.setItem('user-type', userType);
+      } else {
+        console.error('Failed to retrieve Firebase Access Token.');
+      }
 
       alert('Login successful! Welcome back 👋');
       navigate('/');
