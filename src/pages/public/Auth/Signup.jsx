@@ -9,11 +9,12 @@ import PasswordStep from './components/signup/PasswordStep';
 import { FormProvider, useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../../components/Loading/Loading';
+import { signupUser } from '../../../services/authService';
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState('student');
-  const { loading, signUpWithEmailPass, updateUserProfile } = useAuth();
+  const { loading, signUpWithEmailPass, updateUserProfile, user } = useAuth();
   const navigate = useNavigate();
 
   const methods = useForm();
@@ -24,7 +25,8 @@ const Signup = () => {
   }
 
   const handleSignupForm = async (data) => {
-    const { email, password, name } = data;
+    const { email, password, name, classLevel, teachingClass, district, phone, subject, userType } = data;
+    console.log(data);
 
     const profile = {
       displayName: name,
@@ -33,12 +35,23 @@ const Signup = () => {
     try {
       // Signup with email and pass
       const res = await signUpWithEmailPass(email, password);
-      console.log(res);
-
+      const userProfile = res.user;
       //   Update User Profile
       await updateUserProfile(profile);
       alert('Signup successful! Welcome ' + name);
       navigate('/');
+
+      await signupUser({
+        firebaseUid: userProfile.uid,
+        name: name,
+        email: email,
+        classLevel: classLevel || '',
+        teachingClass: teachingClass || '',
+        subject: subject,
+        phone: phone,
+        district: district,
+        userType: userType,
+      });
     } catch (error) {
       console.log(error);
     }

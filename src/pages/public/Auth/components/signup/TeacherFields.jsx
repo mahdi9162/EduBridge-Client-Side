@@ -31,7 +31,7 @@ const TeacherFields = ({ setCurrentStep }) => {
   const handleBasicInfo = () => {
     const nameValue = watch('name');
     const phoneValue = watch('phone');
-    const classValue = watch('class');
+    const classValue = watch('teachingClass');
     const subjectValue = watch('subject');
     const districtValue = watch('district');
     const experienceValue = watch('experience');
@@ -75,8 +75,8 @@ const TeacherFields = ({ setCurrentStep }) => {
         <div className="flex-1">
           <legend className="text-left mb-1 mt-4 opacity-50 text-sm">Teaching Level</legend>
           <select
-            {...register('teachingLevel', { required: true })}
-            name="teachingLevel"
+            {...register('teachingClass', { required: true })}
+            name="teachingClass"
             defaultValue="Select your teaching level"
             className="select select-primary border-neutral"
           >
