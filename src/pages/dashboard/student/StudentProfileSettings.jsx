@@ -3,7 +3,7 @@ import React from 'react';
 const StudentProfileSettings = () => {
     return (
         <div>
-            
+            StudentProfileSettings
         </div>
     );
 };
