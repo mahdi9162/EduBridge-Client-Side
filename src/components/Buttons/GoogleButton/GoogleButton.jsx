@@ -34,12 +34,12 @@ const GoogleButton = ({ className = '' }) => {
           subject: '',
           phone: '',
           district: '',
-          userType: 'student', // default role
+          userType: 'student',
         });
       } catch (err) {
-        if (err.response && err.response.status === 400 && err.response.data?.message === 'Email already exists') {
-          console.log('Google signup: user already exists, continuing to JWT…');
-        } else {
+        const alreadyExists = err.response && err.response.status === 400 && err.response.data?.message === 'Email already exists';
+
+        if (!alreadyExists) {
           console.error('Google signup error:', err);
           return;
         }

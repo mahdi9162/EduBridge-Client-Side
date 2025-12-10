@@ -13,6 +13,7 @@ const NavbarProfileDropdown = () => {
   const handleSignout = () => {
     userSignOut()
       .then(() => {
+        localStorage.clear();
         alert('Sign-out successful.');
       })
       .catch((err) => {
