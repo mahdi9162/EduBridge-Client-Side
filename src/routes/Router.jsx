@@ -96,7 +96,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'payments-history',
+        path: 'payments',
         element: (
           <StudentRoute>
             <Payments></Payments>

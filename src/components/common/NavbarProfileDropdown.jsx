@@ -1,8 +1,9 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
+import SignOutButton from '../Buttons/SignOutButton/SignOutButton';
 
 const NavbarProfileDropdown = () => {
-  const { userSignOut, user } = useAuth();
+  const { user } = useAuth();
 
   const getInitial = () => {
     if (user?.displayName) return user.displayName[0].toUpperCase();
@@ -10,16 +11,6 @@ const NavbarProfileDropdown = () => {
     return '?';
   };
 
-  const handleSignout = () => {
-    userSignOut()
-      .then(() => {
-        localStorage.clear();
-        alert('Sign-out successful.');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -37,7 +28,7 @@ const NavbarProfileDropdown = () => {
           <a className="justify-between">Profile</a>
         </li>
         <li>
-          <button onClick={handleSignout}>Signout</button>
+          <SignOutButton>Sign Out</SignOutButton>
         </li>
       </ul>
     </div>

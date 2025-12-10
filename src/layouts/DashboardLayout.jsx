@@ -1,5 +1,11 @@
 import React from 'react';
-import { Outlet } from 'react-router';
+import { Link, Outlet } from 'react-router';
+import Logo from '../components/common/Logo';
+import { IoCreateOutline } from 'react-icons/io5';
+import { CgProfile } from 'react-icons/cg';
+import { HiOutlineCreditCard } from 'react-icons/hi';
+import { LuLogOut, LuSettings2 } from 'react-icons/lu';
+import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
 
 const DashboardLayout = () => {
   return (
@@ -26,11 +32,12 @@ const DashboardLayout = () => {
                 <path d="M14 10l2 2l-2 2"></path>
               </svg>
             </label>
-            <div className="px-4">Navbar Title</div>
+            <div className="px-4">
+              <Logo></Logo>
+            </div>
           </nav>
           {/* Page content here */}
           <Outlet></Outlet>
-          
         </div>
 
         <div className="drawer-side is-drawer-close:overflow-visible">
@@ -40,7 +47,7 @@ const DashboardLayout = () => {
             <ul className="menu w-full grow">
               {/* List item */}
               <li>
-                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+                <Link to="/" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
                   {/* Home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -56,31 +63,55 @@ const DashboardLayout = () => {
                     <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   </svg>
                   <span className="is-drawer-close:hidden">Homepage</span>
-                </button>
+                </Link>
               </li>
 
-              {/* List item */}
+              {/* Our Dashboard List Start Here */}
+              {/* Student Lists */}
+              {/* My Tuitions */}
               <li>
-                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
-                  {/* Settings icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                  <span className="is-drawer-close:hidden">Settings</span>
-                </button>
+                <Link to="/dashboard/my-tuitions" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Tuitions">
+                  <CgProfile className="my-1.5 inline-block size-4" />
+                  <span className="is-drawer-close:hidden">My Tuitions</span>
+                </Link>
               </li>
+              {/* Create Tuition Post */}
+              <li>
+                <Link
+                  to="/dashboard/post-tuition"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Create Tuition Post"
+                >
+                  <IoCreateOutline className="my-1.5 inline-block size-4" />
+                  <span className="is-drawer-close:hidden">Create Tuition Post</span>
+                </Link>
+              </li>
+              {/* Payments */}
+              <li>
+                <Link to="/dashboard/payments" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments">
+                  <HiOutlineCreditCard className="my-1.5 inline-block size-4" />
+                  <span className="is-drawer-close:hidden">Payments</span>
+                </Link>
+              </li>
+              {/* Profile Setting */}
+              <li>
+                <Link
+                  to="/dashboard/student-profile"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Profile Setting"
+                >
+                  <LuSettings2 className="my-1.5 inline-block size-4" />
+                  <span className="is-drawer-close:hidden">Profile Setting</span>
+                </Link>
+              </li>
+              {/*User Sign Out */}
+              <li>
+                <SignOutButton className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Sign Out">
+                  <LuLogOut className="my-1.5 inline-block size-4" />
+                  <span className="is-drawer-close:hidden">Sign Out</span>
+                </SignOutButton>
+              </li>
+              {/* Our Dashboard List End Here */}
             </ul>
           </div>
         </div>
