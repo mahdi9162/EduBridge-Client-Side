@@ -38,7 +38,7 @@ const Login = () => {
         console.log('Firebase Access Token to be sent');
 
         const tokenRes = await axiosInstance.post('/api/auth/jwt', { token: firebaseToken });
-        const { token, userType} = tokenRes.data;
+        const { token, userType } = tokenRes.data;
 
         localStorage.setItem('access-token', token);
         localStorage.setItem('user-type', userType);
@@ -54,67 +54,102 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <section className="mt-10 mb-10 py-20">
-        <div className="flex justify-center flex-col items-center mb-6">
-          {/* Round badge */}
-          <div className="w-10 h-10 rounded-full bg-gray-200 mb-2" />
-          <h3 className="text-3xl font-semibold text-[#27364B] tracking-tight">Login</h3>
-        </div>
-        {/* Flex Container */}
-        <div className="flex flex-col md:flex-row justify-center items-start gap-12 lg:gap-20">
-          {/* left side */}
-          <div className="mt-14">
-            <div className="w-[320px]">
-              <form onSubmit={handleSubmit(handleUserSignin)}>
-                {/* Email */}
-                <legend className="text-left mb-3 opacity-50 text-sm">Email</legend>
-                <input
-                  {...register('email', { required: true, pattern: { value: emailRegex, message: 'Enter a valid email address' } })}
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="input w-full"
-                />
-                {errors.email && <p className="text-left mt-1 text-xs text-red-400/80">{errors.email.message}</p>}
-                {/* Password */}
-                <legend className="text-left mb-1 mt-4 opacity-50 text-sm">Password</legend>
-                <input
-                  type="password"
-                  {...register('password', {
-                    required: true,
-                    pattern: { value: passValidation, message: 'Use 8–15 chars with uppercase, lowercase, number & special symbol.' },
-                  })}
-                  name="password"
-                  placeholder="Enter your password"
-                  className="input w-full"
-                />
-                {errors.password && <p className="text-left mt-1 text-xs text-red-400/80">{errors.password.message}</p>}
-                <div>
-                  <CommonButton className="mt-8 rounded-full w-full">Sign In</CommonButton>
-                </div>
-              </form>
+<Container className='px-3'>
+  <section className="mt-4 md:mt-8 mb-10 py-8 lg:py-16">
+    <div className="flex justify-center flex-col items-center mb-6">
+      {/* Round badge */}
+      <div className="w-10 h-10 rounded-full bg-gray-200 mb-2" />
+      <h3 className="text-3xl font-semibold text-[#27364B] tracking-tight">
+        Login
+      </h3>
+    </div>
+
+    {/* Flex Container */}
+    <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-12 lg:gap-20">
+      {/* left side */}
+      <div className="mt-8 lg:mt-14">
+        <div className="w-[320px]">
+          <form onSubmit={handleSubmit(handleUserSignin)}>
+            {/* Email */}
+            <legend className="text-left mb-3 opacity-50 text-sm">
+              Email
+            </legend>
+            <input
+              {...register('email', {
+                required: true,
+                pattern: { value: emailRegex, message: 'Enter a valid email address' },
+              })}
+              type="email"
+              placeholder="Enter your email address"
+              className="input w-full"
+            />
+            {errors.email && (
+              <p className="text-left mt-1 text-xs text-red-400/80">
+                {errors.email.message}
+              </p>
+            )}
+
+            {/* Password */}
+            <legend className="text-left mb-1 mt-4 opacity-50 text-sm">
+              Password
+            </legend>
+            <input
+              type="password"
+              {...register('password', {
+                required: true,
+                pattern: {
+                  value: passValidation,
+                  message:
+                    'Use 8–15 chars with uppercase, lowercase, number & special symbol.',
+                },
+              })}
+              name="password"
+              placeholder="Enter your password"
+              className="input w-full"
+            />
+            {errors.password && (
+              <p className="text-left mt-1 text-xs text-red-400/80">
+                {errors.password.message}
+              </p>
+            )}
+
+            <div>
+              <CommonButton className="mt-8 rounded-full w-full">
+                Sign In
+              </CommonButton>
             </div>
-          </div>
-          {/* Divider */}
-          <div className="divider lg:divider-horizontal h-[350px] mr-8 text-neutral">OR</div>
-          {/* right side */}
-          <div className="flex flex-col mt-20 gap-4">
-            <GoogleButton className="w-[300px]"></GoogleButton>
-            <GithubButton className="w-[300px]"></GithubButton>
-            <FbButton className="w-[300px]"></FbButton>
-          </div>
+          </form>
         </div>
-        <div className="flex flex-col justify-center items-center mt-6">
-          <Link className="text-sm font-medium text-primary/80 hover:text-primary underline mb-4">Forgot Password?</Link>
-          <p className="text-xs text-[#8A94A6] leading-relaxed text-center">
-            Secure Login with reCAPTCHA subject to{' '}
-            <span className="block text-center">
-              Google <span className="underline">Terms</span> & <span className="underline">Privacy</span>
-            </span>
-          </p>
-        </div>
-      </section>
-    </Container>
+      </div>
+
+      {/* Divider */}
+      <div className="divider text-neutral my-8 md:my-0 md:mx-8 lg:divider-horizontal lg:h-[350px] lg:mr-8">
+        OR
+      </div>
+
+      {/* right side */}
+      <div className="flex flex-col lg:mt-20 gap-4 items-center md:items-start">
+        <GoogleButton className="w-[300px]" />
+        <GithubButton className="w-[300px]" />
+        <FbButton className="w-[300px]" />
+      </div>
+    </div>
+
+    <div className="flex flex-col justify-center items-center mt-6">
+      <Link className="text-sm font-medium text-primary/80 hover:text-primary underline mb-4">
+        Forgot Password?
+      </Link>
+      <p className="text-xs text-[#8A94A6] leading-relaxed text-center">
+        Secure Login with reCAPTCHA subject to{' '}
+        <span className="block text-center">
+          Google <span className="underline">Terms</span> &{' '}
+          <span className="underline">Privacy</span>
+        </span>
+      </p>
+    </div>
+  </section>
+</Container>
+
   );
 };
 
