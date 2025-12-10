@@ -33,14 +33,14 @@ const TeacherFields = ({ setCurrentStep }) => {
     const phoneValue = watch('phone');
     const classValue = watch('teachingClass');
     const subjectValue = watch('subject');
-    const districtValue = watch('district');
+    const locationValue = watch('location');
     const experienceValue = watch('experience');
     if (
       nameValue.length > 0 &&
       phoneValue.length > 0 &&
       classValue !== 'Select your class' &&
       subjectValue !== 'Select your subject' &&
-      districtValue !== 'Select your district' &&
+      locationValue !== 'Select your location' &&
       experienceValue !== 'Select your experience'
     ) {
       setCurrentStep(3);
@@ -106,18 +106,18 @@ const TeacherFields = ({ setCurrentStep }) => {
         </div>
       </div>
 
-      {/* District + Experience */}
+      {/* Location + Experience */}
       <div className="flex flex-col lg:flex-row w-full lg:w-[600px] mx-auto lg:gap-4">
-        {/* District */}
+        {/* Location */}
         <div className="flex-1">
-          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">District</legend>
+          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">Location</legend>
           <select
-            {...register('district', { required: true })}
-            name="district"
-            defaultValue="Select your district"
+            {...register('location', { required: true })}
+            name="location"
+            defaultValue="Select your location"
             className="select select-primary border-neutral w-full text-xs lg:text-sm"
           >
-            <option disabled={true}>Select your district</option>
+            <option disabled={true}>Select your location</option>
             {districts.map((d, i) => (
               <option key={i}>{d.district}</option>
             ))}

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Container from '../../../components/Container/Container';
 import axios from 'axios';
 import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
+import { useForm } from 'react-hook-form';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const PostTuition = () => {
   const [districts, setDistricts] = useState([]);
-
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
     axios
       .get('/districts.json')
@@ -19,6 +21,22 @@ const PostTuition = () => {
 
   const classes = ['Class-6', 'Class-7', 'Class-8', 'Class-9', 'Class-10', 'College 1st Year', 'College 2nd Year', 'Versity Admissoion'];
   const subjects = ['Arts', 'Commerce', 'Science'];
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleTuitionForm = (data) => {
+    try {
+      axiosSecure.post('/tuitions', data).then(() => {
+        alert('Your tuition is posted!');
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="px-4 sm:px-6 lg:px-10 py-8 lg:py-10">
@@ -38,17 +56,22 @@ const PostTuition = () => {
         {/* Form */}
         <div className="px-5 sm:px-8 pb-6 sm:pb-8">
           <div className="max-w-3xl">
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit(handleTuitionForm)} className="space-y-6">
               {/* Title */}
               <div className="space-y-2">
                 <legend className="text-xs sm:text-sm font-medium text-base-content">Title / Subject</legend>
                 <input
                   type="text"
                   name="title"
+                  {...register('title', { required: 'Enter a Title / Subject' })}
                   placeholder="E.g. Math tutor needed for Class 8."
                   className="input input-bordered w-full h-11 sm:h-12 text-sm placeholder:text-[11px] sm:placeholder:text-xs lg:placeholder:text-sm"
                 />
-                <p className="text-[11px] sm:text-xs text-neutral">Write a short, clear title so tutors understand what you need.</p>
+                {errors.title ? (
+                  <p className="text-left sm:text-xs text-red-400/80">{errors.title.message}</p>
+                ) : (
+                  <p className="text-[11px] sm:text-xs text-neutral">Write a short, clear title so tutors understand what you need.</p>
+                )}
               </div>
 
               {/* Class & Subject */}
@@ -58,6 +81,7 @@ const PostTuition = () => {
                   <legend className="text-xs sm:text-sm font-medium text-base-content">Class</legend>
                   <select
                     name="classLevel"
+                    {...register('classLevel', { required: true })}
                     defaultValue="Select your class"
                     className="select select-bordered w-full h-11 sm:h-12 text-xs sm:text-sm"
                   >
@@ -72,6 +96,7 @@ const PostTuition = () => {
                   <legend className="text-xs sm:text-sm font-medium text-base-content">Subject</legend>
                   <select
                     name="subject"
+                    {...register('subject', { required: true })}
                     defaultValue="Select your subject"
                     className="select select-bordered w-full h-11 sm:h-12 text-xs sm:text-sm"
                   >
@@ -90,6 +115,7 @@ const PostTuition = () => {
                   <legend className="text-xs sm:text-sm font-medium text-base-content">Location</legend>
                   <select
                     name="location"
+                    {...register('location', { required: true })}
                     defaultValue="Select your location"
                     className="select select-bordered w-full h-11 sm:h-12 text-xs sm:text-sm"
                   >
@@ -107,6 +133,7 @@ const PostTuition = () => {
                   <input
                     type="number"
                     name="budget"
+                    {...register('budget', { required: true })}
                     placeholder="E.g. 5000"
                     className="input input-bordered w-full h-11 sm:h-12 text-sm placeholder:text-[11px] sm:placeholder:text-xs lg:placeholder:text-sm"
                   />
