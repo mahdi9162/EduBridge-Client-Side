@@ -8,7 +8,7 @@ const Logo = () => {
       <figure>
         <img src={logoImg} className="w-26 md:w-30" alt="EduBridge Logo" />
       </figure>
-      <p className="text-xs text-[#8A94A6] font-medium mt-1 tracking-tight hidden md:block">Where Trust Shapes Learning.</p>
+      <p className="text-xs text-neutral font-medium mt-1 tracking-tight hidden md:block">Where Trust Shapes Learning.</p>
     </Link>
   );
 };

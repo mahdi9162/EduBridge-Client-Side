@@ -123,7 +123,7 @@ const Login = () => {
 
         <div className="flex flex-col justify-center items-center mt-6">
           <Link className="text-sm font-medium text-primary/80 hover:text-primary underline mb-4">Forgot Password?</Link>
-          <p className="text-xs text-[#8A94A6] leading-relaxed text-center">
+          <p className="text-xs text-neutral leading-relaxed text-center">
             Secure Login with reCAPTCHA subject to{' '}
             <span className="block text-center">
               Google <span className="underline">Terms</span> & <span className="underline">Privacy</span>
