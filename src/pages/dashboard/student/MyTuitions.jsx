@@ -1,15 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { FaClockRotateLeft } from 'react-icons/fa6';
 import { IoMdContacts } from 'react-icons/io';
 import { MdOutlineMobileFriendly, MdOutlinePostAdd } from 'react-icons/md';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
+import UpdateTuitionModal from './UpdateTuitionModal';
 
 const MyTuitions = () => {
+  const [selectedTuition, setSelectedTuition] = useState(null);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const modalRef = useRef();
 
   const { data: tuitions = [] } = useQuery({
     queryKey: ['myTuitions', user?.email],
@@ -24,6 +27,12 @@ const MyTuitions = () => {
   const totalPending = tuitions.filter((t) => t.status === 'pending').length;
   const totalMatched = tuitions.filter((t) => t.status === 'matched').length;
   const totalClosed = tuitions.filter((t) => t.status === 'closed').length;
+
+  // Form update using modal
+  const updateForm = (tuition) => {
+    setSelectedTuition(tuition);
+    modalRef.current.showModal();
+  };
 
   return (
     <section className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8">
@@ -100,14 +109,35 @@ const MyTuitions = () => {
                 </div>
 
                 <div className="text-[11px] sm:text-xs text-neutral/90 font-medium space-y-1 sm:text-right">
-                  <p>Posted: {formatDate(tuition.createdAt)} at {formatTime(tuition.createdAt)}</p>
+                  <p>
+                    Posted: {formatDate(tuition.createdAt)} at {formatTime(tuition.createdAt)}
+                  </p>
                   <p>Matched: Dec 16, 2025</p>
                 </div>
+              </div>
+              {/* Action Buttons */}
+              <div className="mt-4 flex flex-col sm:flex-row justify-end gap-3">
+                {/* Update Button */}
+                <button
+                  onClick={() => updateForm(tuition)}
+                  className="px-3 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary-focus transition-all duration-200 w-full sm:w-auto cursor-pointer"
+                >
+                  Update
+                </button>
+
+                {/* Delete Button */}
+                <button className="px-3 py-2 rounded-lg bg-error text-white text-sm font-medium hover:bg-error-focus transition-all duration-200 w-full sm:w-auto cursor-pointer">
+                  Delete
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
+      {/* Modal */}
+      <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+        {selectedTuition && <UpdateTuitionModal tuition={selectedTuition}  />}
+      </dialog>
     </section>
   );
 };
