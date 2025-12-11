@@ -1,8 +1,7 @@
 import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router';
-import axiosInstance from '../../../hooks/useAxiosInstance';
-import { signupUser } from '../../../services/authService';
+import axiosInstance from '../../../services/axiosInstance';
 
 const GoogleButton = ({ className = '' }) => {
   const { signInWithGoogle, user } = useAuth();
@@ -25,7 +24,7 @@ const GoogleButton = ({ className = '' }) => {
       }
 
       try {
-        await signupUser({
+        const userData = {
           firebaseUID: loggedInUser.uid,
           name: loggedInUser.displayName || '',
           email: loggedInUser.email,
@@ -35,7 +34,8 @@ const GoogleButton = ({ className = '' }) => {
           phone: '',
           district: '',
           userType: 'student',
-        });
+        };
+        await axiosInstance.post('/signup', userData);
       } catch (err) {
         const alreadyExists = err.response && err.response.status === 400 && err.response.data?.message === 'Email already exists';
 

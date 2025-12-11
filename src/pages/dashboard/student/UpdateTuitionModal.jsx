@@ -163,14 +163,12 @@ const UpdateTuitionModal = ({ tuition, refetch, onClose }) => {
                   Save Changes
                 </button>
 
-                <form method="dialog" className="w-full sm:w-auto">
-                  <button
-                    type="submit"
-                    className="btn btn-ghost w-full sm:w-auto border border-base-300/80 bg-base-100 hover:bg-base-200 min-w-[110px] h-10 sm:h-11 normal-case text-sm text-base-content"
-                  >
-                    Cancel
-                  </button>
-                </form>
+                <button
+                  type="submit"
+                  className="btn btn-ghost w-full sm:w-auto border border-base-300/80 bg-base-100 hover:bg-base-200 min-w-[110px] h-10 sm:h-11 normal-case text-sm text-base-content"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </form>

@@ -1,5 +1,4 @@
-import axiosInstance from "../hooks/useAxiosInstance";
-
+import axiosInstance from '../services/axiosInstance';
 
 export const exchangeFirebaseTokenForJwt = async (userProfile) => {
   const firebaseToken = await userProfile.getIdToken();

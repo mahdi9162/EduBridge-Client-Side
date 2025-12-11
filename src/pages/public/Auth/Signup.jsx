@@ -9,8 +9,8 @@ import PasswordStep from './components/signup/PasswordStep';
 import { FormProvider, useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../../components/Loading/Loading';
-import { signupUser } from '../../../services/authService';
 import { exchangeFirebaseTokenForJwt } from '../../../utils/authHelpers';
+import axiosInstance from '../../../services/axiosInstance';
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -40,8 +40,7 @@ const Signup = () => {
 
       //   Update User Profile
       await updateUserProfile(profile);
-
-      await signupUser({
+      const userData = {
         firebaseUID: userProfile.uid,
         name: name,
         email: email,
@@ -51,7 +50,8 @@ const Signup = () => {
         phone: phone,
         district: district,
         userType: userType,
-      });
+      };
+      await axiosInstance.post('/signup', userData);
       // give access token
       await exchangeFirebaseTokenForJwt(userProfile);
       alert('Signup successful! Welcome ' + name);
