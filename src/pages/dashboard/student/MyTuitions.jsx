@@ -7,6 +7,7 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
 import UpdateTuitionModal from './UpdateTuitionModal';
+import { confirmDeleteAlert, deleteSuccessAlert } from '../../../utils/swalHelpers';
 
 const MyTuitions = () => {
   const [selectedTuition, setSelectedTuition] = useState(null);
@@ -29,11 +30,26 @@ const MyTuitions = () => {
   const totalClosed = tuitions.filter((t) => t.status === 'closed').length;
 
   // Form update using modal
-  const updateForm = (tuition) => {
+  const handleUpdateForm = (tuition) => {
     setSelectedTuition(tuition);
     modalRef.current.showModal();
   };
 
+  // Form delete
+  const handleDeleteForm = async (tuition) => {
+    const isConfirmed = await confirmDeleteAlert({ title: 'Delete This Tuition?', text: 'This action cannot be undone once deleted!' });
+    if (!isConfirmed) return;
+
+    try {
+      const res = await axiosSecure.delete(`/tuitions/${tuition._id}`);
+      if (res.data.deletedCount > 0) {
+        await deleteSuccessAlert();
+        await refetch();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <section className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8">
       <div className="max-w-4xl mx-auto bg-base-100 rounded-2xl shadow-[0_18px_45px_rgba(15,26,51,0.08)] border border-base-300/60">
@@ -119,14 +135,17 @@ const MyTuitions = () => {
               <div className="mt-4 flex flex-col sm:flex-row justify-end gap-3">
                 {/* Update Button */}
                 <button
-                  onClick={() => updateForm(tuition)}
+                  onClick={() => handleUpdateForm(tuition)}
                   className="px-3 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary-focus transition-all duration-200 w-full sm:w-auto cursor-pointer"
                 >
                   Update
                 </button>
 
                 {/* Delete Button */}
-                <button className="px-3 py-2 rounded-lg bg-error text-white text-sm font-medium hover:bg-error-focus transition-all duration-200 w-full sm:w-auto cursor-pointer">
+                <button
+                  onClick={() => handleDeleteForm(tuition)}
+                  className="px-3 py-2 rounded-lg bg-error text-white text-sm font-medium hover:bg-error-focus transition-all duration-200 w-full sm:w-auto cursor-pointer"
+                >
                   Delete
                 </button>
               </div>
