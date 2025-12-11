@@ -10,6 +10,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../../components/Loading/Loading';
 import { signupUser } from '../../../services/authService';
+import { exchangeFirebaseTokenForJwt } from '../../../utils/authHelpers';
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -36,10 +37,9 @@ const Signup = () => {
       // Signup with email and pass
       const res = await signUpWithEmailPass(email, password);
       const userProfile = res.user;
+
       //   Update User Profile
       await updateUserProfile(profile);
-      alert('Signup successful! Welcome ' + name);
-      navigate('/');
 
       await signupUser({
         firebaseUID: userProfile.uid,
@@ -52,13 +52,17 @@ const Signup = () => {
         district: district,
         userType: userType,
       });
+      // give access token
+      await exchangeFirebaseTokenForJwt(userProfile);
+      alert('Signup successful! Welcome ' + name);
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <Container className='px-3'>
+    <Container className="px-3">
       <section className="mt-4 md:mt-8 mb-10 pt-4 pb-8 md:py-8 lg:py-16">
         <div className="flex flex-col justify-center md:flex-row gap-10 lg:gap-16">
           {/* left side image  */}
@@ -71,7 +75,7 @@ const Signup = () => {
           <div className="w-full md:w-1/2 text-center">
             <div className="mb-10">
               <h3 className="text-2xl font-bold lg:text-4xl mb-2">Create an account</h3>
-              <p className='text-xs md:text-base'>
+              <p className="text-xs md:text-base">
                 Already have an account?
                 <Link to="/login" className="underline">
                   {''} Log in

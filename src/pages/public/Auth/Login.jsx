@@ -8,7 +8,7 @@ import CommonButton from '../../../components/Buttons/CommonButton/CommonButton'
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../../components/Loading/Loading';
-import axiosInstance from '../../../hooks/useAxiosInstance';
+import { exchangeFirebaseTokenForJwt } from '../../../utils/authHelpers';
 
 const Login = () => {
   const { loading, setLoading, signInWithEmailPass } = useAuth();
@@ -33,18 +33,8 @@ const Login = () => {
     try {
       const res = await signInWithEmailPass(email, password);
       const userProfile = res.user;
-      const firebaseToken = userProfile?.accessToken;
-
-      if (firebaseToken) {
-        const tokenRes = await axiosInstance.post('/api/auth/jwt', { token: firebaseToken });
-        const { token, userType } = tokenRes.data;
-
-        localStorage.setItem('access-token', token);
-        localStorage.setItem('user-type', userType);
-      } else {
-        alert('Failed to retrieve your access .');
-        // console.error('Failed to retrieve Firebase Access Token.');
-      }
+      // 🔥 এখানে helper call
+      await exchangeFirebaseTokenForJwt(userProfile);
       navigate(location?.state || '/');
       alert('Login successful! Welcome back 👋');
     } catch (error) {

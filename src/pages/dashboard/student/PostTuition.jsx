@@ -4,10 +4,12 @@ import axios from 'axios';
 import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useNavigate } from 'react-router';
 
 const PostTuition = () => {
   const [districts, setDistricts] = useState([]);
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get('/districts.json')
@@ -31,6 +33,7 @@ const PostTuition = () => {
   const handleTuitionForm = (data) => {
     try {
       axiosSecure.post('/tuitions', data).then(() => {
+        navigate('/dashboard/my-tuitions');
         alert('Your tuition is posted!');
       });
     } catch (error) {
