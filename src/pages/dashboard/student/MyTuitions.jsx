@@ -14,7 +14,7 @@ const MyTuitions = () => {
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef();
 
-  const { data: tuitions = [] } = useQuery({
+  const { refetch, data: tuitions = [] } = useQuery({
     queryKey: ['myTuitions', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/tuitions');
@@ -136,7 +136,16 @@ const MyTuitions = () => {
       </div>
       {/* Modal */}
       <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-        {selectedTuition && <UpdateTuitionModal tuition={selectedTuition}  />}
+        {selectedTuition && (
+          <UpdateTuitionModal
+            tuition={selectedTuition}
+            refetch={refetch}
+            onClose={() => {
+              modalRef.current.close();
+              setSelectedTuition(null);
+            }}
+          />
+        )}
       </dialog>
     </section>
   );

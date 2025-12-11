@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
-const UpdateTuitionModal = ({ tuition, setSelectedTuition }) => {
+const UpdateTuitionModal = ({ tuition, refetch, onClose }) => {
   const [districts, setDistricts] = useState([]);
+  const axiosSecure = useAxiosSecure();
+
   const classes = ['Class-6', 'Class-7', 'Class-8', 'Class-9', 'Class-10', 'College 1st Year', 'College 2nd Year', 'Versity Admissoion'];
   const subjects = ['Arts', 'Commerce', 'Science'];
 
@@ -38,6 +41,19 @@ const UpdateTuitionModal = ({ tuition, setSelectedTuition }) => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdateBtn = async (tuition) => {
+    try {
+      const res = await axiosSecure.patch(`/tuitions/${tuition._id}`, form);
+      if (res.data.modifiedCount > 0) {
+        alert('Your post is updated');
+        await refetch();
+        onClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -139,7 +155,11 @@ const UpdateTuitionModal = ({ tuition, setSelectedTuition }) => {
             {/* Actions */}
             <div className="pt-3 mt-1 border-t border-base-300/70">
               <div className="flex flex-col sm:flex-row justify-end gap-2.5 sm:gap-3">
-                <button type="submit" className="btn btn-primary min-w-[130px] h-10 sm:h-11 normal-case text-sm">
+                <button
+                  onClick={() => handleUpdateBtn(tuition)}
+                  type="button"
+                  className="btn btn-primary min-w-[130px] h-10 sm:h-11 normal-case text-sm"
+                >
                   Save Changes
                 </button>
 
