@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from '../../../components/Container/Container';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
+import { useForm } from 'react-hook-form';
+import useAuth from '../../../hooks/useAuth';
 
 const TuitionDetails = () => {
+  const { user } = useAuth();
   const experienceLevels = ['Less than 1 year', '1-2 years', '2-3 years', '3-5 years', '5-7 years', '7-10 years', '10+ years'];
+
   const axiosSecure = useAxiosSecure();
+
   const { id } = useParams();
+
   //   Get Tuition details
   const { data: tuitionDetails = [] } = useQuery({
     queryKey: ['tuition-details', id],
@@ -24,8 +30,35 @@ const TuitionDetails = () => {
 
   const { budget, classLevel, createdAt, location, status, subject, title } = tuitionDetails;
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-  
+  useEffect(() => {
+    if (user) {
+      setValue('tutorName', user.displayName);
+      setValue('tutorEmail', user.email);
+    }
+  }, [setValue, user]);
+
+  const handleTutorApplyForm = async (data) => {
+    const finalData = {
+      ...data,
+      expectedSalary: data.expectedSalary ? Number(data.expectedSalary) : budget,
+      studentBudget: budget,
+    };
+    try {
+      await axiosSecure.post(`/applications/${id}`, finalData).then(() => {
+        alert('Your application is successfully send to the student.');
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <section className="py-10 lg:py-16 bg-base-200/60 my-10 rounded-4xl px-3 lg:px-0">
@@ -44,7 +77,7 @@ const TuitionDetails = () => {
                 {/* Title + status */}
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-base-content leading-snug">{title}</h2>
-                  <span className="badge badge-soft badge-warning text-[10px] sm:text-xs px-3 py-1 shrink-0">Pending</span>
+                  <span className="badge badge-soft badge-warning text-[10px] sm:text-xs px-3 py-1 shrink-0">{status}</span>
                 </div>
 
                 {/* Tags */}
@@ -88,15 +121,16 @@ const TuitionDetails = () => {
             <div className="bg-base-100 rounded-3xl shadow-[0_18px_45px_rgba(15,26,51,0.08)] border border-base-200 p-5 sm:p-6 lg:p-8">
               <h3 className="text-lg sm:text-xl font-semibold text-base-content mb-4">Apply for this tuition</h3>
 
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit(handleTutorApplyForm)} className="space-y-4">
                 {/* Name */}
                 <div className="space-y-1">
                   <label className="block text-xs sm:text-sm font-medium text-neutral">Full Name</label>
                   <input
                     type="text"
-                    name="name"
-                    placeholder="Enter your full name"
-                    className="input input-bordered w-full bg-base-100 border-base-300 text-sm sm:text-base placeholder:text-xs sm:placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-secondary/40"
+                    name="tutorName"
+                    {...register('tutorName')}
+                    readOnly
+                    className="input input-bordered w-full bg-base-100 border-base-300 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-secondary/40"
                   />
                 </div>
 
@@ -105,9 +139,10 @@ const TuitionDetails = () => {
                   <label className="block text-xs sm:text-sm font-medium text-neutral">Email</label>
                   <input
                     type="email"
-                    name="email"
-                    placeholder="Enter your email address"
-                    className="input input-bordered w-full bg-base-100 border-base-300 text-sm sm:text-base placeholder:text-xs sm:placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-secondary/40"
+                    name="tutorEmail"
+                    {...register('tutorEmail')}
+                    readOnly
+                    className="input input-bordered w-full bg-base-100 border-base-300 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-secondary/40"
                   />
                 </div>
 
@@ -117,9 +152,11 @@ const TuitionDetails = () => {
                   <input
                     type="text"
                     name="qualification"
+                    {...register('qualification', { required: 'Please, Enter your qualification!' })}
                     placeholder="Your highest qualification (e.g. B.Sc in Physics)"
                     className="input input-bordered w-full bg-base-100 border-base-300 text-sm sm:text-base placeholder:text-xs sm:placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-secondary/40"
                   />
+                  {errors.qualification && <p className="text-left ml-18 mt-1 text-sm text-red-400/80">{errors.qualification.message}</p>}
                 </div>
 
                 {/* Experience */}
@@ -127,8 +164,9 @@ const TuitionDetails = () => {
                   <label className="block text-xs sm:text-sm font-medium text-neutral">Experience</label>
                   <select
                     name="experience"
+                    {...register('experience', { required: 'Please, Select your experience!' })}
                     defaultValue=""
-                    className="select select-bordered w-full bg-base-100 border-base-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-secondary/40"
+                    className="select select-bordered w-full bg-base-100 border-base-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-secondary/40 cursor-pointer"
                   >
                     <option value="" disabled>
                       Select your experience
@@ -146,10 +184,12 @@ const TuitionDetails = () => {
                   </label>
                   <input
                     type="number"
-                    name="salary"
-                    placeholder="e.g. 5000"
+                    name="expectedSalary"
+                    {...register('expectedSalary')}
+                    placeholder="e.g. 5000 (optional)"
                     className="input input-bordered w-full bg-base-100 border-base-300 h-11 sm:h-12 text-sm sm:text-base placeholder:text-[11px] sm:placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-secondary/40"
                   />
+                  <p className="text-xs text-neutral/80">If the offered budget meets your expectations, you may leave this field blank.</p>
                 </div>
 
                 {/* Submit */}
