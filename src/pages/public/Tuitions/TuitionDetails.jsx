@@ -1,12 +1,34 @@
 import React from 'react';
 import Container from '../../../components/Container/Container';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { formatDate, formatTime } from '../../../utils/date';
 
 const TuitionDetails = () => {
   const experienceLevels = ['Less than 1 year', '1-2 years', '2-3 years', '3-5 years', '5-7 years', '7-10 years', '10+ years'];
+  const axiosSecure = useAxiosSecure();
+  const { id } = useParams();
+  //   Get Tuition details
+  const { data: tuitionDetails = [] } = useQuery({
+    queryKey: ['tuition-details', id],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get(`tuition-details/${id}`);
+        return res.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
 
+  const { budget, classLevel, createdAt, location, status, subject, title } = tuitionDetails;
+
+
+  
   return (
     <Container>
-      <section className="py-10 lg:py-16 bg-base-200/60 my-10 rounded-4xl">
+      <section className="py-10 lg:py-16 bg-base-200/60 my-10 rounded-4xl px-3 lg:px-0">
         <div className="max-w-5xl mx-auto">
           {/* Top heading pill */}
           <div className="bg-base-100 rounded-full shadow-[0_18px_45px_rgba(15,26,51,0.08)] border border-base-200 px-6 sm:px-10 py-4 text-center mx-auto mb-10">
@@ -21,33 +43,33 @@ const TuitionDetails = () => {
               <div className="space-y-5">
                 {/* Title + status */}
                 <div className="flex items-start justify-between gap-3">
-                  <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-base-content leading-snug">
-                    Math Tutor Needed For Class 10
-                  </h2>
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-base-content leading-snug">{title}</h2>
                   <span className="badge badge-soft badge-warning text-[10px] sm:text-xs px-3 py-1 shrink-0">Pending</span>
                 </div>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 text-xs sm:text-sm">
-                  <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content">Class-10</span>
-                  <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content">Commerce</span>
-                  <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content">Barguna</span>
+                  <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content">{classLevel}</span>
+                  <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content">{subject}</span>
                 </div>
 
                 {/* Details */}
                 <div className="space-y-3 text-sm sm:text-base text-base-content">
                   <p>
-                    <span className="font-semibold">Budget:</span> <span className="font-semibold text-secondary">6000 ৳</span>
+                    <span className="font-semibold">Budget:</span> <span className="font-semibold text-secondary">{budget} ৳</span>
                     <span className="text-neutral text-xs sm:text-sm">/ month</span>
                   </p>
                   <p>
                     <span className="font-semibold">Student Name:</span> <span>Rocky</span>
                   </p>
                   <p>
-                    <span className="font-semibold">Location:</span> <span>Dhaka</span>
+                    <span className="font-semibold">Location:</span> <span>{location}</span>
                   </p>
                   <p>
-                    <span className="font-semibold">Posted Date:</span> <span>October 26, 2025</span>
+                    <span className="font-semibold">Posted Date:</span>{' '}
+                    <span>
+                      {formatDate(createdAt)} at {formatTime(createdAt)}
+                    </span>
                   </p>
                 </div>
 
