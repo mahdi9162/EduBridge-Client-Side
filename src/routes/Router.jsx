@@ -25,6 +25,7 @@ import ManageTuitions from '../pages/dashboard/admin/ManageTuitions';
 import ManageUsers from '../pages/dashboard/admin/ManageUsers';
 import ReportsAnalytics from '../pages/dashboard/admin/ReportsAnalytics';
 import AdminProfileSetting from '../pages/dashboard/admin/AdminProfileSetting';
+import TuitionDetails from '../pages/public/Tuitions/TuitionDetails';
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,14 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         Component: Login,
+      },
+      {
+        path: 'tuition-details/:id',
+        element: (
+          <TutorRoute>
+            <TuitionDetails></TuitionDetails>
+          </TutorRoute>
+        ),
       },
     ],
   },

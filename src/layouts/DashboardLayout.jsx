@@ -6,8 +6,11 @@ import { CgProfile } from 'react-icons/cg';
 import { HiOutlineCreditCard } from 'react-icons/hi';
 import { LuLogOut, LuSettings2 } from 'react-icons/lu';
 import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
+import useRole from '../hooks/useRole';
 
 const DashboardLayout = () => {
+  const { role, roleLoading } = useRole();
+  if (roleLoading) return;
   return (
     <section>
       <div className="drawer lg:drawer-open">
@@ -69,41 +72,47 @@ const DashboardLayout = () => {
               {/* Our Dashboard List Start Here */}
               {/* Student Lists */}
               {/* My Tuitions */}
-              <li>
-                <Link to="/dashboard/my-tuitions" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Tuitions">
-                  <CgProfile className="my-1.5 inline-block size-4" />
-                  <span className="is-drawer-close:hidden">My Tuitions</span>
-                </Link>
-              </li>
-              {/* Create Tuition Post */}
-              <li>
-                <Link
-                  to="/dashboard/post-tuition"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Create Tuition Post"
-                >
-                  <IoCreateOutline className="my-1.5 inline-block size-4" />
-                  <span className="is-drawer-close:hidden">Create Tuition Post</span>
-                </Link>
-              </li>
-              {/* Payments */}
-              <li>
-                <Link to="/dashboard/payments" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments">
-                  <HiOutlineCreditCard className="my-1.5 inline-block size-4" />
-                  <span className="is-drawer-close:hidden">Payments</span>
-                </Link>
-              </li>
-              {/* Profile Setting */}
-              <li>
-                <Link
-                  to="/dashboard/student-profile"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Profile Setting"
-                >
-                  <LuSettings2 className="my-1.5 inline-block size-4" />
-                  <span className="is-drawer-close:hidden">Profile Setting</span>
-                </Link>
-              </li>
+              <div className={role !== 'student' && 'hidden'}>
+                <li>
+                  <Link
+                    to="/dashboard/my-tuitions"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Tuitions"
+                  >
+                    <CgProfile className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">My Tuitions</span>
+                  </Link>
+                </li>
+                {/* Create Tuition Post */}
+                <li>
+                  <Link
+                    to="/dashboard/post-tuition"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Create Tuition Post"
+                  >
+                    <IoCreateOutline className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Create Tuition Post</span>
+                  </Link>
+                </li>
+                {/* Payments */}
+                <li>
+                  <Link to="/dashboard/payments" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments">
+                    <HiOutlineCreditCard className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Payments</span>
+                  </Link>
+                </li>
+                {/* Profile Setting */}
+                <li>
+                  <Link
+                    to="/dashboard/student-profile"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Profile Setting"
+                  >
+                    <LuSettings2 className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Profile Setting</span>
+                  </Link>
+                </li>
+              </div>
               {/*User Sign Out */}
               <li>
                 <SignOutButton className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Sign Out">
