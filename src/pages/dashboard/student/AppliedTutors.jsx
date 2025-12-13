@@ -50,6 +50,20 @@ const AppliedTutors = () => {
     }
   };
 
+  const handleSelectBtn = async (application) => {
+    const id = application._id;
+
+    try {
+      await axiosSecure.patch(`/select-applications/${id}`);
+
+      alert('You selected this application successfully!');
+
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //  pending applications tuitionId
   const tuitionIds = applications
     .filter((application) => application.applyStatus === 'pending')
@@ -161,7 +175,9 @@ const AppliedTutors = () => {
                       </div>
 
                       <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-                        <button className="btn btn-primary btn-sm rounded-full px-4">Select</button>
+                        <button onClick={() => handleSelectBtn(application)} className="btn btn-primary btn-sm rounded-full px-4">
+                          Select
+                        </button>
                         <button
                           onClick={() => handleRejectBtn(application)}
                           className="btn btn-ghost btn-sm rounded-full border border-base-300 px-4"
