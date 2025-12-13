@@ -6,6 +6,7 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
 import { Link } from 'react-router';
+import Loading from '../../../components/Loading/Loading';
 
 const MyApplications = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,7 +23,7 @@ const MyApplications = () => {
   // tuition details fetch
   const tuitionIds = applications.map((a) => a.tuitionId);
 
-  const { data: tuitionById = [], isLoading: isTuitionsLoading } = useQuery({
+  const { data: tuitionById = {}, isLoading: isTuitionsLoading } = useQuery({
     queryKey: ['tuitionById', tuitionIds],
     enabled: tuitionIds.length > 0,
     queryFn: async () => {
@@ -44,7 +45,7 @@ const MyApplications = () => {
   });
 
   if (isApplicationLoading || isTuitionsLoading) {
-    return;
+    return <Loading></Loading>;
   }
 
   // Counts
@@ -101,7 +102,7 @@ const MyApplications = () => {
                 >
                   {/* Top row */}
                   <div className="flex items-start justify-between gap-4">
-                    <h3 className="text-lg sm:text-xl font-semibold text-base-content leading-snug line-clamp-1">{tuition.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-base-content leading-snug line-clamp-1">{tuition?.title}</h3>
 
                     <span className="badge badge-soft badge-warning text-[10px] sm:text-xs px-3 py-1 shrink-0">
                       {application.applyStatus}
@@ -110,20 +111,20 @@ const MyApplications = () => {
 
                   {/* Tags */}
                   <div className="mt-3 flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition.classLevel}</span>
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition.subject}</span>
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition.location}</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition?.classLevel}</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition?.subject}</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition?.location}</span>
                   </div>
 
                   {/* Info rows */}
                   <div className="mt-5 space-y-2 text-sm sm:text-base text-base-content">
                     <p>
-                      <span className="font-semibold">Student Name:</span> <span>{tuition.name}</span>
+                      <span className="font-semibold">Student Name:</span> <span>{tuition?.name}</span>
                     </p>
 
                     <p>
                       <span className="font-semibold">Student Budget:</span>{' '}
-                      <span className="font-semibold text-secondary">{tuition.budget} ৳</span>{' '}
+                      <span className="font-semibold text-secondary">{tuition?.budget} ৳</span>{' '}
                       <span className="text-neutral text-xs sm:text-sm">/ month</span>
                     </p>
 

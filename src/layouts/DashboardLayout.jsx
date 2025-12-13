@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router';
 import Logo from '../components/common/Logo';
 import { IoCreateOutline } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
-import { HiOutlineCreditCard } from 'react-icons/hi';
+import { HiOutlineCreditCard, HiUserGroup } from 'react-icons/hi';
 import { LuLogOut, LuSettings2 } from 'react-icons/lu';
 import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
 import useRole from '../hooks/useRole';
@@ -83,6 +83,17 @@ const DashboardLayout = () => {
                   >
                     <CgProfile className="my-1.5 inline-block size-4" />
                     <span className="is-drawer-close:hidden">My Tuitions</span>
+                  </Link>
+                </li>
+                {/* Applied Tutors */}
+                <li>
+                  <Link
+                    to="/dashboard/applied-tutors"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Applied Tutors"
+                  >
+                    <HiUserGroup className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Applied Tutors</span>
                   </Link>
                 </li>
                 {/* Create Tuition Post */}
