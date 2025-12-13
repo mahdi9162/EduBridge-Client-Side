@@ -104,6 +104,11 @@ const MyTuitions = () => {
                 <h3 className="text-lg sm:text-xl font-semibold text-base-content">{tuition.title}</h3>
                 <div className="badge badge-soft badge-warning text-[11px] sm:text-xs px-3 py-2">{tuition.status}</div>
               </div>
+              {/* Student Name */}
+              <div className="mt-1 flex items-center gap-1.5 text-[12px] sm:text-sm leading-tight">
+                <span className="text-neutral/70">Student:</span>
+                <span className="text-base-content font-semibold tracking-tight">{tuition.name}</span>
+              </div>
 
               {/* Class / Subject / Location */}
               <div className="flex flex-wrap gap-2 mt-3">

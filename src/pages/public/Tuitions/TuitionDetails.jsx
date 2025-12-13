@@ -28,7 +28,7 @@ const TuitionDetails = () => {
     },
   });
 
-  const { budget, classLevel, createdAt, location, status, subject, title } = tuitionDetails;
+  const { budget, classLevel, createdAt, location, status, subject, title, name } = tuitionDetails;
 
   const {
     register,
@@ -45,13 +45,8 @@ const TuitionDetails = () => {
   }, [setValue, user]);
 
   const handleTutorApplyForm = async (data) => {
-    const finalData = {
-      ...data,
-      expectedSalary: data.expectedSalary ? Number(data.expectedSalary) : budget,
-      studentBudget: budget,
-    };
     try {
-      await axiosSecure.post(`/applications/${id}`, finalData).then(() => {
+      await axiosSecure.post(`/applications/${id}`, data).then(() => {
         alert('Your application is successfully send to the student.');
       });
     } catch (error) {
@@ -93,7 +88,9 @@ const TuitionDetails = () => {
                     <span className="text-neutral text-xs sm:text-sm">/ month</span>
                   </p>
                   <p>
-                    <span className="font-semibold">Student Name:</span> <span>Rocky</span>
+                    <span className="font-semibold">Student Name: </span>
+                    {name}
+                    <span></span>
                   </p>
                   <p>
                     <span className="font-semibold">Location:</span> <span>{location}</span>

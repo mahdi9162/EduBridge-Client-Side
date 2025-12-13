@@ -60,6 +60,18 @@ const PostTuition = () => {
         <div className="px-5 sm:px-8 pb-6 sm:pb-8">
           <div className="max-w-3xl">
             <form onSubmit={handleSubmit(handleTuitionForm)} className="space-y-6">
+              {/* Student Name */}
+              <div className="space-y-2">
+                <legend className="text-xs sm:text-sm font-medium text-base-content">Student Name</legend>
+                <input
+                  type="text"
+                  name="name"
+                  {...register('name', { required: 'Please, Enter student name.' })}
+                  placeholder="Enter student name."
+                  className="input input-bordered w-full h-11 sm:h-12 text-sm placeholder:text-[11px] sm:placeholder:text-xs lg:placeholder:text-sm"
+                />
+                {errors.name && <p className="text-left sm:text-xs text-red-400/80">{errors.name.message}</p>}
+              </div>
               {/* Title */}
               <div className="space-y-2">
                 <legend className="text-xs sm:text-sm font-medium text-base-content">Title / Subject</legend>

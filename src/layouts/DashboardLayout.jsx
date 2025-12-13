@@ -7,6 +7,7 @@ import { HiOutlineCreditCard } from 'react-icons/hi';
 import { LuLogOut, LuSettings2 } from 'react-icons/lu';
 import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
 import useRole from '../hooks/useRole';
+import { FiFileText } from 'react-icons/fi';
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -71,8 +72,9 @@ const DashboardLayout = () => {
 
               {/* Our Dashboard List Start Here */}
               {/* Student Lists */}
+
               {/* My Tuitions */}
-              <div className={role !== 'student' && 'hidden'}>
+              <div className={role !== 'student' ? 'hidden' : ''}>
                 <li>
                   <Link
                     to="/dashboard/my-tuitions"
@@ -110,6 +112,20 @@ const DashboardLayout = () => {
                   >
                     <LuSettings2 className="my-1.5 inline-block size-4" />
                     <span className="is-drawer-close:hidden">Profile Setting</span>
+                  </Link>
+                </li>
+              </div>
+              {/* Teacher Lists */}
+              <div className={role !== 'teacher' ? 'hidden' : ''}>
+                {/* My applications */}
+                <li>
+                  <Link
+                    to="/dashboard/my-applications"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Applications"
+                  >
+                    <FiFileText className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">My Applications</span>
                   </Link>
                 </li>
               </div>
