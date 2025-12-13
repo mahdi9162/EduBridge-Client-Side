@@ -2,11 +2,39 @@ import React from 'react';
 import Container from '../../../components/Container/Container';
 import { HiUserGroup } from 'react-icons/hi';
 import avatarImg from '../../../assets/avatar.png';
+import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { formatDate, formatTime } from '../../../utils/date';
 
 const AppliedTutors = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
+  const { data: tuitions = [] } = useQuery({
+    queryKey: ['myTuitions', user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/tuitions');
+      return res.data;
+    },
+  });
 
-    
+  // Counts
+  const totalApplication = tuitions.length;
+  const totalPending = tuitions.filter((t) => t.status === 'pending').length;
+  const totalSelected = tuitions.filter((s) => s.status === 'selected').length;
+
+  // application fetch
+  const { data: applications = [] } = useQuery({
+    queryKey: ['applications', user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/tutor-applications');
+      return res.data;
+    },
+  });
+
+  console.log(applications);
+
   return (
     <Container>
       <section className="my-10 bg-base-200/60 rounded-4xl px-4 sm:px-6 py-10">
@@ -27,90 +55,83 @@ const AppliedTutors = () => {
             {/* Total Applications */}
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Total Applications</p>
-              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">12</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">
+                {totalApplication}
+              </p>
             </div>
 
             {/* Pending */}
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Pending</p>
-              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">8</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">{totalPending}</p>
             </div>
 
             {/* Selected */}
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Selected</p>
-              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">3</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">{totalSelected}</p>
             </div>
           </div>
 
           {/* Tuition Card */}
-          <div className="mt-12 bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-6 sm:p-7">
-            {/* Tuition Header */}
-            <div className="flex items-start justify-between gap-4">
-              <h3 className="text-lg sm:text-xl font-semibold text-base-content">Math Tutor Needed</h3>
-              <span className="badge badge-soft badge-warning text-xs px-3 py-1">Pending</span>
-            </div>
-
-            {/* Tags */}
-            <div className="mt-3 flex flex-wrap gap-2">
-              <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Class Level</span>
-              <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Subject</span>
-              <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Location</span>
-            </div>
-
-            <div className="mt-4 border-t border-base-200" />
-
-            {/* Tuition Meta */}
-            <div className="mt-4 flex flex-col sm:flex-row justify-between gap-2 text-sm text-neutral">
-              <p>
-                <span className="font-semibold text-base-content">Budget:</span> 7000 ৳ / month
-              </p>
-              <p>Posted: Dec 13, 2025</p>
-            </div>
-
-            {/* Tutor Cards */}
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Tutor Card 1 */}
-              <div className="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <img src={avatarImg} alt="" className="w-14 h-14 rounded-full object-cover border border-base-300" />
-                  <div>
-                    <h4 className="font-semibold text-base-content">Mahdi Hasan</h4>
-                    <p className="text-xs sm:text-sm text-neutral">Qualification: BSc in Physics</p>
-                    <p className="text-sm font-semibold text-secondary mt-1">Expected Salary: 9000 ৳</p>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <button className="btn btn-primary btn-sm rounded-full px-4">Select</button>
-                  <button className="btn btn-ghost btn-sm rounded-full border border-base-300 px-4">Reject</button>
-                  <button className="btn btn-outline btn-sm rounded-full px-4">Tutor Details</button>
-                </div>
-
-                <p className="mt-2 text-[11px] text-neutral">Selection becomes final after payment</p>
+          {tuitions.map((tuition, i) => (
+            <div
+              key={i}
+              className="mt-12 bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-6 sm:p-7"
+            >
+              {/* Tuition Header */}
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="text-lg sm:text-xl font-semibold text-base-content">{tuition.title}</h3>
+                <span className="badge badge-soft badge-warning text-xs px-3 py-1">{tuition.status}</span>
               </div>
 
-              {/* Tutor Card 2 */}
-              <div className="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm">
-                <div className="flex items-center gap-4">
-                  <img src={avatarImg} alt="" className="w-14 h-14 rounded-full object-cover border border-base-300" />
-                  <div>
-                    <h4 className="font-semibold text-base-content">Fatima Begum</h4>
-                    <p className="text-xs sm:text-sm text-neutral">Qualification: MA in English</p>
-                    <p className="text-sm font-semibold text-secondary mt-1">Expected Salary: 8500 ৳</p>
-                  </div>
-                </div>
+              {/* Tags */}
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.classLevel}</span>
+                <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.subject}</span>
+                <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.location}</span>
+              </div>
 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <button className="btn btn-primary btn-sm rounded-full px-4">Select</button>
-                  <button className="btn btn-ghost btn-sm rounded-full border border-base-300 px-4">Reject</button>
-                  <button className="btn btn-outline btn-sm rounded-full px-4">Tutor Details</button>
-                </div>
+              <div className="mt-4 border-t border-base-200" />
 
-                <p className="mt-2 text-[11px] text-neutral">Selection becomes final after payment</p>
+              {/* Tuition Meta */}
+              <div className="mt-4 flex flex-col sm:flex-row justify-between gap-2 text-sm text-neutral">
+                <p>
+                  <span className="font-semibold text-base-content">Budget:</span> {tuition.budget} ৳ / month
+                </p>
+                <p>
+                  Posted: {formatDate(tuition.createdAt)} at {formatTime(tuition.createdAt)}
+                </p>
+              </div>
+
+              {/* Tutor Cards Grid Div*/}
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+                {/* Card */}
+                {applications
+                  .filter((application) => application.tuitionId === tuition._id)
+                  .map((application, i) => (
+                    <div key={i} className="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm">
+                      <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-4">
+                        <img src={avatarImg} alt="" className="w-14 h-14 rounded-full object-cover border border-base-300" />
+                        <div>
+                          <h4 className="font-semibold text-base-content">{application.tutorName}</h4>
+                          <p className="text-xs sm:text-sm text-neutral">Qualification: {application.qualification}</p>
+                          <p className="text-sm font-semibold text-secondary mt-1">Expected Salary: {application.expectedSalary} ৳</p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <button className="btn btn-primary btn-sm rounded-full px-4">Select</button>
+                        <button className="btn btn-ghost btn-sm rounded-full border border-base-300 px-4">Reject</button>
+                        <button className="btn btn-outline btn-sm rounded-full px-4">Tutor Details</button>
+                      </div>
+
+                      <p className="mt-2 text-[11px] text-neutral">Selection becomes final after payment</p>
+                    </div>
+                  ))}
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
     </Container>
