@@ -7,6 +7,7 @@ import { formatDate } from '../../../utils/date';
 import UserDetailsModal from './UserDetailsModal';
 import userProfileImg from '../../../assets/userProfile.png';
 import UpdateUserInfoModal from './UpdateUserInfoModal';
+import Swal from 'sweetalert2';
 
 const ManageUsers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -64,7 +65,33 @@ const ManageUsers = () => {
     }
   };
 
-  console.log(users);
+  const handleUserDelete = async (user) => {
+    const id = user._id;
+
+    try {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      });
+
+      if (result.isConfirmed) {
+        await axiosSecure.delete(`/admin/users/${id}`);
+        refetch();
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'User has been deleted.',
+          icon: 'success',
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Container>
@@ -176,13 +203,11 @@ const ManageUsers = () => {
                             </li>
 
                             <li>
-                              <button type="button" className="text-secondary border-b border-secondary/10 hover:bg-base-200">
-                                Change Role
-                              </button>
-                            </li>
-
-                            <li>
-                              <button type="button" className="text-error border-b border-secondary/10 hover:bg-base-200">
+                              <button
+                                onClick={() => handleUserDelete(user)}
+                                type="button"
+                                className="text-error border-b border-secondary/10 hover:bg-base-200"
+                              >
                                 Delete
                               </button>
                             </li>
@@ -214,7 +239,6 @@ const ManageUsers = () => {
           )}
         </dialog>
         {/* Edit User Modal */}
-        // ManageUsers.jsx (modal render part)
         <dialog ref={updateUserRef} className="modal modal-bottom sm:modal-middle">
           <UpdateUserInfoModal
             user={selectedUser}

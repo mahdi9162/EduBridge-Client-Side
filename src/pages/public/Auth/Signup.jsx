@@ -26,7 +26,7 @@ const Signup = () => {
   }
 
   const handleSignupForm = async (data) => {
-    const { email, password, name, classLevel, teachingClass, district, phone, subject, userType } = data;
+    const { email, password, name, classLevel, teachingClass, location, phone, subject, userType } = data;
     console.log(data);
 
     const profile = {
@@ -48,7 +48,7 @@ const Signup = () => {
         teachingClass: teachingClass || '',
         subject: subject,
         phone: phone,
-        district: district,
+        location: location,
         userType: userType,
       };
       await axiosInstance.post('/signup', userData);

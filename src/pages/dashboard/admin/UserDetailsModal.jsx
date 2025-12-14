@@ -25,7 +25,7 @@ const UserDetailsModal = ({ user, onClose }) => {
             <figure className="w-16">
               <img src={userProfileImg} alt="User Avater" />
             </figure>
-            <div className='mt-2'>
+            <div className="mt-2">
               <h3 className="text-lg sm:text-xl font-bold text-base-content">{user?.name ? `${user.name}'s Profile` : 'User Profile'}</h3>
               <p className="text-xs sm:text-sm text-neutral mt-1">User details overview</p>
             </div>
@@ -52,13 +52,14 @@ const UserDetailsModal = ({ user, onClose }) => {
           </div>
         </div>
 
-        {/* details table-ish */}
+        {/* details table */}
         <div className="rounded-2xl border border-base-300 overflow-hidden">
           <div className="grid grid-cols-1">
             <Row label="Phone" value={user?.phone} />
             <Row label="Subject" value={user?.subject} />
             <Row label="Teaching Class" value={user?.teachingClass} />
             <Row label="Class Level" value={user?.classLevel} />
+            <Row label="Location" value={user.location} />
             <Row label="Firebase UID" value={user?.firebaseUID} mono />
           </div>
         </div>
