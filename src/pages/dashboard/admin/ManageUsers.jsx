@@ -5,13 +5,16 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate } from '../../../utils/date';
 import UserDetailsModal from './UserDetailsModal';
+import userProfileImg from '../../../assets/userProfile.png';
+import UpdateUserInfoModal from './UpdateUserInfoModal';
 
 const ManageUsers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const axiosSecure = useAxiosSecure();
-  const modalRef = useRef();
+  const userDetailsRef = useRef();
+  const updateUserRef = useRef();
 
-  const { data: users = [] } = useQuery({
+  const { refetch, data: users = [] } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       try {
@@ -38,9 +41,27 @@ const ManageUsers = () => {
     return 'badge badge-sm font-medium capitalize bg-accent text-accent-content border border-base-300';
   };
 
-  const openUserModal = (user) => {
+  const openUserDetailsModal = (user) => {
     setSelectedUser(user);
-    modalRef.current.showModal();
+    userDetailsRef.current.showModal();
+  };
+
+  const openUpdateUserModal = (user) => {
+    setSelectedUser(user);
+    updateUserRef.current.showModal();
+  };
+
+  const handleUpdateUser = async (formData) => {
+    const id = selectedUser?._id;
+    try {
+      await axiosSecure.patch(`/admin/users/${id}`, formData);
+      alert('Updated User Profile Successfully');
+      updateUserRef.current.close();
+      setSelectedUser(null);
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   console.log(users);
@@ -60,7 +81,6 @@ const ManageUsers = () => {
 
           <p className="mt-1 text-xs sm:text-sm text-neutral">View details, edit info, change role, or delete accounts.</p>
         </div>
-
         {/* Table Card */}
         <div className="mt-6 bg-base-100 border border-base-200 rounded-2xl shadow-[0_18px_45px_rgba(15,26,51,0.06)]">
           {/* responsive wrapper */}
@@ -95,8 +115,8 @@ const ManageUsers = () => {
                     <td className="align-middle">
                       <div className="flex items-center gap-3">
                         <div className="avatar">
-                          <div className="mask mask-squircle h-10 w-10 sm:h-12 sm:w-12 border border-base-300">
-                            <img src="https://img.daisyui.com/images/profile/demo/2@94.webp" alt="User avatar" />
+                          <div className="mask mask-squircle h-10 w-10 sm:h-12 sm:w-12 border border-base-300 rounded-full">
+                            <img src={userProfileImg} alt="User avatar" />
                           </div>
                         </div>
 
@@ -122,7 +142,7 @@ const ManageUsers = () => {
                       <div className="flex justify-end items-center gap-2">
                         {/* View */}
                         <button
-                          onClick={() => openUserModal(user)}
+                          onClick={() => openUserDetailsModal(user)}
                           type="button"
                           className="btn btn-outline btn-xs sm:btn-sm rounded-full border-secondary/30"
                           title="View details"
@@ -146,7 +166,11 @@ const ManageUsers = () => {
                             className="dropdown-content menu bg-base-100 border border-base-200 rounded-box w-44 p-2 shadow z-99"
                           >
                             <li>
-                              <button type="button" className="text-base-content border-b border-secondary/10 hover:bg-base-200">
+                              <button
+                                onClick={() => openUpdateUserModal(user)}
+                                type="button"
+                                className="text-base-content border-b border-secondary/10 hover:bg-base-200"
+                              >
                                 Edit
                               </button>
                             </li>
@@ -178,16 +202,28 @@ const ManageUsers = () => {
           </div>
         </div>
         {/* View Button Modal */}
-        <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+        <dialog ref={userDetailsRef} className="modal modal-bottom sm:modal-middle">
           {selectedUser && (
             <UserDetailsModal
               user={selectedUser}
               onClose={() => {
-                modalRef.current.close();
+                userDetailsRef.current.close();
                 setSelectedUser(null);
               }}
             />
           )}
+        </dialog>
+        {/* Edit User Modal */}
+        // ManageUsers.jsx (modal render part)
+        <dialog ref={updateUserRef} className="modal modal-bottom sm:modal-middle">
+          <UpdateUserInfoModal
+            user={selectedUser}
+            onClose={() => {
+              updateUserRef.current.close();
+              setSelectedUser(null);
+            }}
+            onSave={handleUpdateUser}
+          />
         </dialog>
       </section>
     </Container>
