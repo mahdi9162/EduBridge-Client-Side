@@ -37,6 +37,8 @@ const TuitionsList = () => {
     navigate(`/tuition-details/${id}`);
   };
 
+  const tuitions = allTuitions.filter((tuition) => tuition.postStatus === 'approved');
+
   return (
     <Container>
       <section className="my-10 lg:my-16 px-3 py-10 bg-base-200/40 rounded-4xl">
@@ -44,13 +46,14 @@ const TuitionsList = () => {
         <div className="max-w-3xl mx-auto text-center mb-10">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-base-content">Available Tuition Posts</h2>
           <p className="text-xs sm:text-sm text-neutral mt-2">
-            Browse all active tuition opportunities and <span className='block md:inline-block'>apply to the ones that match your expertise.</span>
+            Browse all active tuition opportunities and{' '}
+            <span className="block md:inline-block">apply to the ones that match your expertise.</span>
           </p>
         </div>
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 justify-center">
-          {allTuitions.map((tuition, i) => (
+          {tuitions.map((tuition, i) => (
             <div
               key={i}
               className="bg-base-100 rounded-2xl shadow-[0_18px_45px_rgba(15,26,51,0.08)]

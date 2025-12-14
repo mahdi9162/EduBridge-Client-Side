@@ -2,8 +2,38 @@ import React from 'react';
 import Container from '../../../components/Container/Container';
 import studentAvatarImg from '../../../assets/studentAvatar.webp';
 import { BsClipboard2CheckFill } from 'react-icons/bs';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../../hooks/useAuth';
+import { formatDate, formatTime } from '../../../utils/date';
 
 const ManageTuitions = () => {
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+
+  const { refetch, data: allTuitions = [] } = useQuery({
+    queryKey: ['allTuitions', user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/tuitions');
+      return res.data;
+    },
+  });
+
+  //   only get pending tuitions
+  const tuitions = allTuitions.filter((tuition) => tuition.postStatus === 'pending');
+
+  const handleApproveStatus = async (tuition) => {
+    const id = tuition._id;
+
+    try {
+      await axiosSecure.patch(`/tuitions-status/${id}`, { postStatus: 'approved' });
+      alert('post is approved!');
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <section className="my-10 bg-base-200/60 rounded-4xl px-4 sm:px-6 py-10">
@@ -46,7 +76,7 @@ const ManageTuitions = () => {
             </div>
           </div>
 
-          {/* Filters (optional but looks premium) */}
+          {/* Filters */}
           <div className="mt-10 max-w-5xl mx-auto">
             <div className="bg-base-100 border border-base-200 rounded-2xl px-4 sm:px-5 py-3 shadow-[0_12px_30px_rgba(15,26,51,0.06)] flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
               <label className="w-full md:max-w-sm">
@@ -92,61 +122,67 @@ const ManageTuitions = () => {
             </div>
           </div>
 
-          {/* ONE Card (template) */}
-          <div className="mt-10 max-w-5xl mx-auto">
-            <div className="bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-6 sm:p-7">
-              {/* Card Header */}
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-base-content">Math Tutor Needed</h3>
-
-                  {/* Tags */}
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Class-10</span>
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Commerce</span>
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Bhola</span>
-                  </div>
-                </div>
-
-                <span className="badge badge-soft badge-warning text-xs px-3 py-1">Pending</span>
-              </div>
-
-              <div className="mt-5 border-t border-base-200" />
-
-              {/* Card Meta */}
-              <div className="mt-5 flex flex-col sm:flex-row justify-between gap-2 text-sm text-neutral">
-                <p>
-                  <span className="font-semibold text-base-content">Budget:</span> 5000 ৳ / month
-                </p>
-                <p className="text-xs sm:text-sm text-neutral">Posted: 26 Dec, 2025 at 08:15 PM</p>
-              </div>
-
-              {/* Student mini block */}
-              <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <figure className="w-12 h-12 rounded-full overflow-hidden border border-base-300">
-                    <img src={studentAvatarImg} alt="Student" className="w-full h-full object-cover" />
-                  </figure>
-
+          {/* Cards */}
+          <div className="mt-10 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {tuitions.map((tuition, i) => (
+              <div key={i} className="bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-5 sm:p-7">
+                {/* Card Header */}
+                <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h4 className="font-semibold text-base-content leading-tight">Mahdi Hasan</h4>
-                    <p className="text-xs text-neutral mt-0.5">
-                      StudentId: <span className="font-mono">430987093468709386</span>
-                    </p>
+                    <h3 className="text-lg sm:text-xl font-semibold text-base-content line-clamp-1">{tuition.title}</h3>
+                  </div>
+
+                  <span className="badge badge-soft badge-warning text-xs px-3 py-1">{tuition.postStatus}</span>
+                </div>
+                {/* Tags */}
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.classLevel}</span>
+                  <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.subject}</span>
+                  <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.location}</span>
+                </div>
+
+                <div className="mt-5 border-t border-base-200" />
+
+                {/* Card Meta */}
+                <div className="mt-5 flex flex-col sm:flex-row justify-between gap-2 text-sm text-neutral">
+                  <p>
+                    <span className="font-semibold text-base-content">Budget:</span> {tuition.budget} ৳ / month
+                  </p>
+                  <p className="text-xs text-neutral">
+                    Posted: {formatDate(tuition.createdAt)} at {formatTime(tuition.createdAt)}
+                  </p>
+                </div>
+
+                {/* Student block (RESPONSIVE FIXED) */}
+                <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+                  {/* Student Info */}
+                  <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left mx-auto sm:mx-0">
+                    <figure className="w-12 h-12 rounded-full overflow-hidden border border-base-300">
+                      <img src={studentAvatarImg} alt="Student" className="w-full h-full object-cover" />
+                    </figure>
+
+                    <div>
+                      <h4 className="font-semibold text-base-content leading-tight">{tuition.name}</h4>
+                      <p className="text-xs text-neutral mt-0.5">
+                        StudentId: <span className="font-mono break-all">{tuition.studentId}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-wrap gap-2 justify-center sm:justify-end">
+                    <button onClick={() => handleApproveStatus(tuition)} className="btn btn-primary btn-sm rounded-full px-5">
+                      Approve
+                    </button>
+                    <button className="btn btn-ghost btn-sm rounded-full border border-error/30 text-error px-5">Reject</button>
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="flex flex-wrap gap-2 justify-start sm:justify-end">
-                  <button className="btn btn-primary btn-sm rounded-full px-5">Approve</button>
-                  <button className="btn btn-ghost btn-sm rounded-full border border-error/30 text-error px-5">Reject</button>
-                </div>
+                <p className="mt-3 text-[11px] text-neutral text-center sm:text-left">
+                  Approving makes this post visible to tutors. Reject if info is incomplete or violates policy.
+                </p>
               </div>
-
-              <p className="mt-3 text-[11px] text-neutral">
-                Approving makes this post visible to tutors. Reject if info is incomplete or violates policy.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>

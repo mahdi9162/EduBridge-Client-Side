@@ -26,7 +26,7 @@ const MyTuitions = () => {
   // Counts
   const totalPost = tuitions.length;
   const totalPending = tuitions.filter((t) => t.status === 'pending').length;
-  const totalMatched = tuitions.filter((t) => t.status === 'matched').length;
+  const totalMatched = tuitions.filter((t) => t.status === 'selected_pending_payment').length;
   const totalClosed = tuitions.filter((t) => t.status === 'closed').length;
 
   // Form update using modal
@@ -141,7 +141,12 @@ const MyTuitions = () => {
                 {/* Update Button */}
                 <button
                   onClick={() => handleUpdateForm(tuition)}
-                  className="px-3 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary-focus transition-all duration-200 w-full sm:w-auto cursor-pointer"
+                  disabled={tuition.status === 'selected_pending_payment'}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full sm:w-auto ${
+                    tuition.status === 'selected_pending_payment'
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-primary text-white hover:bg-primary-focus cursor-pointer'
+                  }`}
                 >
                   Update
                 </button>
@@ -149,7 +154,12 @@ const MyTuitions = () => {
                 {/* Delete Button */}
                 <button
                   onClick={() => handleDeleteForm(tuition)}
-                  className="px-3 py-2 rounded-lg bg-error text-white text-sm font-medium hover:bg-error-focus transition-all duration-200 w-full sm:w-auto cursor-pointer"
+                  disabled={tuition.status === 'selected_pending_payment'}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full sm:w-auto ${
+                    tuition.status === 'selected_pending_payment'
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-error text-white hover:bg-error-focus cursor-pointer'
+                  }`}
                 >
                   Delete
                 </button>

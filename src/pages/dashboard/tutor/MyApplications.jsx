@@ -148,6 +148,7 @@ const MyApplications = () => {
                       <span className="font-medium text-base-content/80">Applied On:</span> {formatDate(application.createdAt)} at{' '}
                       {formatTime(application.createdAt)}
                     </p>
+                    
 
                     <div className="flex flex-col sm:items-end gap-2">
                       <p className="text-[11px] sm:text-xs text-neutral">Waiting for student decision</p>
