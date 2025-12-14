@@ -1,11 +1,157 @@
 import React from 'react';
+import Container from '../../../components/Container/Container';
+import studentAvatarImg from '../../../assets/studentAvatar.webp';
+import { BsClipboard2CheckFill } from 'react-icons/bs';
 
 const ManageTuitions = () => {
-    return (
-        <div>
-            ManageTuitions
+  return (
+    <Container>
+      <section className="my-10 bg-base-200/60 rounded-4xl px-4 sm:px-6 py-10">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="bg-base-100 rounded-2xl shadow-[0_18px_45px_rgba(15,26,51,0.08)] border border-base-200 px-5 sm:px-8 py-4 sm:py-5 text-center w-full max-w-3xl mx-auto">
+            <div className="flex items-center justify-center gap-3">
+              <span className="w-10 h-10 rounded-full bg-accent/70 flex items-center justify-center text-secondary">
+                <BsClipboard2CheckFill />
+              </span>
+
+              <h3 className="text-xl sm:text-2xl font-semibold text-base-content">Tuition Management</h3>
+            </div>
+
+            <p className="mt-1 text-xs sm:text-sm text-neutral">
+              Review, approve or reject tuition posts before they become visible to tutors.
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="mt-8 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 max-w-4xl mx-auto">
+            <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
+              <p className="text-xs sm:text-sm text-neutral">Total Posts</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">125</p>
+            </div>
+
+            <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
+              <p className="text-xs sm:text-sm text-neutral">Pending Review</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">12</p>
+            </div>
+
+            <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
+              <p className="text-xs sm:text-sm text-neutral">Approved</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">88</p>
+            </div>
+
+            <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
+              <p className="text-xs sm:text-sm text-neutral">Rejected</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">25</p>
+            </div>
+          </div>
+
+          {/* Filters (optional but looks premium) */}
+          <div className="mt-10 max-w-5xl mx-auto">
+            <div className="bg-base-100 border border-base-200 rounded-2xl px-4 sm:px-5 py-3 shadow-[0_12px_30px_rgba(15,26,51,0.06)] flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+              <label className="w-full md:max-w-sm">
+                <div className="flex items-center gap-2 bg-base-200/60 border border-base-200 rounded-full px-4 py-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-neutral"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder="Search by title / location / student"
+                    className="w-full bg-transparent outline-none text-sm"
+                  />
+                </div>
+              </label>
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-end">
+                <select className="select select-sm rounded-full border-base-200 bg-base-100">
+                  <option>Status: All</option>
+                  <option>Pending</option>
+                  <option>Approved</option>
+                  <option>Rejected</option>
+                </select>
+
+                <select className="select select-sm rounded-full border-base-200 bg-base-100">
+                  <option>Sort: Newest first</option>
+                  <option>Oldest first</option>
+                </select>
+
+                <button className="btn btn-ghost btn-sm rounded-full border border-base-200">Clear</button>
+              </div>
+            </div>
+          </div>
+
+          {/* ONE Card (template) */}
+          <div className="mt-10 max-w-5xl mx-auto">
+            <div className="bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-6 sm:p-7">
+              {/* Card Header */}
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-base-content">Math Tutor Needed</h3>
+
+                  {/* Tags */}
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Class-10</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Commerce</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">Bhola</span>
+                  </div>
+                </div>
+
+                <span className="badge badge-soft badge-warning text-xs px-3 py-1">Pending</span>
+              </div>
+
+              <div className="mt-5 border-t border-base-200" />
+
+              {/* Card Meta */}
+              <div className="mt-5 flex flex-col sm:flex-row justify-between gap-2 text-sm text-neutral">
+                <p>
+                  <span className="font-semibold text-base-content">Budget:</span> 5000 ৳ / month
+                </p>
+                <p className="text-xs sm:text-sm text-neutral">Posted: 26 Dec, 2025 at 08:15 PM</p>
+              </div>
+
+              {/* Student mini block */}
+              <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <figure className="w-12 h-12 rounded-full overflow-hidden border border-base-300">
+                    <img src={studentAvatarImg} alt="Student" className="w-full h-full object-cover" />
+                  </figure>
+
+                  <div>
+                    <h4 className="font-semibold text-base-content leading-tight">Mahdi Hasan</h4>
+                    <p className="text-xs text-neutral mt-0.5">
+                      StudentId: <span className="font-mono">430987093468709386</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex flex-wrap gap-2 justify-start sm:justify-end">
+                  <button className="btn btn-primary btn-sm rounded-full px-5">Approve</button>
+                  <button className="btn btn-ghost btn-sm rounded-full border border-error/30 text-error px-5">Reject</button>
+                </div>
+              </div>
+
+              <p className="mt-3 text-[11px] text-neutral">
+                Approving makes this post visible to tutors. Reject if info is incomplete or violates policy.
+              </p>
+            </div>
+          </div>
         </div>
-    );
+      </section>
+    </Container>
+  );
 };
 
 export default ManageTuitions;

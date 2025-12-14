@@ -8,6 +8,7 @@ import { LuLogOut, LuSettings2 } from 'react-icons/lu';
 import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
 import useRole from '../hooks/useRole';
 import { FiFileText } from 'react-icons/fi';
+import { ImClipboard } from 'react-icons/im';
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -71,10 +72,10 @@ const DashboardLayout = () => {
               </li>
 
               {/* Our Dashboard List Start Here */}
-              {/* Student Lists */}
 
-              {/* My Tuitions */}
+              {/* Student Lists */}
               <div className={role !== 'student' ? 'hidden' : ''}>
+                {/* My Tuitions */}
                 <li>
                   <Link
                     to="/dashboard/my-tuitions"
@@ -137,6 +138,20 @@ const DashboardLayout = () => {
                   >
                     <FiFileText className="my-1.5 inline-block size-4" />
                     <span className="is-drawer-close:hidden">My Applications</span>
+                  </Link>
+                </li>
+              </div>
+              {/* Admin Lists */}
+              <div className={role !== 'admin' ? 'hidden' : ''}>
+                {/* My applications */}
+                <li>
+                  <Link
+                    to="/dashboard/manage-tuitions"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Tutions"
+                  >
+                    <ImClipboard className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Manage Tutions</span>
                   </Link>
                 </li>
               </div>
