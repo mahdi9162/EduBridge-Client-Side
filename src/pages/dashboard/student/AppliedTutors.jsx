@@ -160,8 +160,8 @@ const AppliedTutors = () => {
                           <h4 className="font-semibold text-base-content">{application.tutorName}</h4>
                           <p className="text-xs sm:text-sm text-neutral">Qualification: {application.qualification}</p>
                           <p className="my-2">
-                            <span className="font-semibold">Tutor Expected Salary:</span>{' '}
-                            <span className="font-semibold text-secondary">
+                            <span className="font-medium md:font-semibold text-xs md:text-base">Tutor Expected Salary:</span>{' '}
+                            <span className="font-medium md:font-semibold text-xs md:text-base text-secondary">
                               {application.expectedSalary ? (
                                 application.expectedSalary
                               ) : (
@@ -187,7 +187,12 @@ const AppliedTutors = () => {
                         <button className="btn btn-outline btn-sm rounded-full px-4">Tutor Details</button>
                       </div>
 
-                      <p className="mt-2 text-[11px] text-neutral text-center md:text-left">Selection becomes final after payment</p>
+                      <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-neutral">
+                        <p className="text-center md:text-left">Selection becomes final after payment</p>
+                        <p>
+                          Applied: {formatDate(application.createdAt)} at {formatTime(application.createdAt)}
+                        </p>
+                      </div>
                     </div>
                   ))}
               </div>

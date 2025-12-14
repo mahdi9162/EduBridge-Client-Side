@@ -22,12 +22,12 @@ const ManageTuitions = () => {
   //   only get pending tuitions
   const tuitions = allTuitions.filter((tuition) => tuition.postStatus === 'pending');
 
-  const handleApproveStatus = async (tuition) => {
+  const handleUpdateStatus = async (tuition, status) => {
     const id = tuition._id;
 
     try {
-      await axiosSecure.patch(`/tuitions-status/${id}`, { postStatus: 'approved' });
-      alert('post is approved!');
+      await axiosSecure.patch(`/tuitions-status/${id}`, { postStatus: `${status}` });
+      alert(`Post ${status} successfully`);
       refetch();
     } catch (error) {
       console.log(error);
@@ -171,10 +171,15 @@ const ManageTuitions = () => {
 
                   {/* Actions */}
                   <div className="flex flex-wrap gap-2 justify-center sm:justify-end">
-                    <button onClick={() => handleApproveStatus(tuition)} className="btn btn-primary btn-sm rounded-full px-5">
+                    <button onClick={() => handleUpdateStatus(tuition, 'approved')} className="btn btn-primary btn-sm rounded-full px-5">
                       Approve
                     </button>
-                    <button className="btn btn-ghost btn-sm rounded-full border border-error/30 text-error px-5">Reject</button>
+                    <button
+                      onClick={() => handleUpdateStatus(tuition, 'rejected')}
+                      className="btn btn-ghost btn-sm rounded-full border border-error/30 text-error px-5"
+                    >
+                      Reject
+                    </button>
                   </div>
                 </div>
 

@@ -9,6 +9,7 @@ import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
 import useRole from '../hooks/useRole';
 import { FiFileText } from 'react-icons/fi';
 import { ImClipboard } from 'react-icons/im';
+import { FaUsersCog } from 'react-icons/fa';
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -143,7 +144,18 @@ const DashboardLayout = () => {
               </div>
               {/* Admin Lists */}
               <div className={role !== 'admin' ? 'hidden' : ''}>
-                {/* My applications */}
+                {/* Manage Users */}
+                <li>
+                  <Link
+                    to="/dashboard/manage-users"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Users"
+                  >
+                    <FaUsersCog className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Manage Users</span>
+                  </Link>
+                </li>
+                {/* Manage Tutions */}
                 <li>
                   <Link
                     to="/dashboard/manage-tuitions"

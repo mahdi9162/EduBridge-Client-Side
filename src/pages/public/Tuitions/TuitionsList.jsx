@@ -69,7 +69,11 @@ const TuitionsList = () => {
                 </span>
               </div>
 
-              {/* Chips */}
+              <p className='text-sm my-2'>
+                <span className="font-semibold">Student Name:</span> <span>{tuition?.name}</span>
+              </p>
+
+              {/* stats */}
               <div className="flex flex-wrap gap-2 mt-3 text-[11px] sm:text-xs md:text-sm">
                 <span className="bg-neutral/10 text-base-content px-2.5 py-1 rounded-md">{tuition.classLevel}</span>
                 <span className="bg-neutral/10 text-base-content px-2.5 py-1 rounded-md">{tuition.subject}</span>
