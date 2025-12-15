@@ -26,6 +26,8 @@ import ManageUsers from '../pages/dashboard/admin/ManageUsers';
 import ReportsAnalytics from '../pages/dashboard/admin/ReportsAnalytics';
 import AdminProfileSetting from '../pages/dashboard/admin/AdminProfileSetting';
 import TuitionDetails from '../pages/public/Tuitions/TuitionDetails';
+import PaymentSuccess from '../pages/dashboard/paymentPages/paymentSuccess';
+import PaymentCancel from '../pages/dashboard/paymentPages/PaymentCancel.Jsx';
 
 export const router = createBrowserRouter([
   {
@@ -185,6 +187,14 @@ export const router = createBrowserRouter([
             <AdminProfileSetting></AdminProfileSetting>
           </AdminRoute>
         ),
+      },
+      {
+        path: 'payment-success',
+        Component: PaymentSuccess,
+      },
+      {
+        path: 'payment-cancelled',
+        Component: PaymentCancel,
       },
     ],
   },

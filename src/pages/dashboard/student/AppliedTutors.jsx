@@ -130,7 +130,7 @@ const AppliedTutors = () => {
             >
               {/* Tuition Header */}
               <div className="flex items-start justify-between gap-4">
-                <h3 className="text-lg sm:text-xl font-semibold text-base-content">{tuition.title}</h3>
+                <h3 className="font-semibold ">{tuition.title}</h3>
                 <span className="badge badge-soft badge-warning text-xs px-3 py-1">{tuition.status}</span>
               </div>
 
