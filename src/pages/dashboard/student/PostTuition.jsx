@@ -4,10 +4,12 @@ import axios from 'axios';
 import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
 
 const PostTuition = () => {
   const [districts, setDistricts] = useState([]);
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   useEffect(() => {
@@ -28,7 +30,11 @@ const PostTuition = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: user?.email || '',
+    },
+  });
 
   const handleTuitionForm = (data) => {
     try {
@@ -62,7 +68,7 @@ const PostTuition = () => {
             <form onSubmit={handleSubmit(handleTuitionForm)} className="space-y-6">
               {/* Student Name */}
               <div className="space-y-2">
-                <legend className="text-xs sm:text-sm font-medium text-base-content">Student Name</legend>
+                <legend className="text-sm font-medium ">Student Name</legend>
                 <input
                   type="text"
                   name="name"
@@ -72,9 +78,22 @@ const PostTuition = () => {
                 />
                 {errors.name && <p className="text-left sm:text-xs text-red-400/80">{errors.name.message}</p>}
               </div>
+              {/* Student Email */}
+              <div className="space-y-2">
+                <legend className="text-sm font-medium ">Student Email</legend>
+                <input
+                  type="email"
+                  name="email"
+                  {...register('email')}
+                  readOnly
+                  placeholder="Enter student email."
+                  className="input input-bordered w-full h-11 sm:h-12 text-sm placeholder:text-[11px] sm:placeholder:text-xs lg:placeholder:text-sm"
+                />
+                {errors.email && <p className="text-left text-xs text-red-400/80">{errors.email.message}</p>}
+              </div>
               {/* Title */}
               <div className="space-y-2">
-                <legend className="text-xs sm:text-sm font-medium text-base-content">Title / Subject</legend>
+                <legend className="text-sm font-medium ">Title / Subject</legend>
                 <input
                   type="text"
                   name="title"
@@ -83,9 +102,9 @@ const PostTuition = () => {
                   className="input input-bordered w-full h-11 sm:h-12 text-sm placeholder:text-[11px] sm:placeholder:text-xs lg:placeholder:text-sm"
                 />
                 {errors.title ? (
-                  <p className="text-left sm:text-xs text-red-400/80">{errors.title.message}</p>
+                  <p className="text-left text-xs text-red-400/80">{errors.title.message}</p>
                 ) : (
-                  <p className="text-[11px] sm:text-xs text-neutral">Write a short, clear title so tutors understand what you need.</p>
+                  <p className="text-[11px] text-neutral">Write a short, clear title so tutors understand what you need.</p>
                 )}
               </div>
 
@@ -93,7 +112,7 @@ const PostTuition = () => {
               {/* Class */}
               <div className="grid gap-5 md:grid-cols-2">
                 <div className="space-y-2">
-                  <legend className="text-xs sm:text-sm font-medium text-base-content">Class</legend>
+                  <legend className="text-sm font-medium ">Class</legend>
                   <select
                     name="classLevel"
                     {...register('classLevel', { required: true })}
@@ -108,7 +127,7 @@ const PostTuition = () => {
                 </div>
                 {/* Subject */}
                 <div className="space-y-2">
-                  <legend className="text-xs sm:text-sm font-medium text-base-content">Subject</legend>
+                  <legend className="text-sm font-medium ">Subject</legend>
                   <select
                     name="subject"
                     {...register('subject', { required: true })}
@@ -127,7 +146,7 @@ const PostTuition = () => {
               {/* Location */}
               <div className="grid gap-5 md:grid-cols-2">
                 <div className="space-y-2">
-                  <legend className="text-xs sm:text-sm font-medium text-base-content">Location</legend>
+                  <legend className="text-sm font-medium ">Location</legend>
                   <select
                     name="location"
                     {...register('location', { required: true })}
@@ -142,7 +161,7 @@ const PostTuition = () => {
                 </div>
                 {/* Budget */}
                 <div className="space-y-2">
-                  <legend className="text-xs sm:text-sm font-medium text-base-content">
+                  <legend className="text-sm font-medium">
                     Budget <span className="font-normal text-[11px] sm:text-xs">(per month)</span>
                   </legend>
                   <input
@@ -160,12 +179,12 @@ const PostTuition = () => {
               <div className="pt-4 mt-2 border-t border-base-300/70">
                 <div className="flex flex-col sm:flex-row justify-end gap-3">
                   <CommonButton className="btn btn-primary min-w-[130px] h-11 sm:h-10 normal-case text-sm">Post Tuition</CommonButton>
-                  <button
-                    type="button"
+                  <Link
+                    to="/"
                     className="btn btn-ghost border border-base-300/80 bg-base-100 hover:bg-base-200 min-w-[110px] h-11 sm:h-10 normal-case text-sm text-base-content"
                   >
                     Cancel
-                  </button>
+                  </Link>
                 </div>
               </div>
             </form>

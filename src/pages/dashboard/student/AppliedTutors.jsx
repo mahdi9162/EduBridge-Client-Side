@@ -50,18 +50,24 @@ const AppliedTutors = () => {
     }
   };
 
-  const handleSelectBtn = async (application) => {
-    const id = application._id;
+  const handlePaymentBtn = async (application, tuition) => {
+    const expectedSalary = Number(application.expectedSalary);
+    const studentBudget = Number(tuition.budget);
 
-    try {
-      await axiosSecure.patch(`/select-applications/${id}`);
+    const paymentInfo = {
+      tuitionTitle: tuition.title,
+      studentEmail: tuition.email,
+      amount: expectedSalary ? expectedSalary : studentBudget,
+      tuitionId: tuition._id,
+      applicationId: tuition.selectedApplicationId,
+      tutorId: tuition.selectedTutorId,
+      studentId: tuition.studentId,
+      createdAt: new Date(),
+    };
 
-      alert('You selected this application successfully!');
-
-      refetch();
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
+    // eslint-disable-next-line react-hooks/immutability
+    window.location.href = res.data.url;
   };
 
   //  pending applications tuitionId
@@ -175,7 +181,7 @@ const AppliedTutors = () => {
                       </div>
 
                       <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-                        <button onClick={() => handleSelectBtn(application)} className="btn btn-primary btn-sm rounded-full px-4">
+                        <button onClick={() => handlePaymentBtn(application, tuition)} className="btn btn-primary btn-sm rounded-full px-4">
                           Select
                         </button>
                         <button
