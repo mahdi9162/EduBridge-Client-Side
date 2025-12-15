@@ -7,6 +7,9 @@ import TutorDetailsModal from './TutorDetailsModal';
 
 const TutorsList = () => {
   const [selectedTutor, setSelectedTutor] = useState(null);
+  const [searchValue, setSearchValue] = useState('');
+  console.log(searchValue);
+
   const tutorDetailsRef = useRef();
   const axios = axiosInstance;
 
@@ -22,6 +25,8 @@ const TutorsList = () => {
     setSelectedTutor(tutor);
     tutorDetailsRef.current.showModal();
   };
+
+  const filteredTutors = (tutors || []).filter((tutor) => (tutor?.subject || '').toLowerCase().includes(searchValue.toLowerCase()));
 
   return (
     <Container>
@@ -39,7 +44,12 @@ const TutorsList = () => {
               <div className="flex gap-2 w-full sm:w-auto">
                 <label className="input input-bordered flex items-center gap-2 bg-base-100 border-base-300 w-full sm:w-70">
                   <IoIosSearch className="h-4 w-4 opacity-60" />
-                  <input type="text" className="grow text-sm" placeholder="Search by subject" />
+                  <input
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    type="text"
+                    className="grow text-sm"
+                    placeholder="Search by Subject"
+                  />
                 </label>
               </div>
             </div>
@@ -56,8 +66,10 @@ const TutorsList = () => {
               <div className="col-span-1 text-right">Action</div>
             </div>
 
-            {/* Row  */}
-            {tutors?.map((tutor, i) => (
+            {/* row  */}
+            {filteredTutors.length === 0 && <div className="p-6 text-center text-neutral">No tutors found for “{searchValue}”</div>}
+
+            {filteredTutors?.map((tutor, i) => (
               <div key={i} className="border-b border-base-300/70">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-0 px-4 sm:px-5 py-4">
                   {/* Tutor */}
@@ -69,12 +81,7 @@ const TutorsList = () => {
                     </div>
 
                     <div className="min-w-0">
-                      <p className="font-semibold text-base-content truncate">{tutor.name}</p>
-                      <p className="text-xs text-neutral truncate">{tutor.email}</p>
-
-                      <div className="mt-2">
-                        <span className="badge bg-secondary text-secondary-content border-none">{tutor.userType}</span>
-                      </div>
+                      <p className="font-semibold text-base-content">{tutor.name}</p>
                     </div>
                   </div>
 

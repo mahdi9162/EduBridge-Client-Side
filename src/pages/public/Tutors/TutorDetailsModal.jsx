@@ -1,5 +1,6 @@
 import React from 'react';
 import { formatDate } from '../../../utils/date';
+import userProfileImg from '../../../assets/userProfile.png';
 
 const TutorDetailsModal = ({ selectedTutor, onClose }) => {
   const t = selectedTutor;
@@ -10,9 +11,14 @@ const TutorDetailsModal = ({ selectedTutor, onClose }) => {
       {/* Header */}
       <div className="px-6 sm:px-8 py-5 bg-base-200 border-b border-base-300">
         <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-md sm:text-xl font-semibold text-base-content">{t?.name ? `${t.name}'s Profile` : 'Tutor Profile'}</h3>
-            <p className="text-xs sm:text-sm text-neutral mt-1">Tutor details overview</p>
+          <div className="flex gap-5">
+            <figure className="w-16">
+              <img src={userProfileImg} alt="User Avater" />
+            </figure>
+            <div className="mt-2">
+              <h3 className="text-lg sm:text-xl font-bold text-base-content">{t?.name ? `${t.name}'s Profile` : 'User Profile'}</h3>
+              <p className="text-xs sm:text-sm text-neutral mt-1">Tutor details overview</p>
+            </div>
           </div>
 
           <span className="badge bg-secondary text-secondary-content border-none capitalize">{t?.userType || 'teacher'}</span>
