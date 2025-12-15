@@ -50,8 +50,11 @@ const MyApplications = () => {
 
   // Counts
   const totalApply = applications.length;
-  const totalPending = applications.filter((p) => p.applyStatus === 'pending').length;
-  const totalAccpeted = applications.filter((p) => p.applyStatus === 'accepted').length;
+  const totalPending = applications.filter((app) => app.applyStatus === 'pending').length;
+  const totalAccpeted = applications.filter((app) => app.applyStatus === 'selected').length;
+
+  // only get pending applications here
+  const pendingApplications = applications.filter((app) => app.applyStatus === 'pending');
 
   return (
     <Container>
@@ -93,7 +96,7 @@ const MyApplications = () => {
 
           {/* Card  */}
           <div className="mt-4 sm:mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {applications.map((application, i) => {
+            {pendingApplications.map((application, i) => {
               const tuition = tuitionById[application.tuitionId];
               return (
                 <div
@@ -144,11 +147,15 @@ const MyApplications = () => {
 
                   {/* Bottom row */}
                   <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-base-200 pt-4">
-                    <p className="text-xs sm:text-sm text-neutral">
-                      <span className="font-medium text-base-content/80">Applied On:</span> {formatDate(application.createdAt)} at{' '}
-                      {formatTime(application.createdAt)}
-                    </p>
-                    
+                    <div>
+                      <p className="text-xs text-neutral mb-1">
+                        <span className="font-medium text-black">Applied On:</span> {formatDate(application.createdAt)} at{' '}
+                        {formatTime(application.createdAt)}
+                      </p>
+                      <p className={tuition.paidAt ? 'text-secondary text-xs' : 'text-xs sm:text-sm text-neutral'}>
+                        <span className="text-black font-medium">Matched:</span> {tuition.paidAt ? formatDate(tuition.paidAt) : 'pending'}
+                      </p>
+                    </div>
 
                     <div className="flex flex-col sm:items-end gap-2">
                       <p className="text-[11px] sm:text-xs text-neutral">Waiting for student decision</p>

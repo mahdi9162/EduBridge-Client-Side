@@ -53,15 +53,15 @@ const Login = () => {
       <section className="mt-4 md:mt-8 mb-10 py-8 lg:py-16">
         <div className="flex justify-center flex-col items-center mb-6">
           {/* Round badge */}
-          <div className="w-10 h-10 rounded-full bg-gray-200 mb-2" />
-          <h3 className="text-3xl font-semibold text-[#27364B] tracking-tight">Login</h3>
+          <div className="w-10 h-10 rounded-full bg-gray-200 mb-2 ml-3" />
+          <h3 className="text-3xl font-semibold text-[#27364B] ml-4 tracking-tight">Login</h3>
         </div>
 
         {/* Flex Container */}
         <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-12 lg:gap-20">
           {/* left side */}
           <div className="mt-8 lg:mt-14">
-            <div className="w-[320px]">
+            <div className="w-[300px] md:w-[320px]">
               <form onSubmit={handleSubmit(handleUserSignin)}>
                 {/* Email */}
                 <legend className="text-left mb-3 opacity-50 text-sm">Email</legend>
@@ -101,7 +101,7 @@ const Login = () => {
           </div>
 
           {/* Divider */}
-          <div className="divider text-neutral my-8 md:my-0 md:mx-8 lg:divider-horizontal lg:h-[350px] lg:mr-8">OR</div>
+          <div className="divider text-neutral my-8 md:my-0 md:mx-8 lg:divider-horizontal lg:h-[350px]">OR</div>
 
           {/* right side */}
           <div className="flex flex-col lg:mt-20 gap-4 items-center md:items-start">
@@ -111,7 +111,7 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center mt-6">
+        <div className="flex flex-col justify-center items-center mt-6 ml-5">
           <Link className="text-sm font-medium text-primary/80 hover:text-primary underline mb-4">Forgot Password?</Link>
           <p className="text-xs text-neutral leading-relaxed text-center">
             Secure Login with reCAPTCHA subject to{' '}

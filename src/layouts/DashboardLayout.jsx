@@ -9,7 +9,7 @@ import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
 import useRole from '../hooks/useRole';
 import { FiFileText } from 'react-icons/fi';
 import { ImClipboard } from 'react-icons/im';
-import { FaUsersCog } from 'react-icons/fa';
+import { FaChalkboardTeacher, FaUsersCog } from 'react-icons/fa';
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -139,6 +139,17 @@ const DashboardLayout = () => {
                   >
                     <FiFileText className="my-1.5 inline-block size-4" />
                     <span className="is-drawer-close:hidden">My Applications</span>
+                  </Link>
+                </li>
+                {/* Ongoing Tuitions */}
+                <li>
+                  <Link
+                    to="/dashboard/ongoing-tuitions"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Ongoing Tuitions"
+                  >
+                    <FaChalkboardTeacher className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Ongoing Tuitions</span>
                   </Link>
                 </li>
               </div>

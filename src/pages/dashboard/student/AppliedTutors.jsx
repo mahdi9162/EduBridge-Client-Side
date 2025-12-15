@@ -57,6 +57,7 @@ const AppliedTutors = () => {
     const paymentInfo = {
       tuitionTitle: tuition.title,
       studentEmail: tuition.email,
+      studentName: tuition.name,
       amount: expectedSalary ? expectedSalary : studentBudget,
       tuitionId: tuition._id,
       applicationId: application._id,

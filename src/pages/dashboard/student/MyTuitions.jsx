@@ -133,36 +133,56 @@ const MyTuitions = () => {
                   <p>
                     Posted: {formatDate(tuition.createdAt)} at {formatTime(tuition.createdAt)}
                   </p>
-                  <p>Matched: Dec 16, 2025</p>
+                  <p className={tuition.paidAt ? 'text-secondary' : ''}>
+                    Matched: {tuition.paidAt ? formatDate(tuition.paidAt) : 'pending'}
+                  </p>
                 </div>
               </div>
               {/* Action Buttons */}
-              <div className="mt-4 flex flex-col sm:flex-row justify-end gap-3">
-                {/* Update Button */}
-                <button
-                  onClick={() => handleUpdateForm(tuition)}
-                  disabled={tuition.status === 'selected_pending_payment'}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full sm:w-auto ${
-                    tuition.status === 'selected_pending_payment'
-                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      : 'bg-primary text-white hover:bg-primary-focus cursor-pointer'
-                  }`}
+              <div
+                className={
+                  tuition.postStatus === 'pending'
+                    ? 'justify-between mt-4 flex flex-col sm:flex-row gap-3'
+                    : 'justify-end mt-4 flex flex-col sm:flex-row  gap-3'
+                }
+              >
+                <div
+                  className={
+                    tuition.postStatus === 'pending'
+                      ? 'inline-block text-[10px] md:text-xs text-center md:text-left text-neutral'
+                      : 'hidden'
+                  }
                 >
-                  Update
-                </button>
+                  <p>Your tuition post is currently under review.</p>
+                  <p>Please wait for admin approval.</p>
+                </div>
+                <div className="flex gap-5">
+                  {/* Update Button */}
+                  <button
+                    onClick={() => handleUpdateForm(tuition)}
+                    disabled={tuition.status === 'selected'}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full sm:w-auto ${
+                      tuition.status === 'selected'
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-primary text-white hover:bg-primary-focus cursor-pointer'
+                    }`}
+                  >
+                    Update
+                  </button>
 
-                {/* Delete Button */}
-                <button
-                  onClick={() => handleDeleteForm(tuition)}
-                  disabled={tuition.status === 'selected_pending_payment'}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full sm:w-auto ${
-                    tuition.status === 'selected_pending_payment'
-                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      : 'bg-error text-white hover:bg-error-focus cursor-pointer'
-                  }`}
-                >
-                  Delete
-                </button>
+                  {/* Delete Button */}
+                  <button
+                    onClick={() => handleDeleteForm(tuition)}
+                    disabled={tuition.status === 'selected'}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full sm:w-auto ${
+                      tuition.status === 'selected'
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-error text-white hover:bg-error-focus cursor-pointer'
+                    }`}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>

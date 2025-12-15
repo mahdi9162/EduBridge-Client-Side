@@ -20,7 +20,11 @@ const ManageTuitions = () => {
   });
 
   //   only get pending tuitions
-  const tuitions = allTuitions.filter((tuition) => tuition.postStatus === 'pending');
+  const pendingTuitions = allTuitions.filter((tuition) => tuition.postStatus === 'pending');
+  // only get approved tuitions
+  const approvedTuitions = allTuitions.filter((tuition) => tuition.postStatus === 'approved');
+  // only get rejected tuitions
+  const rejectedTuitions = allTuitions.filter((tuition) => tuition.postStatus === 'rejected');
 
   const handleUpdateStatus = async (tuition, status) => {
     const id = tuition._id;
@@ -57,22 +61,30 @@ const ManageTuitions = () => {
           <div className="mt-8 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 max-w-4xl mx-auto">
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Total Posts</p>
-              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">125</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">
+                {allTuitions.length}
+              </p>
             </div>
 
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Pending Review</p>
-              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">12</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">
+                {pendingTuitions.length}
+              </p>
             </div>
 
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Approved</p>
-              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">88</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">
+                {approvedTuitions.length}
+              </p>
             </div>
 
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Rejected</p>
-              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">25</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">
+                {rejectedTuitions.length}
+              </p>
             </div>
           </div>
 
@@ -124,7 +136,7 @@ const ManageTuitions = () => {
 
           {/* Cards */}
           <div className="mt-10 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5">
-            {tuitions.map((tuition, i) => (
+            {pendingTuitions.map((tuition, i) => (
               <div key={i} className="bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-5 sm:p-7">
                 {/* Card Header */}
                 <div className="flex items-start justify-between gap-4">
@@ -164,7 +176,7 @@ const ManageTuitions = () => {
                     <div>
                       <h4 className="font-semibold text-base-content leading-tight">{tuition.name}</h4>
                       <p className="text-xs text-neutral mt-0.5">
-                        StudentId: <span className="font-mono break-all">{tuition.studentId}</span>
+                        Email: <span className="font-mono break-all">{tuition.email}</span>
                       </p>
                     </div>
                   </div>
