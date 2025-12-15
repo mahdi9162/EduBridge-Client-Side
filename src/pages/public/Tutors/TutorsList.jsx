@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Container from '../../../components/Container/Container';
 import { IoIosSearch } from 'react-icons/io';
 import axiosInstance from '../../../services/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
+import TutorDetailsModal from './TutorDetailsModal';
 
 const TutorsList = () => {
+  const [selectedTutor, setSelectedTutor] = useState(null);
+  const tutorDetailsRef = useRef();
   const axios = axiosInstance;
 
   const { data: tutors } = useQuery({
@@ -15,7 +18,10 @@ const TutorsList = () => {
     },
   });
 
-  console.log(tutors);
+  const openTutorDetailsModal = (tutor) => {
+    setSelectedTutor(tutor);
+    tutorDetailsRef.current.showModal();
+  };
 
   return (
     <Container>
@@ -51,7 +57,7 @@ const TutorsList = () => {
             </div>
 
             {/* Row  */}
-            {tutors.map((tutor, i) => (
+            {tutors?.map((tutor, i) => (
               <div key={i} className="border-b border-base-300/70">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-0 px-4 sm:px-5 py-4">
                   {/* Tutor */}
@@ -98,7 +104,10 @@ const TutorsList = () => {
 
                   {/* Action */}
                   <div className="lg:col-span-1 lg:flex lg:items-center md:mx-auto lg:justify-end">
-                    <button className="btn btn-sm w-full md:w-50 lg:w-auto bg-primary text-primary-content hover:bg-secondary border-none rounded-full px-5">
+                    <button
+                      onClick={() => openTutorDetailsModal(tutor)}
+                      className="btn btn-sm w-full md:w-50 lg:w-auto bg-primary text-primary-content hover:bg-secondary border-none rounded-full px-5"
+                    >
                       View Profile
                     </button>
                   </div>
@@ -112,6 +121,18 @@ const TutorsList = () => {
             </div>
           </div>
         </div>
+        {/* Modal */}
+        <dialog ref={tutorDetailsRef} className="modal modal-bottom sm:modal-middle">
+          {selectedTutor && (
+            <TutorDetailsModal
+              selectedTutor={selectedTutor}
+              onClose={() => {
+                tutorDetailsRef.current.close();
+                setSelectedTutor(null);
+              }}
+            />
+          )}
+        </dialog>
       </section>
     </Container>
   );
