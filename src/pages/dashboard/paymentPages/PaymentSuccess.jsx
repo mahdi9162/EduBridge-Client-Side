@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Lottie from 'lottie-react';
 import successLottie from '../../../assets/Payment Successful Animation.json';
 import { FaCheckCircle } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const PaymentSuccess = () => {
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get('session_id');
+
+  const axiosSecure = useAxiosSecure();
+
+  useEffect(() => {
+    if (!sessionId) return;
+
+    const confirmPayment = async () => {
+      try {
+        await axiosSecure.patch(`/payment-success?session_id=${sessionId}`);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    confirmPayment();
+  }, [sessionId, axiosSecure]);
+
   return (
     <div className="min-h-[calc(100vh-64px)] bg-[#E8EEF8] flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-3xl">

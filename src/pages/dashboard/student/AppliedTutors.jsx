@@ -59,15 +59,14 @@ const AppliedTutors = () => {
       studentEmail: tuition.email,
       amount: expectedSalary ? expectedSalary : studentBudget,
       tuitionId: tuition._id,
-      applicationId: tuition.selectedApplicationId,
+      applicationId: application._id,
       tutorId: tuition.selectedTutorId,
       studentId: tuition.studentId,
       createdAt: new Date(),
     };
 
     const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
-    // eslint-disable-next-line react-hooks/immutability
-    window.location.href = res.data.url;
+    window.location.assign(res.data.url);
   };
 
   //  pending applications tuitionId
