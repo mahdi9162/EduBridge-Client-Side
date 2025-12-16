@@ -9,7 +9,7 @@ import SignOutButton from '../components/Buttons/SignOutButton/SignOutButton';
 import useRole from '../hooks/useRole';
 import { FiFileText } from 'react-icons/fi';
 import { ImClipboard } from 'react-icons/im';
-import { FaChalkboardTeacher, FaChartLine, FaUsersCog } from 'react-icons/fa';
+import { FaChalkboardTeacher, FaChartBar, FaChartLine, FaUsersCog } from 'react-icons/fa';
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useRole();
@@ -154,6 +154,17 @@ const DashboardLayout = () => {
                   >
                     <FaChalkboardTeacher className="my-1.5 inline-block size-4" />
                     <span className="is-drawer-close:hidden">Ongoing Tuitions</span>
+                  </Link>
+                </li>
+                {/* Revenue History */}
+                <li>
+                  <Link
+                    to="/dashboard/revenue-history"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Revenue History"
+                  >
+                    <FaChartBar className="my-1.5 inline-block size-4" />
+                    <span className="is-drawer-close:hidden">Revenue History</span>
                   </Link>
                 </li>
               </div>
