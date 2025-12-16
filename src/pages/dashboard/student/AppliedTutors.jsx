@@ -61,7 +61,7 @@ const AppliedTutors = () => {
       amount: expectedSalary ? expectedSalary : studentBudget,
       tuitionId: tuition._id,
       applicationId: application._id,
-      tutorId: tuition.selectedTutorId,
+      tutorId: application.tutorId,
       studentId: tuition.studentId,
       createdAt: new Date(),
     };

@@ -111,9 +111,13 @@ const DashboardLayout = () => {
                 </li>
                 {/* Payments */}
                 <li>
-                  <Link to="/dashboard/payments" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments">
+                  <Link
+                    to="/dashboard/payments-history"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Payments History"
+                  >
                     <HiOutlineCreditCard className="my-1.5 inline-block size-4" />
-                    <span className="is-drawer-close:hidden">Payments</span>
+                    <span className="is-drawer-close:hidden">Payments History</span>
                   </Link>
                 </li>
                 {/* Profile Setting */}

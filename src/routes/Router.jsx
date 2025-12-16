@@ -13,7 +13,6 @@ import MyTuitions from '../pages/dashboard/student/MyTuitions';
 import StudentRoute from './StudentRoute';
 import PostTuition from '../pages/dashboard/student/PostTuition';
 import AppliedTutors from '../pages/dashboard/student/AppliedTutors';
-import Payments from '../pages/dashboard/student/Payments';
 import StudentProfileSettings from '../pages/dashboard/student/StudentProfileSettings';
 import TutorRoute from './TutorRoute';
 import MyApplications from '../pages/dashboard/tutor/MyApplications';
@@ -28,6 +27,7 @@ import AdminProfileSetting from '../pages/dashboard/admin/AdminProfileSetting';
 import TuitionDetails from '../pages/public/Tuitions/TuitionDetails';
 import PaymentSuccess from '../pages/dashboard/paymentPages/paymentSuccess';
 import PaymentCancel from '../pages/dashboard/paymentPages/PaymentCancel.Jsx';
+import PaymentsHistory from '../pages/dashboard/student/PaymentsHistory';
 
 export const router = createBrowserRouter([
   {
@@ -107,10 +107,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'payments',
+        path: 'payments-history',
         element: (
           <StudentRoute>
-            <Payments></Payments>
+            <PaymentsHistory></PaymentsHistory>
           </StudentRoute>
         ),
       },
