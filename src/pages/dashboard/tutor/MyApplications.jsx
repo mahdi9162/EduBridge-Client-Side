@@ -52,6 +52,7 @@ const MyApplications = () => {
   const totalApply = applications.length;
   const totalPending = applications.filter((app) => app.applyStatus === 'pending').length;
   const totalAccpeted = applications.filter((app) => app.applyStatus === 'selected').length;
+  const totalRejected = applications.filter((app) => app.applyStatus === 'rejected').length;
 
   // only get pending applications here
   const pendingApplications = applications.filter((app) => app.applyStatus === 'pending');
@@ -72,7 +73,7 @@ const MyApplications = () => {
           </div>
 
           {/* Stats */}
-          <div className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 max-w-3xl mx-auto">
+          <div className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5 max-w-3xl mx-auto">
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Total Applied</p>
               <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">{totalApply}</p>
@@ -86,6 +87,11 @@ const MyApplications = () => {
             <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
               <p className="text-xs sm:text-sm text-neutral">Accepted</p>
               <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">{totalAccpeted}</p>
+            </div>
+
+            <div className="bg-base-100 border border-base-200 rounded-2xl p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(15,26,51,0.06)]">
+              <p className="text-xs sm:text-sm text-neutral">Rejected</p>
+              <p className="mt-1 text-2xl sm:text-3xl font-semibold text-base-content underline decoration-secondary/40">{totalRejected}</p>
             </div>
           </div>
 

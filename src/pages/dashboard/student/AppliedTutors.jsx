@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Container from '../../../components/Container/Container';
 import { HiUserGroup } from 'react-icons/hi';
 import avatarImg from '../../../assets/avatar.png';
@@ -6,10 +6,13 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
+import ModalTutorDetails from './ModalTutorDetails';
 
 const AppliedTutors = () => {
+  const [tutorDetails, setTutorDetails] = useState(null);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const tutorDetailsRef = useRef();
 
   const { data: tuitions = [] } = useQuery({
     queryKey: ['myTuitions', user?.email],
@@ -61,7 +64,7 @@ const AppliedTutors = () => {
       amount: expectedSalary ? expectedSalary : studentBudget,
       tuitionId: tuition._id,
       applicationId: application._id,
-      tutorId: application.tutorId,
+      tutorId: tuition.selectedTutorId,
       studentId: tuition.studentId,
       createdAt: new Date(),
     };
@@ -77,6 +80,11 @@ const AppliedTutors = () => {
 
   // only pending application
   const appliedTuitions = tuitions.filter((tuition) => tuitionIds.includes(tuition._id));
+
+  const openTutorDetailsModal = (application) => {
+    setTutorDetails(application);
+    tutorDetailsRef.current.showModal();
+  };
 
   return (
     <Container>
@@ -144,7 +152,7 @@ const AppliedTutors = () => {
               <div className="mt-4 border-t border-base-200" />
 
               {/* Tuition Meta */}
-              <div className="mt-4 flex flex-col sm:flex-row justify-between gap-2 text-sm text-neutral">
+              <div className="mt-4 flex flex-col sm:flex-row justify-between gap-2 text-xs md:text-sm text-neutral">
                 <p>
                   <span className="font-semibold text-base-content">Budget:</span> {tuition.budget} ৳ / month
                 </p>
@@ -181,16 +189,18 @@ const AppliedTutors = () => {
                       </div>
 
                       <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-                        <button onClick={() => handlePaymentBtn(application, tuition)} className="btn btn-primary btn-sm rounded-full px-4">
+                        <button onClick={() => handlePaymentBtn(application, tuition)} className="btn btn-primary hover:btn-secondary btn-sm rounded-full px-4">
                           Select
                         </button>
                         <button
                           onClick={() => handleRejectBtn(application)}
-                          className="btn btn-ghost btn-sm rounded-full border border-base-300 px-4"
+                          className="btn btn-ghost hover:btn-warning hover:text-white btn-sm rounded-full border border-base-300 px-4"
                         >
                           Reject
                         </button>
-                        <button className="btn btn-outline btn-sm rounded-full px-4">Tutor Details</button>
+                        <button onClick={() => openTutorDetailsModal(application)} className="btn btn-outline btn-sm rounded-full px-4">
+                          Tutor Details
+                        </button>
                       </div>
 
                       <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-neutral">
@@ -205,6 +215,18 @@ const AppliedTutors = () => {
             </div>
           ))}
         </div>
+        {/* Modal */}
+        <dialog ref={tutorDetailsRef} className="modal modal-bottom sm:modal-middle">
+          {tutorDetails && (
+            <ModalTutorDetails
+              tutorDetails={tutorDetails}
+              onClose={() => {
+                tutorDetailsRef.current.close();
+                setTutorDetails(null);
+              }}
+            />
+          )}
+        </dialog>
       </section>
     </Container>
   );

@@ -26,7 +26,7 @@ const MyTuitions = () => {
   // Counts
   const totalPost = tuitions.length;
   const totalPending = tuitions.filter((t) => t.status === 'pending').length;
-  const totalMatched = tuitions.filter((t) => t.status === 'selected_pending_payment').length;
+  const totalMatched = tuitions.filter((t) => t.status === 'selected').length;
   const totalClosed = tuitions.filter((t) => t.status === 'closed').length;
 
   // Form update using modal
@@ -102,7 +102,15 @@ const MyTuitions = () => {
               {/* Title + status */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <h3 className="text-lg sm:text-xl font-semibold text-base-content">{tuition.title}</h3>
-                <div className="badge badge-soft badge-warning text-[11px] sm:text-xs px-3 py-2">{tuition.status}</div>
+                <div
+                  className={
+                    tuition.status === 'selected'
+                      ? 'badge bg-secondary text-white font-medium text-[11px] sm:text-xs px-3 py-2'
+                      : 'badge badge-soft badge-warning text-[11px] sm:text-xs px-3 py-2'
+                  }
+                >
+                  {tuition.status === 'selected' ? 'Ongoing' : tuition.status.charAt(0).toUpperCase() + tuition.status.slice(1)}
+                </div>
               </div>
               {/* Student Name */}
               <div className="mt-1 flex items-center gap-1.5 text-[12px] sm:text-sm leading-tight">
