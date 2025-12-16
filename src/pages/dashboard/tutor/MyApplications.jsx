@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Container from '../../../components/Container/Container';
 import { HiClipboardList } from 'react-icons/hi';
 import { useQuery } from '@tanstack/react-query';
@@ -8,12 +8,22 @@ import { formatDate, formatTime } from '../../../utils/date';
 import { Link } from 'react-router';
 import Loading from '../../../components/Loading/Loading';
 
+// NEW: modal components (same pattern as ManageUsers)
+import UpdateApplicationModal from './UpdateApplicationModal';
+
 const MyApplications = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+
+  // ManageUsers style: selected + refs
+  const [selectedApplication, setSelectedApplication] = useState(null);
+  const updateApplicationRef = useRef();
+  const deleteApplicationRef = useRef();
+
   // application fetch
   const { data: applications = [], isLoading: isApplicationLoading } = useQuery({
     queryKey: ['applications', user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get('/applications');
       return res.data;
@@ -34,13 +44,12 @@ const MyApplications = () => {
         })
       );
 
-      const tuitionById = {};
-
+      const map = {};
       tuitions.forEach((tuition) => {
-        tuitionById[tuition._id] = tuition;
+        map[tuition._id] = tuition;
       });
 
-      return tuitionById;
+      return map;
     },
   });
 
@@ -56,6 +65,17 @@ const MyApplications = () => {
 
   // only get pending applications here
   const pendingApplications = applications.filter((app) => app.applyStatus === 'pending');
+
+  // ManageUsers style: open modal functions
+  const openUpdateApplicationModal = (application) => {
+    setSelectedApplication(application);
+    updateApplicationRef.current.showModal();
+  };
+
+  const openDeleteApplicationModal = (application) => {
+    setSelectedApplication(application);
+    deleteApplicationRef.current.showModal();
+  };
 
   return (
     <Container>
@@ -104,6 +124,7 @@ const MyApplications = () => {
           <div className="mt-4 sm:mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
             {pendingApplications.map((application, i) => {
               const tuition = tuitionById[application.tuitionId];
+
               return (
                 <div
                   key={i}
@@ -111,7 +132,7 @@ const MyApplications = () => {
                 >
                   {/* Top row */}
                   <div className="flex items-start justify-between gap-4">
-                    <h3 className="text-lg sm:text-xl font-semibold text-base-content leading-snug line-clamp-1">{tuition?.title}</h3>
+                    <h3 className="md:text-xl font-semibold text-base-content leading-snug line-clamp-1">{tuition?.title}</h3>
 
                     <span className="badge badge-soft badge-warning text-[10px] sm:text-xs px-3 py-1 shrink-0">
                       {application.applyStatus}
@@ -120,13 +141,13 @@ const MyApplications = () => {
 
                   {/* Tags */}
                   <div className="mt-3 flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition?.classLevel}</span>
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition?.subject}</span>
-                    <span className="px-3 py-1 rounded-full bg-accent/70 text-base-content text-xs sm:text-sm">{tuition?.location}</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs">{tuition?.classLevel}</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs">{tuition?.subject}</span>
+                    <span className="px-3 py-1 rounded-full bg-accent/70 text-xs">{tuition?.location}</span>
                   </div>
 
                   {/* Info rows */}
-                  <div className="mt-5 space-y-2 text-sm sm:text-base text-base-content">
+                  <div className="mt-5 space-y-2 text-xs text-base-content">
                     <p>
                       <span className="font-semibold">Student Name:</span> <span>{tuition?.name}</span>
                     </p>
@@ -152,33 +173,97 @@ const MyApplications = () => {
                   </div>
 
                   {/* Bottom row */}
-                  <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-base-200 pt-4">
-                    <div>
+                  <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-base-200 pt-4">
+                    <div className="flex-1">
                       <p className="text-xs text-neutral mb-1">
                         <span className="font-medium text-black">Applied On:</span> {formatDate(application.createdAt)} at{' '}
                         {formatTime(application.createdAt)}
                       </p>
-                      <p className={tuition.paidAt ? 'text-secondary text-xs' : 'text-xs sm:text-sm text-neutral'}>
-                        <span className="text-black font-medium">Matched:</span> {tuition.paidAt ? formatDate(tuition.paidAt) : 'pending'}
+
+                      <p
+                        className={
+                          tuition?.paidAt
+                            ? 'text-secondary text-xs text-center md:text-left'
+                            : 'text-xs text-neutral text-center md:text-left'
+                        }
+                      >
+                        <span className="text-black font-medium text-xs">Matched:</span>{' '}
+                        {tuition?.paidAt ? formatDate(tuition.paidAt) : 'pending'}
                       </p>
                     </div>
 
-                    <div className="flex flex-col sm:items-end gap-2">
-                      <p className="text-[11px] sm:text-xs text-neutral">Waiting for student decision</p>
-                      <Link
-                        to={`/tuition-details/${application.tuitionId}`}
-                        className="btn btn-primary rounded-full h-11 min-h-11 px-6 shadow-[0_14px_30px_rgba(15,26,51,0.18)]"
+                    <div
+                      className={
+                        application.applyStatus === 'pending'
+                          ? 'lg:justify-between lg:flex-1 items-center flex flex-col sm:flex-row gap-3'
+                          : 'justify-end flex flex-1 flex-col sm:flex-row gap-3'
+                      }
+                    >
+                      <div
+                        className={
+                          application.applyStatus === 'pending'
+                            ? 'block text-[10px] md:text-xs text-center lg:text-left text-neutral'
+                            : 'hidden'
+                        }
                       >
-                        View Tuition
-                      </Link>
+                        <p className="text-center lg:text-left">
+                          Your tuition post is currently under review.{' '}
+                          <span className="block lg:inline">Please wait for admin approval.</span>
+                        </p>
+                      </div>
                     </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col md:flex-row justify-center gap-5 mt-10">
+                    <button
+                      onClick={() => openUpdateApplicationModal(application)}
+                      disabled={tuition?.status === 'selected'}
+                      className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full md:w-30 ${
+                        tuition?.status === 'selected'
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-primary text-white cursor-pointer'
+                      }`}
+                    >
+                      Update
+                    </button>
+
+                    <button
+                      onClick={() => openDeleteApplicationModal(application)}
+                      disabled={tuition?.status === 'selected'}
+                      className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full md:w-30 ${
+                        tuition?.status === 'selected'
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-error text-white cursor-pointer'
+                      }`}
+                    >
+                      Delete
+                    </button>
+
+                    <Link
+                      to={`/tuition-details/${application.tuitionId}`}
+                      className="px-3 py-2 text-center rounded-lg text-sm font-medium transition-all duration-200 w-full md:w-30 bg-secondary text-white cursor-pointer"
+                    >
+                      View Tuition
+                    </Link>
                   </div>
                 </div>
               );
             })}
-            {/* Right side empty space on desktop (optional) */}
-            <div className="hidden lg:block" />
           </div>
+
+          {/* update application modal */}
+          <dialog ref={updateApplicationRef} className="modal modal-bottom sm:modal-middle">
+            {selectedApplication && (
+              <UpdateApplicationModal
+                application={selectedApplication}
+                onClose={() => {
+                  updateApplicationRef.current.close();
+                  setSelectedApplication(null);
+                }}
+              />
+            )}
+          </dialog>
         </div>
       </section>
     </Container>

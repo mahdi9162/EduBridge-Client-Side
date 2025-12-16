@@ -10,6 +10,9 @@ const UpdateUserInfoModal = ({ user, onClose, onSave }) => {
     userType: 'student',
   });
 
+  const classes = ['Class-6', 'Class-7', 'Class-8', 'Class-9', 'Class-10', 'College 1st Year', 'College 2nd Year', 'Versity Admissoion'];
+  const subjects = ['Arts', 'Commerce', 'Science'];
+
   useEffect(() => {
     if (!user) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -76,7 +79,6 @@ const UpdateUserInfoModal = ({ user, onClose, onSave }) => {
                 className="input input-bordered w-full bg-base-100 border-base-300 focus:border-secondary"
               />
             </div>
-
             {/* Phone */}
             <div className="form-control">
               <label className="label">
@@ -91,52 +93,69 @@ const UpdateUserInfoModal = ({ user, onClose, onSave }) => {
                 className="input input-bordered w-full bg-base-100 border-base-300 focus:border-secondary"
               />
             </div>
-
             {/* Subject */}
-            <div className="form-control">
+            <div>
               <label className="label">
                 <span className="label-text text-base-content font-medium">Subject</span>
               </label>
-              <input
-                type="text"
+              <select
                 name="subject"
-                value={formData.subject}
+                value={formData.subject || ''}
                 onChange={handleChange}
-                placeholder="e.g. Math, Physics"
-                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-secondary"
-              />
+                className="select select-primary border-neutral w-full text-xs lg:text-sm"
+              >
+                <option value="" disabled>
+                  Select your subject
+                </option>
+                {subjects.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
             </div>
-
-            {/* Teaching Class */}
-            <div className="form-control">
+            {/* Teaching Class  */}
+            <div>
               <label className="label">
                 <span className="label-text text-base-content font-medium">Teaching Class</span>
               </label>
-              <input
-                type="text"
+              <select
                 name="teachingClass"
-                value={formData.teachingClass}
+                value={formData.teachingClass || ''}
                 onChange={handleChange}
-                placeholder="e.g. Varsity Admission"
-                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-secondary"
-              />
+                className="select select-primary border-neutral w-full text-xs lg:text-sm"
+              >
+                <option value="" disabled>
+                  Select teaching class
+                </option>
+                {classes.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
             </div>
-
             {/* Class Level */}
-            <div className="form-control">
+            <div>
               <label className="label">
                 <span className="label-text text-base-content font-medium">Class Level</span>
               </label>
-              <input
-                type="text"
+              <select
                 name="classLevel"
-                value={formData.classLevel}
+                value={formData.classLevel || ''}
                 onChange={handleChange}
-                placeholder="e.g. Class-10"
-                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-secondary"
-              />
+                className="select select-primary border-neutral w-full text-xs lg:text-sm"
+              >
+                <option value="" disabled>
+                  Select your class
+                </option>
+                {classes.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
             </div>
-
             {/* Role */}
             <div className="form-control">
               <label className="label">
