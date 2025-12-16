@@ -7,8 +7,6 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
 import { Link } from 'react-router';
 import Loading from '../../../components/Loading/Loading';
-
-// NEW: modal components (same pattern as ManageUsers)
 import UpdateApplicationModal from './UpdateApplicationModal';
 
 const MyApplications = () => {
@@ -18,10 +16,13 @@ const MyApplications = () => {
   // ManageUsers style: selected + refs
   const [selectedApplication, setSelectedApplication] = useState(null);
   const updateApplicationRef = useRef();
-  const deleteApplicationRef = useRef();
 
   // application fetch
-  const { data: applications = [], isLoading: isApplicationLoading } = useQuery({
+  const {
+    refetch,
+    data: applications = [],
+    isLoading: isApplicationLoading,
+  } = useQuery({
     queryKey: ['applications', user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -66,15 +67,20 @@ const MyApplications = () => {
   // only get pending applications here
   const pendingApplications = applications.filter((app) => app.applyStatus === 'pending');
 
-  // ManageUsers style: open modal functions
+  // Modal
   const openUpdateApplicationModal = (application) => {
     setSelectedApplication(application);
     updateApplicationRef.current.showModal();
   };
 
-  const openDeleteApplicationModal = (application) => {
-    setSelectedApplication(application);
-    deleteApplicationRef.current.showModal();
+  const handleDeleteBtn = async (application) => {
+    try {
+      await axiosSecure.delete(`application/${application._id}`);
+      alert('your application is successfully deleted!');
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -229,7 +235,7 @@ const MyApplications = () => {
                     </button>
 
                     <button
-                      onClick={() => openDeleteApplicationModal(application)}
+                      onClick={() => handleDeleteBtn(application)}
                       disabled={tuition?.status === 'selected'}
                       className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 w-full md:w-30 ${
                         tuition?.status === 'selected'
