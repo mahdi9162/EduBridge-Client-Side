@@ -1,11 +1,12 @@
 import React from 'react';
 
+
 const RevenueHistory = () => {
-    return (
-        <div>
-            RevenueHistory
-        </div>
-    );
+
+
+  return (
+<div>ddsfg</div>
+  );
 };
 
 export default RevenueHistory;

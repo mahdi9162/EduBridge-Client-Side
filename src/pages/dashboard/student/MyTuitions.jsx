@@ -100,8 +100,8 @@ const MyTuitions = () => {
           <div key={tuition._id} className="px-5 sm:px-8 pb-6 sm:pb-8">
             <div className="bg-base-200 rounded-2xl px-4 sm:px-5 py-4 sm:py-5">
               {/* Title + status */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <h3 className="text-lg sm:text-xl font-semibold text-base-content">{tuition.title}</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-base md:text-xl font-semibold text-base-content">{tuition.title}</h3>
                 <div
                   className={
                     tuition.status === 'selected'
@@ -113,13 +113,13 @@ const MyTuitions = () => {
                 </div>
               </div>
               {/* Student Name */}
-              <div className="mt-1 flex items-center gap-1.5 text-[12px] sm:text-sm leading-tight">
-                <span className="text-neutral/70">Student:</span>
-                <span className="text-base-content font-semibold tracking-tight">{tuition.name}</span>
+              <div className="my-3 flex items-center gap-1.5 leading-tight">
+                <span className=" text-sm font-medium">Student:</span>
+                <span className="text-sm font-medium tracking-tight">{tuition.name}</span>
               </div>
 
               {/* Class / Subject / Location */}
-              <div className="flex flex-wrap gap-2 mt-3">
+              <div className="flex flex-wrap gap-2 mt-5">
                 <span className="bg-neutral/15 text-xs sm:text-sm text-base-content px-2.5 py-1 rounded-md">{tuition.classLevel}</span>
                 <span className="bg-neutral/15 text-xs sm:text-sm text-base-content px-2.5 py-1 rounded-md">{tuition.subject}</span>
                 <span className="bg-neutral/15 text-xs sm:text-sm text-base-content px-2.5 py-1 rounded-md">{tuition.location}</span>

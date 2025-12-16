@@ -93,7 +93,7 @@ const AppliedTutors = () => {
           {/* Header */}
           <div className="bg-base-100 rounded-2xl shadow-[0_18px_45px_rgba(15,26,51,0.08)] border border-base-200 px-5 sm:px-8 py-4 sm:py-5 text-center w-full max-w-3xl mx-auto">
             <div className="flex items-center justify-center gap-3">
-              <h3 className="text-xl sm:text-2xl font-semibold text-base-content">Applied Tutors</h3>
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-base-content">Applied Tutors</h3>
               <span className="w-9 h-9 rounded-full bg-accent/70 flex items-center justify-center text-secondary">
                 <HiUserGroup className="text-xl" />
               </span>

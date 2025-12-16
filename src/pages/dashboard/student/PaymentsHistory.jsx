@@ -21,7 +21,6 @@ const PaymentsHistory = () => {
   // stats
   const totalPayments = paymentsHistories.length;
   const totalPaid = paymentsHistories.reduce((sum, payment) => sum + Number(payment.amount), 0);
-
   const lastPaymentDate = paymentsHistories[0]?.paidAt ? formatDate(paymentsHistories[0].paidAt) : '-';
 
   return (
