@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import Container from '../../../../components/Container/Container';
 import TutorHero from './components/TutorHero';
-import InfoCard from '../AdminHome/components/InfoCard';
+import TutorRevenue from './components/TutorRevenue';
 
 const TeacherDashboardHome = () => {
   const axiosSecure = useAxiosSecure();
@@ -32,11 +32,8 @@ const TeacherDashboardHome = () => {
         {/* Dashboard Hero */}
         <TutorHero applications={applications}></TutorHero>
 
-        {/* Info Card */}
-        {/* <InfoCard ></InfoCard> */}
-
-        {/* Admin Revenue */}
-       
+        {/* Tutor Revenue */}
+        <TutorRevenue payments={payments}></TutorRevenue>
       </section>
     </Container>
   );

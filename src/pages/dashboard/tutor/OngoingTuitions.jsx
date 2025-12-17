@@ -67,7 +67,7 @@ const OngoingTuitions = () => {
                   <p className="mt-1 text-sm text-neutral">Only “selected” tuitions will show here.</p>
                 </div>
               ) : (
-                applications.map((app) => (
+                ongoingApps.map((app) => (
                   <div key={app.id} className="bg-base-100 rounded-3xl border border-base-300 shadow-sm px-4 py-6 md:p-6">
                     {/* Card top */}
                     <div className="flex items-start justify-between gap-4">

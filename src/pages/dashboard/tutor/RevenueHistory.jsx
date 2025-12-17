@@ -16,7 +16,7 @@ const RevenueHistory = () => {
 
   // stats
   const totalPayments = payments.length;
-  const totalEarned = payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
+  const totalEarned = payments.reduce((sum, payment) => sum + Number(payment.tutorAmount), 0);
   const lastPaymentDate = payments[0]?.paidAt ? formatDate(payments[0].paidAt) : '-';
 
   return (
@@ -86,7 +86,7 @@ const RevenueHistory = () => {
                         <div className="font-medium">{p.studentName || '—'}</div>
                       </td>
 
-                      <td className="font-semibold text-base-content">৳ {p.amount}</td>
+                      <td className="font-semibold text-base-content">৳ {p.tutorAmount}</td>
 
                       <td>
                         <span className="badge badge-success text-white">{p.status === 'paid' ? 'Paid' : p.status}</span>

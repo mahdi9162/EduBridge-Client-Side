@@ -27,7 +27,7 @@ const TutorPieChart = ({ applications = [] }) => {
         </Pie>
 
         {/*  tooltip */}
-        <Tooltip formatter={(value, name) => [`${value}`, name]} contentStyle={{ borderRadius: 10 }} />
+        <Tooltip formatter={(value, name) => [`${value}`, name]} contentStyle={{ borderRadius: 10 }} position={{ x: 140, y: 20 }}/>
 
         <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" wrapperStyle={{ fontSize: 12 }} />
       </PieChart>
