@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cell, Legend, Pie, PieChart, Tooltip } from 'recharts';
 
-const AdminPieChart = ({ dbUsers }) => {
+const HeroPieChart = ({ dbUsers }) => {
   const totalUsers = dbUsers?.length;
   const teachers = dbUsers?.filter((user) => user.userType === 'teacher').length;
   const student = dbUsers?.filter((user) => user.userType === 'student').length;
@@ -35,4 +35,4 @@ const AdminPieChart = ({ dbUsers }) => {
   );
 };
 
-export default AdminPieChart;
+export default HeroPieChart;

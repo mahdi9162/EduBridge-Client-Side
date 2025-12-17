@@ -54,18 +54,26 @@ const AppliedTutors = () => {
   };
 
   const handlePaymentBtn = async (application, tuition) => {
-    const expectedSalary = Number(application.expectedSalary);
-    const studentBudget = Number(tuition.budget);
+    const expectedSalary = Number(application?.expectedSalary);
+    const studentBudget = Number(tuition?.budget);
+
+    const finalAmount = expectedSalary > 0 ? expectedSalary : studentBudget;
+
+    const ADMIN_PERCENT = 20;
+    const adminFee = Math.round((finalAmount * ADMIN_PERCENT) / 100);
+    const tutorAmount = finalAmount - adminFee;
 
     const paymentInfo = {
       tuitionTitle: tuition.title,
       studentEmail: tuition.email,
       studentName: tuition.name,
-      amount: expectedSalary ? expectedSalary : studentBudget,
       tuitionId: tuition._id,
       applicationId: application._id,
-      tutorId: tuition.selectedTutorId,
+      tutorId: application.tutorId,
       studentId: tuition.studentId,
+      amount: finalAmount,
+      tutorAmount: tutorAmount,
+      adminFee: adminFee,
       createdAt: new Date(),
     };
 
@@ -189,7 +197,10 @@ const AppliedTutors = () => {
                       </div>
 
                       <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-                        <button onClick={() => handlePaymentBtn(application, tuition)} className="btn btn-primary hover:btn-secondary btn-sm rounded-full px-4">
+                        <button
+                          onClick={() => handlePaymentBtn(application, tuition)}
+                          className="btn btn-primary hover:btn-secondary btn-sm rounded-full px-4"
+                        >
                           Select
                         </button>
                         <button
