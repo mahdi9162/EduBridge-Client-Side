@@ -28,6 +28,7 @@ import TuitionDetails from '../pages/public/Tuitions/TuitionDetails';
 import PaymentSuccess from '../pages/dashboard/paymentPages/paymentSuccess';
 import PaymentCancel from '../pages/dashboard/paymentPages/PaymentCancel.Jsx';
 import PaymentsHistory from '../pages/dashboard/student/PaymentsHistory';
+import DashboardHome from '../pages/dashboard/dashboardHome/DashboardHome';
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      { index: true, Component: DashboardHome },
       // Students Route
       {
         path: 'my-tuitions',
