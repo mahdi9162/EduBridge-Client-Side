@@ -14,7 +14,7 @@ const HeroPieChart = ({ dbUsers }) => {
   const COLORS = ['#244C98', '#0F1A33'];
 
   return (
-    <div className="relative width={240} height={230} flex justify-center">
+    <div className="relative w-60 h-[230px] flex justify-center">
       <PieChart width={200} height={200}>
         <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="45%" outerRadius={80} innerRadius={50}>
           {data.map((_, i) => (

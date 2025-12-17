@@ -15,7 +15,7 @@ const ReportsAnalytics = () => {
 
   // stats
   const totalPayments = payments.length;
-  const totalPaid = payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
+  const totalPaid = payments.reduce((sum, payment) => sum + Number(payment.adminFee), 0);
   const lastPaymentDate = payments[0]?.paidAt ? formatDate(payments[0].paidAt) : '-';
 
   return (

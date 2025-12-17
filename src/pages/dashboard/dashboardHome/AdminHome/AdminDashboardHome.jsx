@@ -3,7 +3,7 @@ import Container from '../../../../components/Container/Container';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import InfoCard from './components/InfoCard';
-import DashboardHero from './components/HeroDashboard';
+import DashboardHero from './components/AdminHero';
 import AdminRevenue from './components/AdminRevenue';
 
 const AdminDashboardHome = () => {

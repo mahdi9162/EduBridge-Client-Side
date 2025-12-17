@@ -1,11 +1,46 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
+import Container from '../../../../components/Container/Container';
+import TutorHero from './components/TutorHero';
+import InfoCard from '../AdminHome/components/InfoCard';
 
 const TeacherDashboardHome = () => {
-    return (
-        <div>
-            TeacherDashboardHome
-        </div>
-    );
+  const axiosSecure = useAxiosSecure();
+
+  //   payments fetch
+  const { data: payments = [] } = useQuery({
+    queryKey: ['payments'],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/payment-history');
+      return res.data;
+    },
+  });
+
+  //   application fetch
+  const { data: applications = [] } = useQuery({
+    queryKey: ['applications'],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/applications');
+      return res.data;
+    },
+  });
+
+  return (
+    <Container>
+      <section className="py-6 md:py-8 lg:py-10 px-3">
+        {/* Dashboard Hero */}
+        <TutorHero applications={applications}></TutorHero>
+
+        {/* Info Card */}
+        {/* <InfoCard ></InfoCard> */}
+
+        {/* Admin Revenue */}
+       
+      </section>
+    </Container>
+  );
 };
 
-export default TeacherDashboardHome;TeacherDashboardHome
+export default TeacherDashboardHome;
+TeacherDashboardHome;
