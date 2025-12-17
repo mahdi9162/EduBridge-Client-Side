@@ -4,15 +4,14 @@ import studentAvatarImg from '../../../assets/studentAvatar.webp';
 import { BsClipboard2CheckFill } from 'react-icons/bs';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import useAuth from '../../../hooks/useAuth';
 import { formatDate, formatTime } from '../../../utils/date';
 
 const ManageTuitions = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+
 
   const { refetch, data: allTuitions = [] } = useQuery({
-    queryKey: ['allTuitions', user?.email],
+    queryKey: ['allTuitions'],
     queryFn: async () => {
       const res = await axiosSecure.get('/tuitions');
       return res.data;

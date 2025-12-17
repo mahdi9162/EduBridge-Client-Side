@@ -24,7 +24,7 @@
   --color-accent: #e8eef8; /* Mist Blue */
   --color-accent-content: #0f1a33;
 
-  --color-neutral: #8A94A6; /* Stone Gray */
+  --color-neutral: #8a94a6; /* Stone Gray */
   --color-neutral-content: #0f1a33;
 }
 
@@ -48,4 +48,9 @@ h6 {
 
 .nav-link-active {
   @apply text-[#244C98] font-semibold opacity-100 border-b-2 border-[#244C98];
+}
+
+/* Dashboard Card Css */
+.dashboard-card {
+  @apply bg-base-100 border border-base-300 rounded-2xl p-5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:border-base-content/10;
 }

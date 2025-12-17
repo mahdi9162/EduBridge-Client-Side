@@ -53,7 +53,7 @@ const DashboardLayout = () => {
             <ul className="menu w-full grow">
               {/* List item */}
               <li>
-                <Link to="/" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+                <Link to="/dashboard" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
                   {/* Home icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

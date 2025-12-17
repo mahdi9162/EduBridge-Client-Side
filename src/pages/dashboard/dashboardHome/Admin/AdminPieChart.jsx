@@ -21,7 +21,7 @@ const AdminPieChart = ({ dbUsers }) => {
             <Cell key={i} fill={COLORS[i]} />
           ))}
         </Pie>
-        <Tooltip formatter={(value, name) => [`${value}`, name]} contentStyle={{ borderRadius: 12 }} />
+        <Tooltip formatter={(value, name) => [`${value}`, name]} position={{ x: 140, y: 20 }} contentStyle={{ borderRadius: 12 }} />
         <Legend wrapperStyle={{ marginLeft: 8 }} layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
       </PieChart>
       {/* inside chart */}
