@@ -4,7 +4,7 @@ import useAuth from './useAuth';
 import { useNavigate } from 'react-router';
 
 const axiosSecure = axios.create({
-  baseURL: 'https://edu-bridge-server-side-hocfs2imn-mahdi-hasans-projects-49073f6f.vercel.app',
+  baseURL: 'https://edu-bridge-server-side-rho.vercel.app',
 });
 
 const useAxiosSecure = () => {
