@@ -5,18 +5,23 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate } from '../../../utils/date';
 import Container from '../../../components/Container/Container';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const PaymentsHistory = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: paymentsHistories = [] } = useQuery({
+  const { data: paymentsHistories = [], isLoading: paymentsLoading } = useQuery({
     queryKey: ['payments', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/payment-history');
       return res.data;
     },
   });
+
+  if (authLoading || paymentsLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   // stats
   const totalPayments = paymentsHistories.length;

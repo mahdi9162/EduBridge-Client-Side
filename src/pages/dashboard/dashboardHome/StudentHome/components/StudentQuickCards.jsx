@@ -2,13 +2,14 @@ import React from 'react';
 import useAuth from '../../../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../../hooks/useAxiosSecure';
+import FullScreenLoader from '../../../../../components/Loading/FullScreenLoader';
 
 const StudentQuickCards = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   // tuition fetch
-  const { data: tuitions = [] } = useQuery({
+  const { data: tuitions = [], isLoading: tuitionsLoading } = useQuery({
     queryKey: ['myTuitions', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/tuitions');
@@ -17,7 +18,7 @@ const StudentQuickCards = () => {
   });
 
   // application fetch
-  const { data: applications = [] } = useQuery({
+  const { data: applications = [], isLoading: applicationsLoading } = useQuery({
     queryKey: ['applications', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/tutor-applications');
@@ -26,13 +27,17 @@ const StudentQuickCards = () => {
   });
 
   //   payment history
-  const { data: paymentsHistories = [] } = useQuery({
+  const { data: paymentsHistories = [], isLoading: paymentsLoading } = useQuery({
     queryKey: ['payments', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/payment-history');
       return res.data;
     },
   });
+
+  if (tuitionsLoading || applicationsLoading || paymentsLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   const totalTuitionPosts = tuitions.length;
   const totalApplication = applications.length;

@@ -9,7 +9,7 @@ import useAuth from '../../../hooks/useAuth';
 import toast from 'react-hot-toast';
 
 const TuitionDetails = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const experienceLevels = ['Less than 1 year', '1-2 years', '2-3 years', '3-5 years', '5-7 years', '7-10 years', '10+ years'];
 
   const axiosSecure = useAxiosSecure();
@@ -17,7 +17,7 @@ const TuitionDetails = () => {
   const { id } = useParams();
 
   //   Get Tuition details
-  const { data: tuitionDetails = [] } = useQuery({
+  const { data: tuitionDetails = [], isLoading: tuitionDetailsLoading } = useQuery({
     queryKey: ['tuition-details', id],
     queryFn: async () => {
       try {
@@ -48,12 +48,16 @@ const TuitionDetails = () => {
   const handleTutorApplyForm = async (data) => {
     try {
       await axiosSecure.post(`/applications/${id}`, data).then(() => {
-        toast.success("Application sent successfully.");
+        toast.success('Application sent successfully.');
       });
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (authLoading || tuitionDetailsLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   return (
     <Container>

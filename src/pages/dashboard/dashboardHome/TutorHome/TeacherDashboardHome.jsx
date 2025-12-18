@@ -4,12 +4,13 @@ import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import Container from '../../../../components/Container/Container';
 import TutorHero from './components/TutorHero';
 import TutorRevenue from './components/TutorRevenue';
+import FullScreenLoader from '../../../../components/Loading/FullScreenLoader';
 
 const TeacherDashboardHome = () => {
   const axiosSecure = useAxiosSecure();
 
   //   payments fetch
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading: paymentsLoading } = useQuery({
     queryKey: ['payments'],
     queryFn: async () => {
       const res = await axiosSecure.get('/payment-history');
@@ -18,13 +19,17 @@ const TeacherDashboardHome = () => {
   });
 
   //   application fetch
-  const { data: applications = [] } = useQuery({
+  const { data: applications = [], isLoading: applicationsLoading } = useQuery({
     queryKey: ['applications'],
     queryFn: async () => {
       const res = await axiosSecure.get('/applications');
       return res.data;
     },
   });
+
+  if (paymentsLoading || applicationsLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   return (
     <Container>

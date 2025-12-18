@@ -4,23 +4,27 @@ import { IoIosSearch } from 'react-icons/io';
 import axiosInstance from '../../../services/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import TutorDetailsModal from './TutorDetailsModal';
-import tutorImg from '../../../assets/teacher.png'
+import tutorImg from '../../../assets/teacher.png';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const TutorsList = () => {
   const [selectedTutor, setSelectedTutor] = useState(null);
   const [searchValue, setSearchValue] = useState('');
-  console.log(searchValue);
 
   const tutorDetailsRef = useRef();
   const axios = axiosInstance;
 
-  const { data: tutors } = useQuery({
+  const { data: tutors, isLoading: tutorsLoading } = useQuery({
     queryKey: ['tutors'],
     queryFn: async () => {
       const res = await axios.get('/public/tutors');
       return res.data;
     },
   });
+
+  if (tutorsLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   const openTutorDetailsModal = (tutor) => {
     setSelectedTutor(tutor);

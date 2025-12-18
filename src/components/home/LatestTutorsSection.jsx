@@ -4,15 +4,20 @@ import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../services/axiosInstance';
 import { Link } from 'react-router';
+import FullScreenLoader from '../Loading/FullScreenLoader';
 
 const LatestTutorsSection = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['tutors'],
     queryFn: async () => {
       const res = await axiosInstance.get('/public/tutors');
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   const tutors = Array.isArray(data) ? data : [];
 

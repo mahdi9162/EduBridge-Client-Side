@@ -8,14 +8,15 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
 import ModalTutorDetails from './ModalTutorDetails';
 import toast from 'react-hot-toast';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const AppliedTutors = () => {
   const [tutorDetails, setTutorDetails] = useState(null);
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const tutorDetailsRef = useRef();
 
-  const { data: tuitions = [] } = useQuery({
+  const { data: tuitions = [], isLoading: tuitionLoading } = useQuery({
     queryKey: ['myTuitions', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/tuitions');
@@ -24,13 +25,21 @@ const AppliedTutors = () => {
   });
 
   // application fetch
-  const { data: applications = [], refetch } = useQuery({
+  const {
+    data: applications = [],
+    refetch,
+    isLoading: applicationLoading,
+  } = useQuery({
     queryKey: ['applications', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/tutor-applications');
       return res.data;
     },
   });
+
+  if (authLoading || tuitionLoading || applicationLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   // Counts
   const totalApplication = applications.length;

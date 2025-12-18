@@ -6,13 +6,13 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
 import { Link } from 'react-router';
-import Loading from '../../../components/Loading/Loading';
 import UpdateApplicationModal from './UpdateApplicationModal';
 import toast from 'react-hot-toast';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const MyApplications = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   // ManageUsers style: selected + refs
   const [selectedApplication, setSelectedApplication] = useState(null);
@@ -55,8 +55,8 @@ const MyApplications = () => {
     },
   });
 
-  if (isApplicationLoading || isTuitionsLoading) {
-    return <Loading></Loading>;
+  if (isApplicationLoading || isTuitionsLoading || authLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
   }
 
   // Counts
@@ -77,7 +77,7 @@ const MyApplications = () => {
   const handleDeleteBtn = async (application) => {
     try {
       await axiosSecure.delete(`application/${application._id}`);
-      toast.success("Your application has been deleted successfully.");
+      toast.success('Your application has been deleted successfully.');
       refetch();
     } catch (error) {
       console.log(error);

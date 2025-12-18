@@ -5,11 +5,12 @@ import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import InfoCard from './components/InfoCard';
 import DashboardHero from './components/AdminHero';
 import AdminRevenue from './components/AdminRevenue';
+import FullScreenLoader from '../../../../components/Loading/FullScreenLoader';
 
 const AdminDashboardHome = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: dbUsers } = useQuery({
+  const { data: dbUsers, isLoading: dbUserLoading } = useQuery({
     queryKey: ['dbUsers'],
     queryFn: async () => {
       try {
@@ -21,7 +22,7 @@ const AdminDashboardHome = () => {
     },
   });
 
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading: paymentsLoading } = useQuery({
     queryKey: ['payments'],
     queryFn: async () => {
       const res = await axiosSecure.get('/payment-history');
@@ -29,13 +30,17 @@ const AdminDashboardHome = () => {
     },
   });
 
-  const { data: allTuitions = [] } = useQuery({
+  const { data: allTuitions = [], isLoading: tuitionLoading } = useQuery({
     queryKey: ['allTuitions'],
     queryFn: async () => {
       const res = await axiosSecure.get('/tuitions');
       return res.data;
     },
   });
+
+  if (dbUserLoading || paymentsLoading || tuitionLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   return (
     <Container>

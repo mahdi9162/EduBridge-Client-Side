@@ -5,18 +5,23 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import { formatDate } from '../../../utils/date';
 import Container from '../../../components/Container/Container';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const OngoingTuitions = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
-  const { data: applications = [] } = useQuery({
+  const { data: applications = [], isLoading: applicationLoading } = useQuery({
     queryKey: ['applications', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/applications');
       return res.data;
     },
   });
+
+  if (authLoading || applicationLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   // stats
   const total = applications.length;

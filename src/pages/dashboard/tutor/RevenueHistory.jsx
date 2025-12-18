@@ -3,16 +3,21 @@ import { FaChartBar } from 'react-icons/fa';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate } from '../../../utils/date';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const RevenueHistory = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading: paymentsLoading } = useQuery({
     queryKey: ['tutorPayments'],
     queryFn: async () => {
       const res = await axiosSecure.get('/payment-history');
       return res.data;
     },
   });
+
+  if (paymentsLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   // stats
   const totalPayments = payments.length;

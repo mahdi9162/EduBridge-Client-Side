@@ -9,20 +9,29 @@ import { formatDate, formatTime } from '../../../utils/date';
 import UpdateTuitionModal from './UpdateTuitionModal';
 import { confirmDeleteAlert, deleteSuccessAlert } from '../../../utils/swalHelpers';
 import Container from '../../../components/Container/Container';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const MyTuitions = () => {
   const [selectedTuition, setSelectedTuition] = useState(null);
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef();
 
-  const { refetch, data: tuitions = [] } = useQuery({
+  const {
+    refetch,
+    data: tuitions = [],
+    isLoading: tuitionLoading,
+  } = useQuery({
     queryKey: ['myTuitions', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/tuitions');
       return res.data;
     },
   });
+
+  if (authLoading || tuitionLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   // Counts
   const totalPost = tuitions.length;

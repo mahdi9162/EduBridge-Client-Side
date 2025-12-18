@@ -9,6 +9,7 @@ import userProfileImg from '../../../assets/userProfile.png';
 import UpdateUserInfoModal from './UpdateUserInfoModal';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const ManageUsers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -16,7 +17,11 @@ const ManageUsers = () => {
   const userDetailsRef = useRef();
   const updateUserRef = useRef();
 
-  const { refetch, data: users = [] } = useQuery({
+  const {
+    refetch,
+    data: users = [],
+    isLoading,
+  } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       try {
@@ -27,6 +32,10 @@ const ManageUsers = () => {
       }
     },
   });
+
+  if (isLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   // Role base style
   const roleBadgeClass = (role = '') => {
@@ -57,7 +66,7 @@ const ManageUsers = () => {
     const id = selectedUser?._id;
     try {
       await axiosSecure.patch(`/admin/users/${id}`, formData);
-      toast.success("User profile has been updated successfully.");
+      toast.success('User profile has been updated successfully.');
       updateUserRef.current.close();
       setSelectedUser(null);
       refetch();

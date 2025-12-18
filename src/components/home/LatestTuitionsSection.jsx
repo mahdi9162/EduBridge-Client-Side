@@ -4,12 +4,13 @@ import axiosInstance from '../../services/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useRole from '../../hooks/useRole';
+import FullScreenLoader from '../Loading/FullScreenLoader';
 
 const LatestTuitionsSection = () => {
   const { role, roleLoading } = useRole();
   const navigate = useNavigate();
 
-  const { data: allTuitions = [] } = useQuery({
+  const { isLoading: tuitionsLoading, data: allTuitions = [] } = useQuery({
     queryKey: ['all-tuitions'],
     queryFn: async () => {
       try {
@@ -21,8 +22,8 @@ const LatestTuitionsSection = () => {
     },
   });
 
-  if (roleLoading) {
-    return;
+  if (roleLoading || tuitionsLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
   }
 
   const handleViewDetailsBtn = (id) => {

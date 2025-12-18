@@ -3,15 +3,20 @@ import { FaChartLine } from 'react-icons/fa';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate } from '../../../utils/date';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 const ReportsAnalytics = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading } = useQuery({
     queryKey: ['payments'],
     queryFn: async () => {
       const res = await axiosSecure.get('/payment-history');
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   // stats
   const totalPayments = payments.length;

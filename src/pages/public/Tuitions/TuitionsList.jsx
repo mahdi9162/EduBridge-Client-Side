@@ -5,11 +5,12 @@ import axiosInstance from '../../../services/axiosInstance';
 import { Link, useNavigate } from 'react-router';
 import useRole from '../../../hooks/useRole';
 import Swal from 'sweetalert2';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const TuitionsList = () => {
   const { role, roleLoading } = useRole();
   const navigate = useNavigate();
-  const { data: allTuitions = [] } = useQuery({
+  const { data: allTuitions = [], isLoading: tuitionLoading } = useQuery({
     queryKey: ['all-tuitions'],
     queryFn: async () => {
       try {
@@ -21,7 +22,7 @@ const TuitionsList = () => {
     },
   });
 
-  if (roleLoading) return;
+  if (roleLoading || tuitionLoading) return <FullScreenLoader></FullScreenLoader>;
 
   const handleViewDetails = (id) => {
     if (role !== 'teacher') {
@@ -69,7 +70,7 @@ const TuitionsList = () => {
                 </span>
               </div>
 
-              <p className='text-sm my-2'>
+              <p className="text-sm my-2">
                 <span className="font-semibold">Student Name:</span> <span>{tuition?.name}</span>
               </p>
 

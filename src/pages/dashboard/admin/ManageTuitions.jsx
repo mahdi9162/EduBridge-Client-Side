@@ -6,17 +6,26 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate, formatTime } from '../../../utils/date';
 import toast from 'react-hot-toast';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const ManageTuitions = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { refetch, data: allTuitions = [] } = useQuery({
+  const {
+    refetch,
+    data: allTuitions = [],
+    isLoading,
+  } = useQuery({
     queryKey: ['allTuitions'],
     queryFn: async () => {
       const res = await axiosSecure.get('/tuitions');
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <FullScreenLoader></FullScreenLoader>;
+  }
 
   //   only get pending tuitions
   const pendingTuitions = allTuitions.filter((tuition) => tuition.postStatus === 'pending');
@@ -86,7 +95,7 @@ const ManageTuitions = () => {
               </p>
             </div>
           </div>
-          
+
           {/* Cards */}
           <div className="mt-10 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5">
             {pendingTuitions.length === 0 ? (
