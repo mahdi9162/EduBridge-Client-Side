@@ -139,94 +139,135 @@ const AppliedTutors = () => {
             </div>
           </div>
 
-          {/* Tuition Card */}
-          {appliedTuitions.map((tuition, i) => (
-            <div
-              key={i}
-              className="mt-12 bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-6 sm:p-7"
-            >
-              {/* Tuition Header */}
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="font-semibold ">{tuition.title}</h3>
-                <span className="badge badge-soft badge-warning text-xs px-3 py-1">{tuition.status}</span>
+          {/* no post state */}
+          {appliedTuitions.length === 0 ? (
+            <div className="mt-12 bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-7 sm:p-10 text-center max-w-3xl mx-auto">
+              <div className="text-4xl animate-bounce">🧑‍🏫</div>
+              <h3 className="mt-3 text-lg sm:text-xl font-semibold text-base-content">No applied tutors yet</h3>
+              <p className="mt-2 text-sm text-neutral max-w-md mx-auto">When tutors apply to your tuition posts, you’ll see them here.</p>
+
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-base-200 bg-base-200/60 px-4 py-2 text-xs text-neutral">
+                <span className="animate-pulse">⏳</span>
+                Waiting for applications
               </div>
 
-              {/* Tags */}
-              <div className="mt-3 flex flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.classLevel}</span>
-                <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.subject}</span>
-                <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.location}</span>
-              </div>
-
-              <div className="mt-4 border-t border-base-200" />
-
-              {/* Tuition Meta */}
-              <div className="mt-4 flex flex-col sm:flex-row justify-between gap-2 text-xs md:text-sm text-neutral">
-                <p>
-                  <span className="font-semibold text-base-content">Budget:</span> {tuition.budget} ৳ / month
-                </p>
-                <p>
-                  Posted: {formatDate(tuition.createdAt)} at {formatTime(tuition.createdAt)}
-                </p>
-              </div>
-
-              {/* Tutor Cards Grid Div*/}
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
-                {/* Card */}
-                {applications
-                  .filter((application) => application.tuitionId === tuition._id && application.applyStatus === 'pending')
-                  .map((application, i) => (
-                    <div key={i} className="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm">
-                      <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-4">
-                        <img src={avatarImg} alt="" className="w-14 h-14 rounded-full object-cover border border-base-300" />
-                        <div>
-                          <h4 className="font-semibold text-base-content">{application.tutorName}</h4>
-                          <p className="text-xs sm:text-sm text-neutral">Qualification: {application.qualification}</p>
-                          <p className="my-2">
-                            <span className="font-medium md:font-semibold text-xs md:text-base">Tutor Expected Salary:</span>{' '}
-                            <span className="font-medium md:font-semibold text-xs md:text-base text-secondary">
-                              {application.expectedSalary ? (
-                                application.expectedSalary
-                              ) : (
-                                <span className="text-xs">(same as student budget)</span>
-                              )}{' '}
-                              <span className={application.expectedSalary ? 'inline' : 'hidden'}>৳</span>
-                            </span>{' '}
-                            <span className={application.expectedSalary ? 'text-neutral text-xs sm:text-sm' : 'hidden'}>/ month</span>
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-                        <button
-                          onClick={() => handlePaymentBtn(application, tuition)}
-                          className="btn btn-primary hover:btn-secondary btn-sm rounded-full px-4"
-                        >
-                          Select
-                        </button>
-                        <button
-                          onClick={() => handleRejectBtn(application)}
-                          className="btn btn-ghost hover:btn-warning hover:text-white btn-sm rounded-full border border-base-300 px-4"
-                        >
-                          Reject
-                        </button>
-                        <button onClick={() => openTutorDetailsModal(application)} className="btn btn-outline btn-sm rounded-full px-4">
-                          Tutor Details
-                        </button>
-                      </div>
-
-                      <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-neutral">
-                        <p className="text-center md:text-left">Selection becomes final after payment</p>
-                        <p>
-                          Applied: {formatDate(application.createdAt)} at {formatTime(application.createdAt)}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
+              <p className="mt-4 text-xs text-neutral">
+                Tip: Post a tuition to attract tutors <span className="animate-pulse">✨</span>
+              </p>
             </div>
-          ))}
+          ) : (
+            <>
+              {/* Tuition Card */}
+              {appliedTuitions.map((tuition, i) => {
+                const pendingApps = applications.filter(
+                  (application) => application.tuitionId === tuition._id && application.applyStatus === 'pending'
+                );
+
+                return (
+                  <div
+                    key={i}
+                    className="mt-12 bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-6 sm:p-7"
+                  >
+                    {/* Tuition Header */}
+                    <div className="flex items-start justify-between gap-4">
+                      <h3 className="font-semibold">{tuition.title}</h3>
+                      <span className="badge badge-soft badge-warning text-xs px-3 py-1">{tuition.status}</span>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.classLevel}</span>
+                      <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.subject}</span>
+                      <span className="px-3 py-1 rounded-full bg-accent/70 text-xs sm:text-sm text-base-content">{tuition.location}</span>
+                    </div>
+
+                    <div className="mt-4 border-t border-base-200" />
+
+                    {/* Tuition Meta */}
+                    <div className="mt-4 flex flex-col sm:flex-row justify-between gap-2 text-xs md:text-sm text-neutral">
+                      <p>
+                        <span className="font-semibold text-base-content">Budget:</span> {tuition.budget} ৳ / month
+                      </p>
+                      <p>
+                        Posted: {formatDate(tuition.createdAt)} at {formatTime(tuition.createdAt)}
+                      </p>
+                    </div>
+
+                    {/* Tutor Cards Grid Div*/}
+                    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+                      {pendingApps.length === 0 ? (
+                        <div className="md:col-span-2 bg-base-200/50 rounded-2xl border border-base-200 p-6 sm:p-8 text-center">
+                          <div className="text-3xl animate-bounce">📭</div>
+                          <h4 className="mt-2 font-semibold text-base-content">No pending applications</h4>
+                          <p className="mt-1 text-sm text-neutral">Tutors haven’t applied yet for this tuition.</p>
+
+                          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-base-200 bg-base-100 px-4 py-2 text-xs text-neutral">
+                            <span className="animate-pulse">🔎</span>
+                            Check back later
+                          </div>
+                        </div>
+                      ) : (
+                        pendingApps.map((application, i) => (
+                          <div key={i} className="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm">
+                            <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-4">
+                              <img src={avatarImg} alt="" className="w-14 h-14 rounded-full object-cover border border-base-300" />
+                              <div>
+                                <h4 className="font-semibold text-base-content">{application.tutorName}</h4>
+                                <p className="text-xs sm:text-sm text-neutral">Qualification: {application.qualification}</p>
+
+                                <p className="my-2">
+                                  <span className="font-medium md:font-semibold text-xs md:text-base">Tutor Expected Salary:</span>{' '}
+                                  <span className="font-medium md:font-semibold text-xs md:text-base text-secondary">
+                                    {application.expectedSalary ? (
+                                      application.expectedSalary
+                                    ) : (
+                                      <span className="text-xs">(same as student budget)</span>
+                                    )}{' '}
+                                    <span className={application.expectedSalary ? 'inline' : 'hidden'}>৳</span>
+                                  </span>{' '}
+                                  <span className={application.expectedSalary ? 'text-neutral text-xs sm:text-sm' : 'hidden'}>/ month</span>
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
+                              <button
+                                onClick={() => handlePaymentBtn(application, tuition)}
+                                className="btn btn-primary hover:btn-secondary btn-sm rounded-full px-4"
+                              >
+                                Select
+                              </button>
+                              <button
+                                onClick={() => handleRejectBtn(application)}
+                                className="btn btn-ghost hover:btn-warning hover:text-white btn-sm rounded-full border border-base-300 px-4"
+                              >
+                                Reject
+                              </button>
+                              <button
+                                onClick={() => openTutorDetailsModal(application)}
+                                className="btn btn-outline btn-sm rounded-full px-4"
+                              >
+                                Tutor Details
+                              </button>
+                            </div>
+
+                            <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-neutral">
+                              <p className="text-center md:text-left">Selection becomes final after payment</p>
+                              <p>
+                                Applied: {formatDate(application.createdAt)} at {formatTime(application.createdAt)}
+                              </p>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
         </div>
+
         {/* Modal */}
         <dialog ref={tutorDetailsRef} className="modal modal-bottom sm:modal-middle">
           {tutorDetails && (

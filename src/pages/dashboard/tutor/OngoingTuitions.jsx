@@ -62,9 +62,23 @@ const OngoingTuitions = () => {
             {/* Cards list */}
             <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-5">
               {ongoingApps.length === 0 ? (
-                <div className="col-span-1 lg:col-span-2 p-8 text-center">
-                  <h3 className="text-lg font-semibold text-base-content">No ongoing tuitions</h3>
-                  <p className="mt-1 text-sm text-neutral">Only “selected” tuitions will show here.</p>
+                <div className="col-span-1 lg:col-span-2 bg-base-100 rounded-3xl border border-base-300 shadow-sm p-8 text-center">
+                  <div className="text-4xl animate-bounce">📚</div>
+
+                  <h3 className="mt-3 text-lg md:text-xl font-semibold text-base-content">No ongoing tuitions right now</h3>
+
+                  <p className="mt-2 text-sm text-neutral max-w-md mx-auto">
+                    When a student selects you and completes payment, the tuition will appear here as ongoing.
+                  </p>
+
+                  <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-200/60 px-4 py-2 text-xs text-neutral">
+                    <span className="animate-pulse">⏳</span>
+                    Waiting for selection & payment
+                  </div>
+
+                  <p className="mt-4 text-xs text-neutral">
+                    Tip: Apply to more tuitions <span className="animate-pulse">✨</span>
+                  </p>
                 </div>
               ) : (
                 ongoingApps.map((app) => (

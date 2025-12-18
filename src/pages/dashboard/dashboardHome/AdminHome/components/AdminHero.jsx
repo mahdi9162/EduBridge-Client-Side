@@ -37,15 +37,15 @@ const AdminHero = ({ dbUsers }) => {
             Here’s an overview of EduBridge platform performance.
           </p>
 
-          <div className="mt-5 h-[230px] md:w-[260px] md:h-60 flex justify-center lg:justify-start w-full">
-            <div className="flex flex-col items-center">
+          <div className="mt-5 w-full flex justify-center lg:justify-start">
+            <div className="flex flex-col items-center gap-3">
               {/* chart */}
-              <div className="shrink-0 w-[220px] mt-5 h-[260px] md:h-[280px] md:w-60">
+              <div className="shrink-0 w-[220px] md:w-60">
                 <AdminPieChart dbUsers={dbUsers} />
               </div>
 
               {/* mini breakdown */}
-              <div className="mt-3 text-xs text-neutral text-center">
+              <div className="text-xs text-neutral text-center">
                 <span className="font-medium text-base-content">{totalUsers}</span> users •{' '}
                 <span className="font-medium text-base-content">{student}</span> students •{' '}
                 <span className="font-medium text-base-content">{teachers}</span> teachers

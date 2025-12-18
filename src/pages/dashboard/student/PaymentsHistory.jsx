@@ -57,54 +57,75 @@ const PaymentsHistory = () => {
               </div>
             </div>
 
-            {/* Table Card */}
-            <div className="bg-white rounded-2xl border border-base-300 shadow-sm overflow-hidden">
-              <div className="px-6 py-5 border-b border-base-300">
-                <h3 className="text-lg font-bold text-base-content">Recent Payments</h3>
-                <p className="text-sm text-neutral">Showing latest transactions</p>
+            {/* Table Card OR Empty State */}
+            {paymentsHistories.length === 0 ? (
+              <div className="bg-white rounded-2xl border border-base-300 shadow-sm p-8 text-center">
+                <div className="text-4xl animate-bounce">🧾</div>
+
+                <h3 className="mt-3 text-lg md:text-xl font-semibold text-base-content">No payments yet</h3>
+
+                <p className="mt-2 text-sm text-neutral max-w-md mx-auto">
+                  Once you complete a tuition payment, it will appear here with transaction details.
+                </p>
+
+                <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-200/60 px-4 py-2 text-xs text-neutral">
+                  <span className="animate-pulse">⏳</span>
+                  Waiting for first transaction
+                </div>
+
+                <p className="mt-4 text-xs text-neutral">
+                  Tip: After payment, you can track it here <span className="animate-pulse">✨</span>
+                </p>
               </div>
+            ) : (
+              <div className="bg-white rounded-2xl border border-base-300 shadow-sm overflow-hidden">
+                <div className="px-6 py-5 border-b border-base-300">
+                  <h3 className="text-lg font-bold text-base-content">Recent Payments</h3>
+                  <p className="text-sm text-neutral">Showing latest transactions</p>
+                </div>
 
-              {/* table  */}
-              <div className="overflow-x-auto">
-                <table className="table w-full min-w-[720px]">
-                  <thead>
-                    <tr className="text-base-content">
-                      <th>#</th>
-                      <th>Tuition</th>
-                      <th>Amount</th>
-                      <th>Status</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {paymentsHistories.map((p, idx) => (
-                      <tr key={p.id} className="hover:bg-base-200">
-                        <th>{idx + 1}</th>
-
-                        <td>
-                          <div className="font-medium md:font-semibold text-base-content">{p.tuitionTitle}</div>
-                          <div className="text-xs text-neutral">Txn: {p?.stripeSessionId?.slice(-8) || '—'}</div>
-                        </td>
-
-                        <td className="font-semibold text-base-content">৳ {p.amount}</td>
-
-                        <td>
-                          <span className="badge badge-success text-white">{p.status && 'Paid'}</span>
-                        </td>
-
-                        <td className="text-base-content">{formatDate(p.paidAt)}</td>
+                {/* table */}
+                <div className="overflow-x-auto">
+                  <table className="table w-full min-w-[720px]">
+                    <thead>
+                      <tr className="text-base-content">
+                        <th>#</th>
+                        <th>Tuition</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
 
-              {/* Footer hint */}
-              <div className="px-6 py-4 border-t border-base-300">
-                <p className="text-xs text-neutral">Tip: On small screens, swipe horizontally to see all payment details.</p>
+                    <tbody>
+                      {paymentsHistories.map((p, idx) => (
+                        <tr key={p._id || p.id || idx} className="hover:bg-base-200">
+                          <th>{idx + 1}</th>
+
+                          <td>
+                            <div className="font-medium md:font-semibold text-base-content">{p.tuitionTitle}</div>
+                            <div className="text-xs text-neutral">Txn: {p?.stripeSessionId?.slice(-8) || '—'}</div>
+                          </td>
+
+                          <td className="font-semibold text-base-content">৳ {p.amount}</td>
+
+                          <td>
+                            <span className="badge badge-success text-white">{p.status === 'paid' ? 'Paid' : 'Paid'}</span>
+                          </td>
+
+                          <td className="text-base-content">{formatDate(p.paidAt)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Footer hint */}
+                <div className="px-6 py-4 border-t border-base-300">
+                  <p className="text-xs text-neutral">Tip: On small screens, swipe horizontally to see all payment details.</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="text-center text-xs text-neutral mt-6">EduBridge • Where Trust Shapes Learning</div>

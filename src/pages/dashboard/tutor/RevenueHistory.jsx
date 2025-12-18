@@ -52,57 +52,78 @@ const RevenueHistory = () => {
             </div>
           </div>
 
-          {/* Table card */}
-          <div className="mt-7 bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden">
-            <div className="px-5 md:px-6 py-5 border-b border-base-300">
-              <h3 className="text-lg font-semibold text-base-content">Recent Earnings</h3>
-              <p className="text-xs text-neutral mt-1">Showing latest successful payments</p>
+          {/* Table card or Empty state */}
+          {payments.length === 0 ? (
+            <div className="mt-7 bg-base-100 rounded-2xl border border-base-300 shadow-sm p-8 text-center">
+              <div className="text-4xl animate-bounce">💸</div>
+
+              <h3 className="mt-3 text-lg md:text-xl font-semibold text-base-content">No revenue yet</h3>
+
+              <p className="mt-2 text-sm text-neutral max-w-md mx-auto">
+                Once a student completes a payment, your earnings will show up here.
+              </p>
+
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-200/60 px-4 py-2 text-xs text-neutral">
+                <span className="animate-pulse">⏳</span>
+                Waiting for first payment
+              </div>
+
+              <p className="mt-4 text-xs text-neutral">
+                Tip: Keep applying to tuitions <span className="animate-pulse">✨</span>
+              </p>
             </div>
+          ) : (
+            <div className="mt-7 bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden">
+              <div className="px-5 md:px-6 py-5 border-b border-base-300">
+                <h3 className="text-lg font-semibold text-base-content">Recent Earnings</h3>
+                <p className="text-xs text-neutral mt-1">Showing latest successful payments</p>
+              </div>
 
-            <div className="overflow-x-auto">
-              <table className="table min-w-[720px]">
-                <thead>
-                  <tr className="text-base-content">
-                    <th className="w-14">#</th>
-                    <th>Tuition</th>
-                    <th className="w-40">Student</th>
-                    <th className="w-32">Amount</th>
-                    <th className="w-28">Status</th>
-                    <th className="w-36">Paid At</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {payments.map((p, idx) => (
-                    <tr key={p._id} className="hover:bg-base-200">
-                      <th>{idx + 1}</th>
-
-                      <td>
-                        <div className="font-semibold text-base-content">{p.tuitionTitle}</div>
-                        <div className="text-xs text-neutral">Txn: {p.stripeSessionId?.slice(-8) || '—'}</div>
-                      </td>
-
-                      <td className="text-base-content">
-                        <div className="font-medium">{p.studentName || '—'}</div>
-                      </td>
-
-                      <td className="font-semibold text-base-content">৳ {p.tutorAmount}</td>
-
-                      <td>
-                        <span className="badge badge-success text-white">{p.status === 'paid' ? 'Paid' : p.status}</span>
-                      </td>
-
-                      <td className="text-base-content">{formatDate(p.paidAt)}</td>
+              <div className="overflow-x-auto">
+                <table className="table min-w-[720px]">
+                  <thead>
+                    <tr className="text-base-content">
+                      <th className="w-14">#</th>
+                      <th>Tuition</th>
+                      <th className="w-40">Student</th>
+                      <th className="w-32">Amount</th>
+                      <th className="w-28">Status</th>
+                      <th className="w-36">Paid At</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
 
-            <div className="px-5 md:px-6 py-4 border-t border-base-300">
-              <p className="text-xs text-neutral">Tip: On mobile, swipe horizontally to view the full table.</p>
+                  <tbody>
+                    {payments.map((p, idx) => (
+                      <tr key={p._id} className="hover:bg-base-200">
+                        <th>{idx + 1}</th>
+
+                        <td>
+                          <div className="font-semibold text-base-content">{p.tuitionTitle}</div>
+                          <div className="text-xs text-neutral">Txn: {p.stripeSessionId?.slice(-8) || '—'}</div>
+                        </td>
+
+                        <td className="text-base-content">
+                          <div className="font-medium">{p.studentName || '—'}</div>
+                        </td>
+
+                        <td className="font-semibold text-base-content">৳ {p.tutorAmount}</td>
+
+                        <td>
+                          <span className="badge badge-success text-white">{p.status === 'paid' ? 'Paid' : p.status}</span>
+                        </td>
+
+                        <td className="text-base-content">{formatDate(p.paidAt)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="px-5 md:px-6 py-4 border-t border-base-300">
+                <p className="text-xs text-neutral">Tip: On mobile, swipe horizontally to view the full table.</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

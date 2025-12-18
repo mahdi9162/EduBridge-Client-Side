@@ -2,6 +2,7 @@ import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router';
 import axiosInstance from '../../../services/axiosInstance';
+import toast from 'react-hot-toast';
 
 const GoogleButton = ({ className = '' }) => {
   const { signInWithGoogle, user } = useAuth();
@@ -50,9 +51,11 @@ const GoogleButton = ({ className = '' }) => {
 
       localStorage.setItem('access-token', token);
       localStorage.setItem('user-type', userType);
+      toast.success('Login successful. Welcome back!');
       navigate('/');
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      console.error('Google login error:', err);
+      toast.error('Google login failed. Please try again.');
     }
   };
 
