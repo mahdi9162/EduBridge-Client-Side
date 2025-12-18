@@ -8,6 +8,7 @@ import { formatDate, formatTime } from '../../../utils/date';
 import { Link } from 'react-router';
 import Loading from '../../../components/Loading/Loading';
 import UpdateApplicationModal from './UpdateApplicationModal';
+import toast from 'react-hot-toast';
 
 const MyApplications = () => {
   const axiosSecure = useAxiosSecure();
@@ -76,7 +77,7 @@ const MyApplications = () => {
   const handleDeleteBtn = async (application) => {
     try {
       await axiosSecure.delete(`application/${application._id}`);
-      alert('your application is successfully deleted!');
+      toast.success("Your application has been deleted successfully.");
       refetch();
     } catch (error) {
       console.log(error);

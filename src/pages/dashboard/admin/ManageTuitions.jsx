@@ -5,10 +5,10 @@ import { BsClipboard2CheckFill } from 'react-icons/bs';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { formatDate, formatTime } from '../../../utils/date';
+import toast from 'react-hot-toast';
 
 const ManageTuitions = () => {
   const axiosSecure = useAxiosSecure();
-
 
   const { refetch, data: allTuitions = [] } = useQuery({
     queryKey: ['allTuitions'],
@@ -30,7 +30,7 @@ const ManageTuitions = () => {
 
     try {
       await axiosSecure.patch(`/tuitions-status/${id}`, { postStatus: `${status}` });
-      alert(`Post ${status} successfully`);
+      toast.success(`Post has been ${status} successfully.`);
       refetch();
     } catch (error) {
       console.log(error);

@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Loading from '../../../components/Loading/Loading';
 import { exchangeFirebaseTokenForJwt } from '../../../utils/authHelpers';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const { loading, setLoading, signInWithEmailPass } = useAuth();
@@ -33,15 +34,14 @@ const Login = () => {
     try {
       const res = await signInWithEmailPass(email, password);
       const userProfile = res.user;
-      // 🔥 এখানে helper call
       await exchangeFirebaseTokenForJwt(userProfile);
       navigate(location?.state || '/');
-      alert('Login successful! Welcome back 👋');
+      toast.success('Login successful. Welcome back!');
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
-        alert('Email Or Password is not Valid! 🙂');
+        toast.error('Invalid email or password.');
       } else {
-        alert('Failed to Login! Please Try Again Later!');
+        toast.error('Login failed. Please try again later.');
       }
     } finally {
       setLoading(false);

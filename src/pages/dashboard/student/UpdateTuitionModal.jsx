@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
 const UpdateTuitionModal = ({ tuition, refetch, onClose }) => {
   const [districts, setDistricts] = useState([]);
@@ -47,7 +48,7 @@ const UpdateTuitionModal = ({ tuition, refetch, onClose }) => {
     try {
       const res = await axiosSecure.patch(`/tuitions/${tuition._id}`, form);
       if (res.data.modifiedCount > 0) {
-        alert('Your post is updated');
+        toast.success('Your tuition has been updated successfully.');
         await refetch();
         onClose();
       }

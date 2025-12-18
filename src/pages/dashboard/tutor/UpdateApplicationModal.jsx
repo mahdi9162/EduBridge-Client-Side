@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
 const UpdateApplicationModal = ({ application, onClose, onSave }) => {
   const axiosSecure = useAxiosSecure();
@@ -33,7 +34,7 @@ const UpdateApplicationModal = ({ application, onClose, onSave }) => {
     try {
       await axiosSecure.patch(`/application/${application?._id}`, formData);
       if (onSave) onSave(formData);
-      alert('Successfully updated your application!');
+      toast.success('Your application has been updated successfully.');
       onClose();
     } catch (error) {
       console.log(error);

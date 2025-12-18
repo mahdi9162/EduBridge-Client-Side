@@ -1,5 +1,6 @@
 import React from 'react';
 import useAuth from '../../../hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const SignOutButton = ({ children, className = '', ...rest }) => {
   const { userSignOut } = useAuth();
@@ -8,7 +9,8 @@ const SignOutButton = ({ children, className = '', ...rest }) => {
     userSignOut()
       .then(() => {
         localStorage.clear();
-        alert('Sign-out successful.');
+        toast.success("Signed out successfully.");
+
       })
       .catch((err) => {
         console.log(err);

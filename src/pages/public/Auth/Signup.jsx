@@ -11,6 +11,7 @@ import useAuth from '../../../hooks/useAuth';
 import Loading from '../../../components/Loading/Loading';
 import { exchangeFirebaseTokenForJwt } from '../../../utils/authHelpers';
 import axiosInstance from '../../../services/axiosInstance';
+import toast from 'react-hot-toast';
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -54,7 +55,7 @@ const Signup = () => {
       await axiosInstance.post('/signup', userData);
       // give access token
       await exchangeFirebaseTokenForJwt(userProfile);
-      alert('Signup successful! Welcome ' + name);
+      toast.success(`Signup successful. Welcome, ${name}!`);
       navigate('/');
     } catch (error) {
       console.log(error);

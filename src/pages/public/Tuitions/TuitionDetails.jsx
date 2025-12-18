@@ -6,6 +6,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const TuitionDetails = () => {
   const { user } = useAuth();
@@ -47,7 +48,7 @@ const TuitionDetails = () => {
   const handleTutorApplyForm = async (data) => {
     try {
       await axiosSecure.post(`/applications/${id}`, data).then(() => {
-        alert('Your application is successfully send to the student.');
+        toast.success("Application sent successfully.");
       });
     } catch (error) {
       console.log(error);

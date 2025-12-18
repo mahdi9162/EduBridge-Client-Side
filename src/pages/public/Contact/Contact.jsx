@@ -105,7 +105,9 @@ const Contact = () => {
 
               <div className="rounded-3xl bg-base-200/70 p-6">
                 <p className="font-semibold text-base-content">Quick tip</p>
-                <p className="mt-2 text-xs md:text-sm text-neutral">Don’t share phone numbers publicly. We keep sensitive info protected.</p>
+                <p className="mt-2 text-xs md:text-sm text-neutral">
+                  Don’t share phone numbers publicly. We keep sensitive info protected.
+                </p>
 
                 <div className="mt-4 flex flex-col gap-3 md:flex-row">
                   <Link

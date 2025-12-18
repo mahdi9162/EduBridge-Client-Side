@@ -8,6 +8,7 @@ import UserDetailsModal from './UserDetailsModal';
 import userProfileImg from '../../../assets/userProfile.png';
 import UpdateUserInfoModal from './UpdateUserInfoModal';
 import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 const ManageUsers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -56,7 +57,7 @@ const ManageUsers = () => {
     const id = selectedUser?._id;
     try {
       await axiosSecure.patch(`/admin/users/${id}`, formData);
-      alert('Updated User Profile Successfully');
+      toast.success("User profile has been updated successfully.");
       updateUserRef.current.close();
       setSelectedUser(null);
       refetch();

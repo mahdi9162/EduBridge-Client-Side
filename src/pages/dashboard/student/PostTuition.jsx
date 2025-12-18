@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const PostTuition = () => {
   const [districts, setDistricts] = useState([]);
@@ -40,7 +41,7 @@ const PostTuition = () => {
     try {
       axiosSecure.post('/tuitions', data).then(() => {
         navigate('/dashboard/my-tuitions');
-        alert('Your tuition is posted!');
+        toast.success('Your tuition has been posted successfully.');
       });
     } catch (error) {
       console.log(error);

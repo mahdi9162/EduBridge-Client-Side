@@ -7,6 +7,7 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { formatDate, formatTime } from '../../../utils/date';
 import ModalTutorDetails from './ModalTutorDetails';
+import toast from 'react-hot-toast';
 
 const AppliedTutors = () => {
   const [tutorDetails, setTutorDetails] = useState(null);
@@ -45,7 +46,7 @@ const AppliedTutors = () => {
         applyStatus: 'rejected',
       });
 
-      alert('You rejected this application successfully!');
+      toast.success('You have rejected this application.');
 
       refetch();
     } catch (error) {
