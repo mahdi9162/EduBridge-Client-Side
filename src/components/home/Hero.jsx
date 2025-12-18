@@ -20,7 +20,7 @@ const Hero = () => {
             </div>
 
             {/* headline */}
-            <h1 className="mt-5 text-xl md:text-5xl lg:text-6xl font-bold text-base-content">
+            <h1 className="mt-5 text-xl md:text-3xlxl lg:text-5xl font-bold text-base-content">
               Find The Right Tutor,
               <span className="block mt-3">
                 <span className="text-[#244C98]"> Faster</span> and With <span className="text-[#0F1A33]">Trust</span>
@@ -28,7 +28,7 @@ const Hero = () => {
             </h1>
 
             {/* subtext */}
-            <p className="mt-4 mx-auto  text-xs lg:text-base text-neutral md:max-w-xl">
+            <p className="mt-4 mx-auto lg:mx-0 text-xs lg:text-base text-neutral md:max-w-xl">
               EduBridge helps students post tuition needs and connect with verified tutors—so learning stays smooth, transparent, and
               reliable.
             </p>

@@ -41,7 +41,7 @@ const TuitionsList = () => {
 
   return (
     <Container>
-      <section className="my-10 lg:my-16 px-3 py-10 bg-base-200/40 rounded-4xl">
+      <section className="my-10 lg:my-16 px-10 py-10 bg-base-200/40 rounded-4xl">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-10">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-base-content">Available Tuition Posts</h2>
