@@ -28,7 +28,6 @@ const Signup = () => {
 
   const handleSignupForm = async (data) => {
     const { email, password, name, classLevel, teachingClass, location, phone, subject, userType } = data;
-    console.log(data);
 
     const profile = {
       displayName: name,

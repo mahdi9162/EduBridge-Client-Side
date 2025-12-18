@@ -16,7 +16,6 @@ const provider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-console.log(user);
 
   //   Signup With Email and Pass
   const signUpWithEmailPass = (email, password) => {
