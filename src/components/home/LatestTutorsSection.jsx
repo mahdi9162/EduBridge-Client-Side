@@ -31,7 +31,7 @@ const LatestTutorsSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         viewport={{ once: true, amount: 0.2 }}
-        className="my-10 rounded-3xl bg-base-200/70 px-4 py-10 md:px-10 md:py-12 lg:px-14"
+        className="my-10 lg:my-16 rounded-3xl bg-base-200/70 px-4 py-10 md:px-10 md:py-12 lg:px-14"
       >
         {/* header */}
         <div className="text-center">

@@ -43,7 +43,7 @@ const LatestTuitionsSection = () => {
 
   return (
     <Container>
-      <section className="bg-base-200/40 px-3 md:px-10 rounded-4xl my-10">
+      <section className="bg-base-200/40 px-3 md:px-10 rounded-4xl my-10 lg:my-16">
         <div className="py-12">
           {/* Section Title */}
           <div className="text-center mb-8">
