@@ -6,84 +6,74 @@ import TutorsList from '../pages/public/Tutors/TutorsList';
 import Contact from '../pages/public/Contact/Contact';
 import Signup from '../pages/public/Auth/Signup';
 import Login from '../pages/public/Auth/Login';
+import TuitionDetails from '../pages/public/Tuitions/TuitionDetails';
 import DashboardLayout from '../layouts/DashboardLayout';
 import PrivateRoute from './PrivateRoute';
-import MyTuitions from '../pages/dashboard/student/MyTuitions';
 import StudentRoute from './StudentRoute';
+import TutorRoute from './TutorRoute';
+import AdminRoute from './AdminRoute';
+import DashboardHome from '../pages/dashboard/dashboardHome/DashboardHome';
+import MyTuitions from '../pages/dashboard/student/MyTuitions';
 import PostTuition from '../pages/dashboard/student/PostTuition';
 import AppliedTutors from '../pages/dashboard/student/AppliedTutors';
+import PaymentsHistory from '../pages/dashboard/student/PaymentsHistory';
 import StudentProfileSettings from '../pages/dashboard/student/StudentProfileSettings';
-import TutorRoute from './TutorRoute';
 import MyApplications from '../pages/dashboard/tutor/MyApplications';
 import OngoingTuitions from '../pages/dashboard/tutor/OngoingTuitions';
 import RevenueHistory from '../pages/dashboard/tutor/RevenueHistory';
 import TutorProfileSettings from '../pages/dashboard/tutor/TutorProfileSettings';
-import AdminRoute from './AdminRoute';
 import ManageTuitions from '../pages/dashboard/admin/ManageTuitions';
 import ManageUsers from '../pages/dashboard/admin/ManageUsers';
 import ReportsAnalytics from '../pages/dashboard/admin/ReportsAnalytics';
 import AdminProfileSetting from '../pages/dashboard/admin/AdminProfileSetting';
-import TuitionDetails from '../pages/public/Tuitions/TuitionDetails';
 import PaymentSuccess from '../pages/dashboard/paymentPages/paymentSuccess';
 import PaymentCancel from '../pages/dashboard/paymentPages/PaymentCancel.Jsx';
-import PaymentsHistory from '../pages/dashboard/student/PaymentsHistory';
-import DashboardHome from '../pages/dashboard/dashboardHome/DashboardHome';
+
+import NotFound from '../pages/public/Error/NotFound';
 
 export const router = createBrowserRouter([
+  // Public site
   {
     path: '/',
     Component: MainLayout,
     children: [
-      {
-        index: true,
-        Component: Home,
-      },
-      {
-        path: 'tuitions',
-        Component: TuitionsList,
-      },
-      {
-        path: 'tutors',
-        Component: TutorsList,
-      },
-      {
-        path: 'contact',
-        Component: Contact,
-      },
-      {
-        path: 'signup',
-        Component: Signup,
-      },
-      {
-        path: 'login',
-        Component: Login,
-      },
+      { index: true, Component: Home },
+      { path: 'tuitions', Component: TuitionsList },
+      { path: 'tutors', Component: TutorsList },
+      { path: 'contact', Component: Contact },
+      { path: 'signup', Component: Signup },
+      { path: 'login', Component: Login },
       {
         path: 'tuition-details/:id',
         element: (
           <TutorRoute>
-            <TuitionDetails></TuitionDetails>
+            <TuitionDetails />
           </TutorRoute>
         ),
       },
     ],
   },
-  // Dashboard Layout
+
+  //  NotFound
+  { path: '*', Component: NotFound },
+
+  //  Dashboard
   {
     path: 'dashboard',
     element: (
       <PrivateRoute>
-        <DashboardLayout></DashboardLayout>
+        <DashboardLayout />
       </PrivateRoute>
     ),
     children: [
       { index: true, Component: DashboardHome },
-      // Students Route
+
+      // Student
       {
         path: 'my-tuitions',
         element: (
           <StudentRoute>
-            <MyTuitions></MyTuitions>
+            <MyTuitions />
           </StudentRoute>
         ),
       },
@@ -91,7 +81,7 @@ export const router = createBrowserRouter([
         path: 'post-tuition',
         element: (
           <StudentRoute>
-            <PostTuition></PostTuition>
+            <PostTuition />
           </StudentRoute>
         ),
       },
@@ -99,7 +89,7 @@ export const router = createBrowserRouter([
         path: 'applied-tutors',
         element: (
           <StudentRoute>
-            <AppliedTutors></AppliedTutors>
+            <AppliedTutors />
           </StudentRoute>
         ),
       },
@@ -107,7 +97,7 @@ export const router = createBrowserRouter([
         path: 'payments-history',
         element: (
           <StudentRoute>
-            <PaymentsHistory></PaymentsHistory>
+            <PaymentsHistory />
           </StudentRoute>
         ),
       },
@@ -115,16 +105,17 @@ export const router = createBrowserRouter([
         path: 'student-profile',
         element: (
           <StudentRoute>
-            <StudentProfileSettings></StudentProfileSettings>
+            <StudentProfileSettings />
           </StudentRoute>
         ),
       },
-      // Teacher Route
+
+      // Tutor
       {
         path: 'my-applications',
         element: (
           <TutorRoute>
-            <MyApplications></MyApplications>
+            <MyApplications />
           </TutorRoute>
         ),
       },
@@ -132,7 +123,7 @@ export const router = createBrowserRouter([
         path: 'ongoing-tuitions',
         element: (
           <TutorRoute>
-            <OngoingTuitions></OngoingTuitions>
+            <OngoingTuitions />
           </TutorRoute>
         ),
       },
@@ -140,7 +131,7 @@ export const router = createBrowserRouter([
         path: 'revenue-history',
         element: (
           <TutorRoute>
-            <RevenueHistory></RevenueHistory>
+            <RevenueHistory />
           </TutorRoute>
         ),
       },
@@ -148,16 +139,17 @@ export const router = createBrowserRouter([
         path: 'tutor-profile',
         element: (
           <TutorRoute>
-            <TutorProfileSettings></TutorProfileSettings>
+            <TutorProfileSettings />
           </TutorRoute>
         ),
       },
-      // Admin Route
+
+      // Admin
       {
         path: 'manage-tuitions',
         element: (
           <AdminRoute>
-            <ManageTuitions></ManageTuitions>
+            <ManageTuitions />
           </AdminRoute>
         ),
       },
@@ -165,7 +157,7 @@ export const router = createBrowserRouter([
         path: 'manage-users',
         element: (
           <AdminRoute>
-            <ManageUsers></ManageUsers>
+            <ManageUsers />
           </AdminRoute>
         ),
       },
@@ -173,7 +165,7 @@ export const router = createBrowserRouter([
         path: 'reports-analytics',
         element: (
           <AdminRoute>
-            <ReportsAnalytics></ReportsAnalytics>
+            <ReportsAnalytics />
           </AdminRoute>
         ),
       },
@@ -181,18 +173,17 @@ export const router = createBrowserRouter([
         path: 'admin-profile',
         element: (
           <AdminRoute>
-            <AdminProfileSetting></AdminProfileSetting>
+            <AdminProfileSetting />
           </AdminRoute>
         ),
       },
-      {
-        path: 'payment-success',
-        Component: PaymentSuccess,
-      },
-      {
-        path: 'payment-cancelled',
-        Component: PaymentCancel,
-      },
+
+      // Payment pages
+      { path: 'payment-success', Component: PaymentSuccess },
+      { path: 'payment-cancelled', Component: PaymentCancel },
+
+      // Dashboard NotFound
+      { path: '*', Component: NotFound },
     ],
   },
 ]);

@@ -4,6 +4,7 @@ import { IoIosSearch } from 'react-icons/io';
 import axiosInstance from '../../../services/axiosInstance';
 import { useQuery } from '@tanstack/react-query';
 import TutorDetailsModal from './TutorDetailsModal';
+import tutorImg from '../../../assets/teacher.png'
 
 const TutorsList = () => {
   const [selectedTutor, setSelectedTutor] = useState(null);
@@ -76,7 +77,7 @@ const TutorsList = () => {
                   <div className="lg:col-span-5 flex items-center gap-3">
                     <div className="avatar">
                       <div className="w-11 h-11 rounded-full ring-2 ring-base-300">
-                        <img src="https://i.pravatar.cc/100?img=12" alt="Tutor avatar" />
+                        <img src={tutorImg} alt="Tutor avatar" />
                       </div>
                     </div>
 
