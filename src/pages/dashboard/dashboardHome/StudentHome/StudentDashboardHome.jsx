@@ -4,9 +4,6 @@ import Container from '../../../../components/Container/Container';
 import StudentQuickCards from './components/StudentQuickCards';
 
 const StudentDashboardHome = () => {
-
-    
-
   return (
     <Container>
       <section className="py-6 md:py-8 lg:py-10 px-3">
