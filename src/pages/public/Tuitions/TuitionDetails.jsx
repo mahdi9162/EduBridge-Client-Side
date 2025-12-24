@@ -7,6 +7,7 @@ import { formatDate, formatTime } from '../../../utils/date';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import toast from 'react-hot-toast';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const TuitionDetails = () => {
   const { user, loading: authLoading } = useAuth();
@@ -47,11 +48,19 @@ const TuitionDetails = () => {
 
   const handleTutorApplyForm = async (data) => {
     try {
-      await axiosSecure.post(`/applications/${id}`, data).then(() => {
-        toast.success('Application sent successfully.');
-      });
+      // API call
+      await axiosSecure.post(`/applications/${id}`, data);
+
+      // Success Message
+      toast.success('Application sent successfully.');
     } catch (error) {
-      console.log(error);
+      // Error Handling
+      if (error.response && error.response.status === 409) {
+        toast.error('You have already applied for this tuition!');
+      } else {
+        toast.error('Something went wrong. Please try again.');
+        console.error(error);
+      }
     }
   };
 
