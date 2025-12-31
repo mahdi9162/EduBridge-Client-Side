@@ -58,6 +58,7 @@ Backend Repository: https://github.com/mahdi9162/EduBridge-Server-Side.git
 - Express.js
 - MongoDB
 - JWT Authentication
+- Stripe Payment Integration
 
 ### Deployment
 - Frontend: Firebase Hosting
