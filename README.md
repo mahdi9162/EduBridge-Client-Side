@@ -67,7 +67,11 @@ Backend Repository: https://github.com/mahdi9162/EduBridge-Server-Side.git
 
 ## ⚙️ Project Setup
 
-To run the project locally:
+Follow the steps below to run the project locally.
+
+---
+
+### 🔹 Client Side (Frontend)
 
 ```bash
 # 1. Clone the repository
@@ -79,13 +83,15 @@ cd Skillora
 # 3. Install dependencies
 npm install
 
-# 4. Create .env.local file and add your Firebase config keys
+# 4. Create .env.local file and add Firebase config keys
 
 # 5. Start the development server
 npm run dev
 ```
 
 ---
+
+### 🔹 Server Side (Backend)
 
 ```bash
 # 1. Clone the repository
