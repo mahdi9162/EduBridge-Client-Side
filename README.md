@@ -39,7 +39,7 @@ Backend Repository: https://github.com/mahdi9162/EduBridge-Server-Side.git
 
 ## Authentication & Authorization
 - Email & password authentication
-- Google and GitHub login
+- Google login
 - Role-based route protection
 - Unauthorized access handling (Access Denied)
 
