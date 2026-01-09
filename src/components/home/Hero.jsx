@@ -3,6 +3,8 @@ import Container from '../Container/Container';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 import { Link } from 'react-router';
 import leftimageHero from '../../assets/leftimageHero.webp';
+import Btn from '../Buttons/Btn/btn';
+import BtnSecondary from '../Buttons/BtnSecondary/BtnSecondary';
 
 const Hero = () => {
   return (
@@ -20,7 +22,7 @@ const Hero = () => {
             </div>
 
             {/* headline */}
-            <h1 className="mt-5 text-xl md:text-3xlxl lg:text-5xl font-bold text-base-content">
+            <h1 className="mt-5 text-xl md:text-3xl lg:text-5xl font-bold text-base-content">
               Find The Right Tutor,
               <span className="block mt-3">
                 <span className="text-[#244C98]"> Faster</span> and With <span className="text-[#0F1A33]">Trust</span>
@@ -28,25 +30,19 @@ const Hero = () => {
             </h1>
 
             {/* subtext */}
-            <p className="mt-4 mx-auto lg:mx-0 text-xs lg:text-base text-neutral md:max-w-xl">
+            <p className="mt-4 mx-auto lg:mx-0 text-xs lg:text-base text-neutral md:max-w-sm lg:max-w-xl">
               EduBridge helps students post tuition needs and connect with verified tutors—so learning stays smooth, transparent, and
               reliable.
             </p>
 
             {/* CTA */}
-            <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:justify-center lg:justify-start">
-              <Link
-                to="/tuitions"
-                className="px-6 py-3 rounded-xl bg-[#0F1A33] text-white font-semibold shadow-sm hover:opacity-95 active:scale-[0.99] transition text-center"
-              >
-                Browse Tuitions
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <Link to="/tuitions">
+                <Btn className='w-full md:w-auto py-2.5 px-5'>Browse Tuitions</Btn>
               </Link>
 
-              <Link
-                to="/dashboard"
-                className="px-6 py-3 rounded-xl border border-base-300 bg-base-100 font-semibold text-base-content hover:bg-base-200 transition text-center"
-              >
-                Post Tuition
+              <Link to="/dashboard">
+                <BtnSecondary className='w-full md:w-auto text-sm px-5'>Post Tuition</BtnSecondary>
               </Link>
             </div>
           </div>

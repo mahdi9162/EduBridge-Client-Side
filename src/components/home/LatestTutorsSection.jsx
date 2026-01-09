@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../services/axiosInstance';
 import { Link } from 'react-router';
 import FullScreenLoader from '../Loading/FullScreenLoader';
+import CommonButton from '../Buttons/CommonButton/CommonButton';
+import Btn from '../Buttons/Btn/btn';
 
 const LatestTutorsSection = () => {
   const { data, isLoading } = useQuery({
@@ -83,12 +85,9 @@ const LatestTutorsSection = () => {
                 </div>
 
                 {/* CTA */}
-                <Link
-                  to="/tutors"
-                  className="mt-5 inline-block w-full rounded-xl bg-primary py-2.5 text-center text-sm font-semibold text-primary-content hover:opacity-95 active:scale-[0.99] transition"
-                >
-                  View Tutors
-                </Link>
+                <CommonButton className="mt-4 inline-block w-full text-center rounded-xl py-2 text-sm font-semibold">
+                  <Link to="/tutors">View Tutors</Link>
+                </CommonButton>
               </motion.div>
             );
           })}
@@ -96,12 +95,9 @@ const LatestTutorsSection = () => {
 
         {/* bottom CTA */}
         <div className="mt-8 flex justify-center">
-          <Link
-            to="/tutors"
-            className="inline-block rounded-xl border border-base-300 bg-base-100 px-5 py-2 text-sm font-semibold text-base-content hover:bg-base-200 transition"
-          >
-            See All Tuition Posts →
-          </Link>
+          <Btn className="inline-block rounded-xl px-5 py-2 text-sm font-semibold">
+            <Link to="/tutors">See All Tutors →</Link>
+          </Btn>
         </div>
       </motion.section>
     </Container>

@@ -29,7 +29,7 @@
 }
 
 body {
-  font-family: 'IBM Plex Sans', sans-serif;
+  background: linear-gradient(180deg, #fdfefe 0%, #f4f7fc 40%, #eef3fb 100%);
 }
 
 h1,
@@ -54,4 +54,3 @@ h6 {
 .dashboard-card {
   @apply bg-base-100 border border-base-300 rounded-2xl p-5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:border-base-content/10;
 }
-

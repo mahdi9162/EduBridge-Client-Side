@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import TutorDetailsModal from './TutorDetailsModal';
 import tutorImg from '../../../assets/teacher.png';
 import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
+import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
 
 const TutorsList = () => {
   const [selectedTutor, setSelectedTutor] = useState(null);
@@ -116,12 +117,12 @@ const TutorsList = () => {
 
                   {/* Action */}
                   <div className="lg:col-span-1 lg:flex lg:items-center md:mx-auto lg:justify-end">
-                    <button
+                    <CommonButton
                       onClick={() => openTutorDetailsModal(tutor)}
-                      className="btn btn-sm w-full md:w-50 lg:w-auto bg-primary text-primary-content hover:bg-secondary border-none rounded-full px-5"
+                      className="btn btn-sm w-full md:w-50 lg:w-auto border-none rounded-full px-5"
                     >
                       View Profile
-                    </button>
+                    </CommonButton>
                   </div>
                 </div>
               </div>

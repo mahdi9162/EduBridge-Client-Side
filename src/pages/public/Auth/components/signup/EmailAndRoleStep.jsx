@@ -79,7 +79,7 @@ const EmailAndRoleStep = ({ currentStep, setCurrentStep, setUserType }) => {
           </div>
 
           {/* Button */}
-          <CommonButton onClick={handleEmailButton} className="btn-secondary mt-8 w-full lg:w-[600px] text-xs md:text-base rounded-full">
+          <CommonButton onClick={handleEmailButton} className="mt-8 w-full lg:w-[600px] text-xs md:text-base rounded-full py-2.5">
             Next
           </CommonButton>
           <div className="divider lg:w-[600px] mx-auto">OR</div>

@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useRole from '../../hooks/useRole';
 import FullScreenLoader from '../Loading/FullScreenLoader';
+import CommonButton from '../Buttons/CommonButton/CommonButton';
+import Btn from '../Buttons/Btn/btn';
 
 const LatestTuitionsSection = () => {
   const { role, roleLoading } = useRole();
@@ -62,24 +64,21 @@ const LatestTuitionsSection = () => {
                 <p className="mt-1 text-sm text-neutral">Location: {tuition.location}</p>
                 <p className="mt-1 text-sm text-neutral">Budget: ৳ {tuition.budget} / month</p>
 
-                <button
+                <CommonButton
                   onClick={() => handleViewDetailsBtn(tuition._id)}
-                  className="mt-4 inline-block w-full text-center rounded-xl bg-primary py-2 text-sm font-semibold text-primary-content cursor-pointer"
+                  className="mt-4 inline-block w-full text-center rounded-xl py-2 text-sm font-semibold"
                 >
                   View Details
-                </button>
+                </CommonButton>
               </div>
             ))}
           </div>
 
           {/* cta */}
           <div className="mt-8 text-center">
-            <Link
-              to="/tuitions"
-              className="inline-block rounded-xl border border-base-300 bg-base-100 px-5 py-2 text-sm font-semibold text-base-content hover:bg-base-200 transition"
-            >
-              See All Tuition Posts →
-            </Link>
+            <Btn className="inline-block rounded-xl px-5 py-2 text-sm font-semibold">
+              <Link to="/tuitions">See All Tuition Posts</Link>
+            </Btn>
           </div>
         </div>
       </section>

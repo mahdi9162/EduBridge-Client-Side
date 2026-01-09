@@ -4,6 +4,9 @@ import { HiOutlineShieldCheck } from 'react-icons/hi';
 import { FiMail, FiMapPin, FiClock, FiSend } from 'react-icons/fi';
 import Container from '../../../components/Container/Container';
 import toast from 'react-hot-toast';
+import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
+import Btn from '../../../components/Buttons/Btn/btn';
+import BtnSecondary from '../../../components/Buttons/BtnSecondary/BtnSecondary';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -109,21 +112,21 @@ const Contact = () => {
                   Don’t share phone numbers publicly. We keep sensitive info protected.
                 </p>
 
-                <div className="mt-4 flex flex-col gap-3 md:flex-row">
-                  <Link
-                    to="/tuitions"
-                    className="rounded-xl bg-primary px-5 py-2.5 text-center text-sm font-semibold text-primary-content hover:opacity-95 transition"
-                  >
-                    Browse Tuitions
-                  </Link>
+        <div className="mt-4 flex flex-col gap-3 md:flex-row">
+  <Link to="/tuitions" className="w-full md:w-auto">
+    <Btn className="w-full md:w-auto rounded-xl px-5 py-2.5 text-center text-sm font-semibold">
+      Browse Tuitions
+    </Btn>
+  </Link>
 
-                  <Link
-                    to="/tutors"
-                    className="rounded-xl border border-base-300 bg-base-100 px-5 py-2.5 text-center text-sm font-semibold text-base-content hover:bg-base-200 transition"
-                  >
-                    Explore Tutors
-                  </Link>
-                </div>
+  <Link to="/tutors" className="w-full md:w-auto relative isolate">
+    <BtnSecondary className="w-full md:w-auto rounded-xl text-center text-sm font-semibold">
+      Explore Tutors
+    </BtnSecondary>
+  </Link>
+</div>
+
+
               </div>
             </div>
 
@@ -168,13 +171,13 @@ const Contact = () => {
                   className="w-full rounded-xl border border-base-300 bg-base-100 px-4 py-3 text-sm outline-none focus:border-secondary"
                 />
 
-                <button
+                <CommonButton
                   type="submit"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-content hover:opacity-95 active:scale-[0.99] transition cursor-pointer"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold active:scale-[0.99]"
                 >
                   <FiSend />
                   Send Message
-                </button>
+                </CommonButton>
               </form>
             </div>
           </div>

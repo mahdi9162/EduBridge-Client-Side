@@ -7,9 +7,9 @@ import { useForm } from 'react-hook-form';
 import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
-import Loading from '../../../components/Loading/Loading';
 import { exchangeFirebaseTokenForJwt } from '../../../utils/authHelpers';
 import toast from 'react-hot-toast';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const Login = () => {
   const { loading, setLoading, signInWithEmailPass } = useAuth();
@@ -22,7 +22,7 @@ const Login = () => {
   } = useForm();
 
   if (loading) {
-    return <Loading></Loading>;
+    return <FullScreenLoader></FullScreenLoader>;
   }
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -94,7 +94,7 @@ const Login = () => {
                 {errors.password && <p className="text-left mt-1 text-xs text-red-400/80">{errors.password.message}</p>}
 
                 <div>
-                  <CommonButton className="mt-8 rounded-full w-full">Sign In</CommonButton>
+                  <CommonButton className="mt-8 rounded-full w-full py-2.5">Sign In</CommonButton>
                 </div>
               </form>
             </div>

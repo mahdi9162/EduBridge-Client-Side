@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router';
 import Logo from './Logo';
 import useAuth from '../../hooks/useAuth';
 import NavbarProfileDropdown from './NavbarProfileDropdown';
+import CommonButton from '../Buttons/CommonButton/CommonButton';
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -18,8 +19,8 @@ const Navbar = () => {
 
   return (
     <>
-      <Container className="px-3">
-        <div className="navbar bg-[#F4F6FA] mt-5 rounded-full px-3 md:px-10 py-3 md:py-4 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
+      <Container className="mt-5 sticky top-3 z-50 bg-white/70 backdrop-blur-md border border-white/40 shadow-[0_8px_30px_rgba(0,0,0,0.06)] rounded-full">
+        <div className="navbar px-3 md:px-10 ">
           <div className="navbar-start">
             <div className="dropdown">
               <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,18 +57,12 @@ const Navbar = () => {
           <div className="navbar-end">
             {!user && (
               <div className="flex gap-2 md:gap-5">
-                <Link
-                  to="/signup"
-                  className="btn btn-secondary hover:bg-primary transition-all duration-500 rounded-xl px-3 py-1.5 text-[11px] font-medium shadow-sm hover:shadow-md md:px-4 md:py-2 md:text-sm"
-                >
-                  Sign Up
-                </Link>
-                <Link
-                  to="/login"
-                  className="btn btn-secondary shadow-sm hover:shadow-md hover:bg-primary px-3 py-1.5 rounded-xl transition-all duration-500 text-xs text-[11px] font-medium md:px-4 md:py-2 md:text-sm"
-                >
-                  Log In
-                </Link>
+                <CommonButton className="px-3 py-1.5 text-[11px] font-medium shadow-sm hover:shadow-md md:px-4 md:py-2 md:text-sm rounded-xl">
+                  <Link to="/signup">Sign Up</Link>
+                </CommonButton>
+                <CommonButton className="px-3 py-1.5 text-[11px] font-medium shadow-sm hover:shadow-md md:px-4 md:py-2 md:text-sm rounded-xl">
+                  <Link to="/login">Log In</Link>
+                </CommonButton>
               </div>
             )}
             {user && <NavbarProfileDropdown></NavbarProfileDropdown>}

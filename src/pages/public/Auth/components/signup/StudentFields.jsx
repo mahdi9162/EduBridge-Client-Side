@@ -114,7 +114,7 @@ const StudentFields = ({ setCurrentStep }) => {
         ))}
       </select>
       {/* Button */}
-      <CommonButton onClick={handleBasicInfo} className="btn btn-secondary mt-8 w-full lg:w-[600px] rounded-full text-xs lg:text-sm">
+      <CommonButton onClick={handleBasicInfo} className="btn mt-8 w-full lg:w-[600px] rounded-full text-xs lg:text-sm">
         Next
       </CommonButton>
     </>

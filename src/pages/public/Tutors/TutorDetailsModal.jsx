@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatDate } from '../../../utils/date';
 import userProfileImg from '../../../assets/userProfile.png';
+import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
 
 const TutorDetailsModal = ({ selectedTutor, onClose }) => {
   const t = selectedTutor;
@@ -87,9 +88,9 @@ const TutorDetailsModal = ({ selectedTutor, onClose }) => {
 
         {/* Footer */}
         <div className="mt-6 flex justify-end">
-          <button onClick={onClose} type="button" className="btn bg-primary text-primary-content hover:bg-secondary border-none">
+          <CommonButton onClick={onClose} type="button" className="btn border-none">
             Close
-          </button>
+          </CommonButton>
         </div>
       </div>
     </div>
