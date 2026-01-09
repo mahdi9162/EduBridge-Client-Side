@@ -1,9 +1,72 @@
 import React from 'react';
+import useAuth from '../../../hooks/useAuth';
+import { useNavigate } from 'react-router';
+import axiosInstance from '../../../services/axiosInstance';
+import toast from 'react-hot-toast';
 
 const GithubButton = ({ className = '' }) => {
+  const { user, signInWithGithub, setLoading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleGithubLogin = async (e) => {
+    e.preventDefault();
+    if (user) return;
+
+    try {
+      // Login
+      const res = await signInWithGithub();
+      const loggedInUser = res.user;
+      const firebaseToken = await loggedInUser?.accessToken;
+
+      if (!firebaseToken) {
+        console.error('Github login: Failed to get Firebase token');
+        return;
+      }
+
+      try {
+        const userData = {
+          firebaseUID: loggedInUser.uid,
+          name: loggedInUser.displayName || '',
+          email: loggedInUser.email,
+          classLevel: '',
+          teachingClass: '',
+          subject: '',
+          phone: '',
+          district: '',
+          userType: 'student',
+        };
+        await axiosInstance.post('/signup', userData);
+      } catch (err) {
+        const alreadyExists = err.response && err.response.status === 400 && err.response.data?.message === 'Email already exists';
+
+        if (!alreadyExists) {
+          console.error('Github signup error:', err);
+          return;
+        }
+      }
+
+      const tokenRes = await axiosInstance.post('/api/auth/jwt', { token: firebaseToken });
+      const { token, userType } = tokenRes.data;
+
+      localStorage.setItem('access-token', token);
+      localStorage.setItem('user-type', userType);
+      toast.success('Login successful. Welcome back!');
+      navigate('/');
+      setLoading(false);
+    } catch (err) {
+      if (err.code === 'auth/account-exists-with-different-credential') {
+        toast.error('This email is already registered with a different sign-in method. Please try logging in with the original one.', {
+          duration: 6000,
+        });
+      } else {
+        toast.error('Github login failed. Please try again.');
+      }
+    }
+    setLoading(false);
+  };
   return (
     <>
-      <button className={`btn bg-black text-white border-black rounded-full ${className}`}>
+      <button onClick={handleGithubLogin} type="button" className={`btn bg-black text-white border-black rounded-full ${className}`}>
         <svg aria-label="GitHub logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
             fill="white"

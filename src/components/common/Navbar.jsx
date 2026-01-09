@@ -6,16 +6,15 @@ import useAuth from '../../hooks/useAuth';
 import NavbarProfileDropdown from './NavbarProfileDropdown';
 
 const Navbar = () => {
+  const { user } = useAuth();
   const links = [
     { id: 1, name: 'Home', path: '/' },
     { id: 2, name: 'Tuitions', path: '/tuitions' },
     { id: 3, name: 'Tutors', path: '/tutors' },
     { id: 5, name: 'Contact', path: '/contact' },
 
-    { id: 6, name: 'Dashboard', path: '/dashboard' },
+    ...(user ? [{ id: 6, name: 'Dashboard', path: '/dashboard' }] : []),
   ];
-
-  const { user } = useAuth();
 
   return (
     <>

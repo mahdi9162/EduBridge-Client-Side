@@ -5,7 +5,7 @@ import axiosInstance from '../../../services/axiosInstance';
 import toast from 'react-hot-toast';
 
 const GoogleButton = ({ className = '' }) => {
-  const { signInWithGoogle, user } = useAuth();
+  const { signInWithGoogle, user, setLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleSignin = async (e) => {
@@ -17,7 +17,7 @@ const GoogleButton = ({ className = '' }) => {
       // Login
       const res = await signInWithGoogle();
       const loggedInUser = res.user;
-      const firebaseToken = loggedInUser?.accessToken;
+      const firebaseToken = await loggedInUser?.accessToken;
 
       if (!firebaseToken) {
         console.error('Google login: Failed to get Firebase token');
@@ -53,9 +53,11 @@ const GoogleButton = ({ className = '' }) => {
       localStorage.setItem('user-type', userType);
       toast.success('Login successful. Welcome back!');
       navigate('/');
+      setLoading(false);
       // eslint-disable-next-line no-unused-vars
     } catch (err) {
       toast.error('Google login failed. Please try again.');
+      setLoading(false);
     }
   };
 
