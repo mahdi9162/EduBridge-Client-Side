@@ -63,8 +63,8 @@ const GoogleButton = ({ className = '' }) => {
 
   return (
     <>
-      <button onClick={handleGoogleSignin} type="button" className={`btn bg-white text-black border-[#e5e5e5] rounded-full ${className}`}>
-        <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <button onClick={handleGoogleSignin} type="button" className={`btn bg-white text-black border-[#e5e5e5] rounded-full md:h-12 ${className}`}>
+        <svg aria-label="Google logo" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <g>
             <path d="m0 0H512V512H0" fill="#fff"></path>
             <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>

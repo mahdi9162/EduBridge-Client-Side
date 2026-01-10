@@ -62,7 +62,7 @@ const Signup = () => {
   };
 
   return (
-    <Container className="px-3">
+    <Container className="my-10 lg:my-16 px-3 min-h-screen bg-[radial-gradient(circle_at_15%_20%,rgba(36,76,152,0.14),transparent_45%),radial-gradient(circle_at_85%_10%,rgba(15,26,51,0.10),transparent_40%),linear-gradient(180deg,#fdfefe_0%,#f4f7fc_45%,#eef3fb_100%)] rounded-2xl">
       <section className="mt-4 md:mt-8 mb-10 pt-4 pb-8 md:py-8 lg:py-16">
         <div className="flex flex-col justify-center md:flex-row gap-10 lg:gap-16">
           {/* left side image  */}

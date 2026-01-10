@@ -8,8 +8,8 @@ import BtnSecondary from '../Buttons/BtnSecondary/BtnSecondary';
 
 const Hero = () => {
   return (
-    <Container>
-      <section className="py-10 md:py-14 lg:py-16 px-3">
+    <section className="bg-[radial-gradient(circle_at_20%_20%,rgba(36,76,152,0.14),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(15,26,51,0.10),transparent_40%),linear-gradient(180deg,#fdfefe_0%,#f4f7fc_55%,#eef3fb_100%)] rounded-2xl mt-5">
+      <Container className="py-10 md:py-14 lg:py-16 px-3">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* left */}
           <div className="text-center lg:text-left">
@@ -36,13 +36,13 @@ const Hero = () => {
             </p>
 
             {/* CTA */}
-            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start relative z-30">
               <Link to="/tuitions">
-                <Btn className='w-full md:w-auto py-2.5 px-5'>Browse Tuitions</Btn>
+                <Btn className="w-full md:w-auto py-2.5 px-5">Browse Tuitions</Btn>
               </Link>
 
               <Link to="/dashboard">
-                <BtnSecondary className='w-full md:w-auto text-sm px-5'>Post Tuition</BtnSecondary>
+                <BtnSecondary className="w-full md:w-auto text-sm px-5">Post Tuition</BtnSecondary>
               </Link>
             </div>
           </div>
@@ -60,8 +60,8 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </section>
-    </Container>
+      </Container>
+    </section>
   );
 };
 

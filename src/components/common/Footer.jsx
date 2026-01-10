@@ -1,17 +1,18 @@
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import Container from '../Container/Container';
-import Logo from '../common/Logo';
+import LogoWhite from '../common/LogoWhite';
 
 const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content">
+    <footer className="relative mt-14 bg-primary text-white rounded-tr-4xl rounded-tl-4xl">
+      <div className="border-t border-white/10" />
       <Container>
         {/* Main footer */}
         <div className="footer p-10 md:footer-horizontal items-start gap-10">
           {/* About */}
           <aside className="max-w-xs space-y-3">
-            <Logo />
+            <LogoWhite />
             <p className="text-sm text-neutral">
               EduBridge is a trusted tuition platform connecting students with qualified tutors — where trust shapes learning.
             </p>
@@ -21,28 +22,28 @@ const Footer = () => {
               <a
                 href="#"
                 aria-label="Facebook"
-                className="w-9 h-9 rounded-full bg-base-100 border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white transition"
+                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
                 <FaFacebookF />
               </a>
               <a
                 href="#"
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-full bg-base-100 border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white transition"
+                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
                 <FaInstagram />
               </a>
               <a
                 href="#"
                 aria-label="X (Twitter)"
-                className="w-9 h-9 rounded-full bg-base-100 border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white transition"
+                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
                 <FaXTwitter />
               </a>
               <a
                 href="#"
                 aria-label="LinkedIn"
-                className="w-9 h-9 rounded-full bg-base-100 border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white transition"
+                className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
                 <FaLinkedinIn />
               </a>
@@ -51,34 +52,34 @@ const Footer = () => {
 
           {/* Links */}
           <nav>
-            <h6 className="footer-title">Services</h6>
-            <a className="link link-hover">Find Tutors</a>
-            <a className="link link-hover">Post Tuition</a>
-            <a className="link link-hover">Dashboard</a>
-            <a className="link link-hover">Payments</a>
+            <h6 className="footer-title text-white/90 tracking-wide">Services</h6>
+            <a className="link link-hover text-white/65 hover:text-white transition">Find Tutors</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Post Tuition</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Dashboard</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Payments</a>
           </nav>
 
           <nav>
-            <h6 className="footer-title">Company</h6>
-            <a className="link link-hover">About us</a>
-            <a className="link link-hover">Contact</a>
-            <a className="link link-hover">Careers</a>
-            <a className="link link-hover">Press</a>
+            <h6 className="footer-title text-white/90 tracking-wide">Company</h6>
+            <a className="link link-hover text-white/65 hover:text-white transition">About us</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Contact</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Careers</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Press</a>
           </nav>
 
           <nav>
-            <h6 className="footer-title">Legal</h6>
-            <a className="link link-hover">Terms of use</a>
-            <a className="link link-hover">Privacy policy</a>
-            <a className="link link-hover">Cookie policy</a>
+            <h6 className="footer-title text-white/90 tracking-wide">Legal</h6>
+            <a className="link link-hover text-white/65 hover:text-white transition">Terms of use</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Privacy policy</a>
+            <a className="link link-hover text-white/65 hover:text-white transition">Cookie policy</a>
           </nav>
         </div>
 
         {/* Divider */}
-        <div className="border-t border-base-300" />
+        <div className="border-t border-white/10" />
 
         {/* Copyright */}
-        <div className="py-4 text-center text-xs text-neutral">© {new Date().getFullYear()} EduBridge. All rights reserved.</div>
+        <div className="py-5 text-center text-xs text-white/55">© {new Date().getFullYear()} EduBridge. All rights reserved.</div>
       </Container>
     </footer>
   );

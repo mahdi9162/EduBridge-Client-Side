@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <>
-      <Container className="mt-5 sticky top-3 z-50 rounded-full backdrop-blur-md bg-linear-to-b from-white/80 via-white/65 to-[#eef3fb]/70 border border-white/40 shadow-[0_8px_30px_rgba(15,26,51,0.08)]">
+      <Container className="sticky top-3 z-50 md:rounded-full backdrop-blur-md bg-linear-to-b from-white/80 via-white/65 to-[#eef3fb]/70 border border-white/40 shadow-[0_8px_30px_rgba(15,26,51,0.08)]">
         <div className="navbar px-3 md:px-10 ">
           <div className="navbar-start">
             <div className="dropdown">

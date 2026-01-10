@@ -47,32 +47,14 @@ const LatestTuitionsSection = () => {
   return (
     <Container>
       <section
-        className="
-      relative my-10 lg:my-16 overflow-hidden
-      rounded-3xl px-3 md:px-10
-      bg-base-200/35
-      border border-base-200/60
-      shadow-[0_12px_40px_rgba(15,26,51,0.06)]
-      backdrop-blur
-    "
+        className="relative my-10 lg:my-16 overflow-hidden rounded-3xl px-4 md:px-10
+    border border-base-200/60 shadow-[0_12px_40px_rgba(15,26,51,0.06)] bg-[radial-gradient(circle_at_15%_25%,rgba(36,76,152,0.10),transparent_55%),radial-gradient(circle_at_85%_15%,rgba(15,26,51,0.08),transparent_45%),linear-gradient(180deg,#ffffff_0%,#f4f7ff_55%,#eef3fb_100%)]"
       >
-        {/* subtle background glow */}
-        <div
-          className="
-        pointer-events-none absolute -top-28 left-1/2 h-56 w-[520px] -translate-x-1/2
-        rounded-full blur-3xl opacity-70
-        bg-[radial-gradient(circle,rgba(36,76,152,0.14),transparent_60%)]
-      "
-        />
-        <div
-          className="
-        pointer-events-none absolute -bottom-40 right-[-120px] h-72 w-72
-        rounded-full blur-3xl opacity-50
-        bg-[radial-gradient(circle,rgba(36,76,152,0.10),transparent_60%)]
-      "
-        />
+        {/* glows */}
+        <div className="pointer-events-none absolute -top-28 left-10 right-10 h-64 w-64 rounded-full blur-3xl opacity-60 bg-[radial-gradient(circle,rgba(36,76,152,0.22),transparent_62%)]" />
+        <div className="pointer-events-none absolute -bottom-28 right-10 h-72 w-72 rounded-full blur-3xl opacity-50 bg-[radial-gradient(circle,rgba(15,26,51,0.18),transparent_65%)]" />
 
-        <div className="relative py-12">
+        <div className="relative py-12 z-10">
           {/* Section Title */}
           <div className="text-center mb-10">
             <p className="inline-flex items-center gap-2 rounded-full border border-base-200 bg-base-100/70 px-4 py-1 text-xs font-semibold text-neutral backdrop-blur">
@@ -95,9 +77,9 @@ const LatestTuitionsSection = () => {
               border border-base-200/60 bg-base-100/80
               p-5 shadow-[0_10px_30px_rgba(15,26,51,0.06)]
               backdrop-blur-md
-              transition-all duration-200
+              transition-all duration-700
               hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,26,51,0.12)]
-              hover:border-primary/20
+              hover:border-primary/15
             "
               >
                 {/* top glow */}

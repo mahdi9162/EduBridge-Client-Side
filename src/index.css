@@ -18,7 +18,7 @@
   --color-primary: #0f1a33; /* Deep Navy */
   --color-primary-content: #ffffff;
 
-  --color-secondary: #244c98; /* Sapphire Blue */
+  --color-secondary: #w; /* Sapphire Blue */
   --color-secondary-content: #ffffff;
 
   --color-accent: #e8eef8; /* Mist Blue */
@@ -29,7 +29,10 @@
 }
 
 body {
-  background: linear-gradient(180deg, #fdfefe 0%, #f4f7fc 40%, #eef3fb 100%);
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: radial-gradient(circle at 20% 10%, rgba(36, 76, 152, 0.06), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(15, 26, 51, 0.05), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(232, 238, 248, 0.92));
 }
 
 h1,
@@ -55,7 +58,6 @@ h6 {
   @apply bg-base-100 border border-base-300 rounded-2xl p-5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:border-base-content/10;
 }
 
-
 /* how it works card */
 /* Modern rotating border (soft, full perimeter) */
 .ringCard {
@@ -66,17 +68,17 @@ h6 {
 
 /* rotating ring */
 .ringCard::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: -2px;
   border-radius: 18px;
   background: conic-gradient(
     from var(--a, 0deg),
     transparent 0%,
-    rgba(64,112,244,0.28) 10%,
-    rgba(64,112,244,0.00) 28%,
+    rgba(64, 112, 244, 0.28) 10%,
+    rgba(64, 112, 244, 0) 28%,
     transparent 60%,
-    rgba(64,112,244,0.18) 78%,
+    rgba(64, 112, 244, 0.18) 78%,
     transparent 100%
   );
   filter: blur(0.2px);
@@ -86,7 +88,7 @@ h6 {
 
 /* inner surface */
 .ringCard::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 6px;
   border-radius: 14px;
@@ -109,10 +111,13 @@ h6 {
 }
 
 @keyframes ring-rotate {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
-.ringCard::before { transform-origin: center; }
-
+.ringCard::before {
+  transform-origin: center;
+}
 
 /* why choose us */
 @keyframes float {
