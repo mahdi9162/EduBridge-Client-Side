@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <Container className="my-10 lg:my-16 px-3 min-h-screen bg-[radial-gradient(circle_at_15%_20%,rgba(36,76,152,0.14),transparent_45%),radial-gradient(circle_at_85%_10%,rgba(15,26,51,0.10),transparent_40%),linear-gradient(180deg,#fdfefe_0%,#f4f7fc_45%,#eef3fb_100%)] rounded-2xl">
-      <section className="mt-4 md:mt-8 mb-10 py-8 lg:py-16">
+      <section className="mt-4 md:mt-8 mb-10 py-3 lg:py-16">
         <div className="flex justify-center flex-col items-center mb-6">
           {/* Round badge */}
           <div className="w-10 h-10 rounded-full bg-gray-200 mb-2 ml-3" />
@@ -112,7 +112,9 @@ const Login = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center mt-6 ml-5">
-          <Link className="text-sm font-medium text-primary/80 hover:text-primary underline mb-4">Forgot Password?</Link>
+          <Link to="/forgot-password" className="text-sm font-medium text-primary/80 hover:text-primary underline mb-4">
+            Forgot Password?
+          </Link>
           <p className="text-xs text-neutral leading-relaxed text-center">
             Secure Login with reCAPTCHA subject to{' '}
             <span className="block text-center">

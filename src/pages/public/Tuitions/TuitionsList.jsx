@@ -85,7 +85,7 @@ const TuitionsList = () => {
               </p>
             </div>
 
-            {/* right: search (same as TutorsList) */}
+            {/* right: search */}
             <div className="relative w-full sm:w-80 h-12">
               <IoIosSearch className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral/70 z-10 pointer-events-none" />
 

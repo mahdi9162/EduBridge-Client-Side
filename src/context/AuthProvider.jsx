@@ -7,6 +7,7 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -51,6 +52,11 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, fbProvider);
   };
 
+  // Reset email
+  const resetUserEmail = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
   //   Sign Out
   const userSignOut = () => {
     return signOut(auth);
@@ -81,6 +87,7 @@ const AuthProvider = ({ children }) => {
     signInWithGoogle,
     signInWithGithub,
     signInWithFb,
+    resetUserEmail,
     userSignOut,
     updateUserProfile,
   };

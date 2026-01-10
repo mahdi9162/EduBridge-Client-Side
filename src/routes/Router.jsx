@@ -30,6 +30,7 @@ import PaymentSuccess from '../pages/dashboard/paymentPages/paymentSuccess';
 import PaymentCancel from '../pages/dashboard/paymentPages/PaymentCancel.Jsx';
 
 import NotFound from '../pages/public/Error/NotFound';
+import ForgotPass from '../pages/public/Auth/ForgotPass';
 
 export const router = createBrowserRouter([
   // Public site
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
             <TuitionDetails />
           </TutorRoute>
         ),
+      },
+      {
+        path: 'forgot-password',
+        Component: ForgotPass,
       },
     ],
   },
