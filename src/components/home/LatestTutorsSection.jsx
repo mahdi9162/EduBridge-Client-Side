@@ -91,7 +91,7 @@ const LatestTutorsSection = () => {
                 {/* top */}
                 <div className="relative flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h3 className="text-[15px] font-bold text-base-content leading-snug truncate">{name}</h3>
+                    <h3 className="text-[15px] font-bold text-base-content leading-snug truncate">{name.toUpperCase()}</h3>
 
                     <p className="mt-1 inline-flex items-center gap-2 text-sm text-neutral">
                       <span className="h-1.5 w-1.5 rounded-full bg-primary/60" />

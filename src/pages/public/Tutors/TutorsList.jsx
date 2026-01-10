@@ -176,7 +176,7 @@ const TutorsList = () => {
                     </div>
 
                     <div className="min-w-0">
-                      <p className="font-bold text-base-content truncate">{tutor.name}</p>
+                      <p className="font-bold text-base-content truncate">{tutor.name.toUpperCase()}</p>
                       <p className="text-xs text-neutral">Verified profile</p>
                     </div>
                   </div>

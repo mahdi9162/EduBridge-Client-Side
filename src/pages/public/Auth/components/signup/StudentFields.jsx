@@ -30,6 +30,8 @@ const StudentFields = ({ setCurrentStep }) => {
   const handleBasicInfo = () => {
     const nameValue = watch('name');
     const phoneValue = watch('phone');
+    const photoValue = watch('photo');
+    const hasPhoto = photoValue && photoValue.length > 0;
     const classValue = watch('classLevel');
     const subjectValue = watch('subject');
     const locationValue = watch('location');
@@ -37,6 +39,7 @@ const StudentFields = ({ setCurrentStep }) => {
     if (
       nameValue.length > 0 &&
       phoneValue.length > 0 &&
+      hasPhoto &&
       classValue !== 'Select your class' &&
       subjectValue !== 'Select your subject' &&
       locationValue !== 'Select your location'
@@ -57,16 +60,45 @@ const StudentFields = ({ setCurrentStep }) => {
         className="input w-full lg:w-[600px] placeholder:text-xs lg:placeholder:text-sm"
       />
       {errors.name && <p className="text-left lg:ml-17 mt-1 text-sm text-red-400/80">{errors.name.message}</p>}
-      {/* Phone */}
-      <legend className="text-left lg:ml-16 mb-1 mt-4 opacity-50 text-xs md:text-sm">Phone</legend>
-      <input
-        type="tel"
-        {...register('phone', { required: true, pattern: { value: phoneRegex, message: 'Enter a valid phone number' } })}
-        name="phone"
-        placeholder="Enter your Phone No"
-        className="input w-full lg:w-[600px] placeholder:text-xs lg:placeholder:text-sm"
-      />
-      {errors.phone && <p className="text-left lg:ml-17 mt-1 text-sm text-red-400/80">{errors.phone.message}</p>}
+
+      {/* Phone + Photo */}
+      <div className="flex flex-col lg:flex-row w-full lg:w-[600px] mx-auto lg:gap-4">
+        {/* Phone */}
+        <div className="flex-1">
+          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">Phone</legend>
+          <input
+            type="tel"
+            {...register('phone', { required: true, pattern: { value: phoneRegex, message: 'Enter a valid phone number' } })}
+            name="phone"
+            placeholder="Enter your Phone No"
+            className="input w-full placeholder:text-xs lg:placeholder:text-sm"
+          />
+          {errors.phone && <p className="text-left lg:ml-18 mt-1 text-sm text-red-400/80">{errors.phone.message}</p>}
+        </div>
+
+        {/* Photo */}
+        <div className="flex-1">
+          <legend className="text-left mb-1 mt-4 opacity-50 text-xs md:text-sm">Profile Picture</legend>
+          <input
+            type="file"
+            accept="image/*"
+            {...register('photo', {
+              required: 'Profile image is required',
+              validate: (files) => {
+                const file = files?.[0];
+                if (!file) return 'Profile picture is required';
+                if (!file.type.startsWith('image/')) return 'Only image files are allowed';
+                if (!file.size > 2 * 1024 * 1024) return 'Max file size is 2MB';
+                return true;
+              },
+            })}
+            name="photo"
+            className="file-input file-input-bordered w-full"
+          />
+          {errors.photo && <p className="text-left lg:ml-18 mt-1 text-sm text-red-400/80">{errors.photo.message}</p>}
+        </div>
+      </div>
+
       {/* class + subject */}
       <div className="flex flex-col lg:flex-row lg:lg:w-[600px] mx-auto lg:gap-4">
         {/* Class */}

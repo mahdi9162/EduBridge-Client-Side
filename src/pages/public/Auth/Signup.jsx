@@ -8,10 +8,11 @@ import BasicInfoStep from './components/signup/BasicInfoStep';
 import PasswordStep from './components/signup/PasswordStep';
 import { FormProvider, useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
-import Loading from '../../../components/Loading/Loading';
 import { exchangeFirebaseTokenForJwt } from '../../../utils/authHelpers';
 import axiosInstance from '../../../services/axiosInstance';
 import toast from 'react-hot-toast';
+import { uploadToImgbb } from '../../../utils/uploadToImgbb';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const Signup = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -23,23 +24,31 @@ const Signup = () => {
   const { handleSubmit } = methods;
 
   if (loading) {
-    return <Loading></Loading>;
+    return <FullScreenLoader></FullScreenLoader>;
   }
 
   const handleSignupForm = async (data) => {
-    const { email, password, name, classLevel, teachingClass, location, phone, subject, userType } = data;
-
-    const profile = {
-      displayName: name,
-    };
+    const { email, password, name, classLevel, teachingClass, location, phone, photo, subject, userType } = data;
 
     try {
+      // file extract
+      const file = photo?.[0];
+      if (!file) {
+        toast.error('Profile image is required');
+        return;
+      }
+
       // Signup with email and pass
       const res = await signUpWithEmailPass(email, password);
       const userProfile = res.user;
 
+      // upload and get URL
+      const imageUrl = await uploadToImgbb(file);
+
       //   Update User Profile
-      await updateUserProfile(profile);
+      await updateUserProfile({ displayName: name, photoURL: imageUrl });
+
+      // save the data
       const userData = {
         firebaseUID: userProfile.uid,
         name: name,
@@ -48,16 +57,20 @@ const Signup = () => {
         teachingClass: teachingClass || '',
         subject: subject,
         phone: phone,
+        photoURL: imageUrl,
         location: location,
         userType: userType,
       };
+      console.log(userData);
+
       await axiosInstance.post('/signup', userData);
       // give access token
       await exchangeFirebaseTokenForJwt(userProfile);
       toast.success(`Signup successful. Welcome, ${name}!`);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      console.error('SIGNUP_ERROR:', error);
+      toast.error(error?.message || 'Signup failed. Please try again.');
     }
   };
 

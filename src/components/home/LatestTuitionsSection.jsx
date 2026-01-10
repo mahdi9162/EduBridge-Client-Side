@@ -92,7 +92,9 @@ const LatestTuitionsSection = () => {
               "
                 />
 
-                <h3 className="relative font-bold text-[15px] text-base-content leading-snug line-clamp-2">{tuition.title}</h3>
+                <h3 className="relative font-bold text-[15px] text-base-content leading-snug line-clamp-1">
+                  {tuition.title.toUpperCase()}
+                </h3>
 
                 <div className="relative mt-3 space-y-2 text-sm">
                   <div className="flex items-center justify-between rounded-xl bg-base-200/40 px-3 py-2">

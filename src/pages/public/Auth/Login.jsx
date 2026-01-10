@@ -104,7 +104,7 @@ const Login = () => {
           <div className="divider text-neutral my-4 md:my-0 md:mx-8 lg:divider-horizontal lg:h-[350px]">OR</div>
 
           {/* right side */}
-          <div className="flex flex-col lg:mt-20 gap-4 items-center md:items-start">
+          <div className="flex flex-col lg:mt-26 gap-4 items-center md:items-start">
             <GoogleButton className="w-[300px]" />
             <GithubButton className="w-[300px]" />
             <FbButton className="w-[300px]" />
