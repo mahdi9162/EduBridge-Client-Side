@@ -46,39 +46,116 @@ const LatestTuitionsSection = () => {
 
   return (
     <Container>
-      <section className="bg-base-200/40 px-3 md:px-10 rounded-4xl my-10 lg:my-16">
-        <div className="py-12">
+      <section
+        className="
+      relative my-10 lg:my-16 overflow-hidden
+      rounded-3xl px-3 md:px-10
+      bg-base-200/35
+      border border-base-200/60
+      shadow-[0_12px_40px_rgba(15,26,51,0.06)]
+      backdrop-blur
+    "
+      >
+        {/* subtle background glow */}
+        <div
+          className="
+        pointer-events-none absolute -top-28 left-1/2 h-56 w-[520px] -translate-x-1/2
+        rounded-full blur-3xl opacity-70
+        bg-[radial-gradient(circle,rgba(36,76,152,0.14),transparent_60%)]
+      "
+        />
+        <div
+          className="
+        pointer-events-none absolute -bottom-40 right-[-120px] h-72 w-72
+        rounded-full blur-3xl opacity-50
+        bg-[radial-gradient(circle,rgba(36,76,152,0.10),transparent_60%)]
+      "
+        />
+
+        <div className="relative py-12">
           {/* Section Title */}
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-base-content">Latest Tuition Posts</h2>
+          <div className="text-center mb-10">
+            <p className="inline-flex items-center gap-2 rounded-full border border-base-200 bg-base-100/70 px-4 py-1 text-xs font-semibold text-neutral backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-primary/70" />
+              Fresh Listings
+            </p>
+
+            <h2 className="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight text-base-content">Latest Tuition Posts</h2>
+
             <p className="mt-2 text-xs md:text-base text-neutral">Recently posted tuition requests from students</p>
           </div>
 
           {/* Cards */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* Card */}
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {approvedTuitions.map((tuition, i) => (
-              <div key={i} className="rounded-2xl border border-base-300 bg-base-100 p-5">
-                <h3 className="font-semibold text-base-content">{tuition.title}</h3>
-                <p className="mt-2 text-sm text-neutral">Class: {tuition.classLevel}</p>
-                <p className="mt-1 text-sm text-neutral">Location: {tuition.location}</p>
-                <p className="mt-1 text-sm text-neutral">Budget: ৳ {tuition.budget} / month</p>
+              <div
+                key={i}
+                className="
+              group relative overflow-hidden rounded-2xl
+              border border-base-200/60 bg-base-100/80
+              p-5 shadow-[0_10px_30px_rgba(15,26,51,0.06)]
+              backdrop-blur-md
+              transition-all duration-200
+              hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(15,26,51,0.12)]
+              hover:border-primary/20
+            "
+              >
+                {/* top glow */}
+                <div
+                  className="
+                pointer-events-none absolute -top-24 left-1/2 h-40 w-72 -translate-x-1/2
+                rounded-full blur-3xl opacity-0 transition-opacity duration-200
+                group-hover:opacity-100
+                bg-[radial-gradient(circle,rgba(36,76,152,0.16),transparent_60%)]
+              "
+                />
+
+                <h3 className="relative font-bold text-[15px] text-base-content leading-snug line-clamp-2">{tuition.title}</h3>
+
+                <div className="relative mt-3 space-y-2 text-sm">
+                  <div className="flex items-center justify-between rounded-xl bg-base-200/40 px-3 py-2">
+                    <span className="text-neutral">Class</span>
+                    <span className="font-semibold text-base-content">{tuition.classLevel}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between rounded-xl bg-base-200/40 px-3 py-2">
+                    <span className="text-neutral">Location</span>
+                    <span className="font-semibold text-base-content">{tuition.location}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between rounded-xl bg-base-200/40 px-3 py-2">
+                    <span className="text-neutral">Budget</span>
+                    <span className="font-semibold text-base-content">৳ {tuition.budget} / month</span>
+                  </div>
+                </div>
 
                 <CommonButton
                   onClick={() => handleViewDetailsBtn(tuition._id)}
-                  className="mt-4 inline-block w-full text-center rounded-xl py-2 text-sm font-semibold"
+                  className="
+                mt-4 w-full rounded-xl py-2.5 text-sm font-semibold
+                transition-all duration-200
+                group-hover:shadow-md
+              "
                 >
                   View Details
                 </CommonButton>
+
+                {/* bottom accent */}
+                <div className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full bg-primary/0 transition-all duration-200 group-hover:bg-primary/40" />
               </div>
             ))}
           </div>
 
-          {/* cta */}
-          <div className="mt-8 text-center">
-            <Btn className="inline-block rounded-xl px-5 py-2 text-sm font-semibold">
-              <Link to="/tuitions">See All Tuition Posts</Link>
+          {/* CTA */}
+          <div className="mt-10 text-center">
+            <Btn className="inline-flex items-center justify-center rounded-xl px-6 py-2.5 text-sm font-semibold shadow-sm hover:shadow-md transition">
+              <Link to="/tuitions" className="inline-flex items-center gap-2">
+                See All Tuition Posts
+                <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </Link>
             </Btn>
+
+            <p className="mt-3 text-xs text-neutral">Browse all listings to find the perfect match.</p>
           </div>
         </div>
       </section>

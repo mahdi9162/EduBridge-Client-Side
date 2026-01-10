@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from '../../../components/Container/Container';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../../services/axiosInstance';
@@ -7,8 +7,10 @@ import useRole from '../../../hooks/useRole';
 import Swal from 'sweetalert2';
 import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 import CommonButton from '../../../components/Buttons/CommonButton/CommonButton';
+import { IoIosSearch } from 'react-icons/io';
 
 const TuitionsList = () => {
+  const [searchValue, setSearchValue] = useState('');
   const { role, roleLoading } = useRole();
   const navigate = useNavigate();
   const { data: allTuitions = [], isLoading: tuitionLoading } = useQuery({
@@ -41,61 +43,124 @@ const TuitionsList = () => {
 
   const tuitions = allTuitions.filter((tuition) => tuition.postStatus === 'approved');
 
+    const filteredTuitions = (tuitions || []).filter((tuition) => (tuition?.title || '').toLowerCase().includes(searchValue.toLowerCase()));
+
   return (
-<Container>
-      <section className="my-10 lg:my-16 px-4 md:px-10 py-10 bg-base-200/40 rounded-4xl">
+    <Container>
+      <section className="
+      relative my-10 lg:my-16 overflow-hidden
+      rounded-3xl bg-base-200/35
+      border border-base-200/60
+      px-4 md:px-10 py-10
+      shadow-[0_12px_40px_rgba(15,26,51,0.06)]
+      backdrop-blur
+    "
+      >
+        {/* subtle glow */}
+        <div className="
+        pointer-events-none absolute -top-28 left-1/2 h-56 w-[520px] -translate-x-1/2
+        rounded-full blur-3xl opacity-70
+        bg-[radial-gradient(circle,rgba(36,76,152,0.14),transparent_60%)]
+      "
+        />
+
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-10">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-base-content">Available Tuition Posts</h2>
-          <p className="text-xs sm:text-sm text-neutral mt-2">
-            Browse all active tuition opportunities and{' '}
-            <span className="block md:inline-block">apply to the ones that match your expertise.</span>
-          </p>
+        {/* Section Header + Search (TutorsList style) */}
+        <div className="relative mb-10">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            {/* LEFT */}
+            <div className="text-center sm:text-left">
+              <p className="inline-flex items-center gap-2 rounded-full border border-base-200 bg-base-100/70 px-4 py-1 text-xs font-semibold text-neutral backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-primary/70" />
+                Active Opportunities
+              </p>
+
+              <h2 className="mt-3 text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-base-content">
+                Available Tuition Posts
+              </h2>
+
+              <p className="mt-2 text-xs sm:text-sm text-neutral">
+                Browse all active tuition opportunities and{' '}
+                <span className="block md:inline-block">apply to the ones that match your expertise.</span>
+              </p>
+            </div>
+
+            {/* right: search (same as TutorsList) */}
+            <div className="relative w-full sm:w-80 h-12">
+              <IoIosSearch className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral/70 z-10 pointer-events-none" />
+
+              <input
+                id="tuition-search"
+                onChange={(e) => setSearchValue(e.target.value)}
+                type="text"
+                placeholder=" "
+                className=" peer w-full h-12 rounded-xl bg-base-100/90 border border-base-200 pl-10 pr-4 text-sm text-base-content outline-none transition focus:border-primary/40 focus:shadow-[0_12px_28px_rgba(15,26,51,0.10)]"
+              />
+
+              <label
+                htmlFor="tuition-search"
+                className="absolute left-9 top-1/2 -translate-y-1/2 px-2 text-sm text-neutral bg-base-100/95 transition-all duration-150 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-0 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-primary"
+              >
+                Search by Subject
+              </label>
+            </div>
+          </div>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 justify-center">
-          {tuitions.map((tuition) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredTuitions.map((tuition) => (
             <div
               key={tuition._id}
-              className="bg-base-100 rounded-2xl shadow-[0_18px_45px_rgba(15,26,51,0.08)]
-              border border-base-200 px-4 sm:px-5 py-4 sm:py-5
-              transition-all duration-300 hover:shadow-[0_22px_55px_rgba(15,26,51,0.12)]
-              hover:-translate-y-[3px] flex flex-col h-full" 
+              className="
+        group relative rounded-2xl  border border-[#e3e9f3] bg-linear-to-b from-[#ffffff] via-[#f6f9ff] to-[#eaf0fb] p-5 shadow-[0_10px_28px_rgba(15,26,51,0.08)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(15,26,51,0.14)]
+      "
             >
-              {/* Main Content Wrapper */}
-              <div className="flex-grow">
-                {/* Title + status */}
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-sm sm:text-base md:text-lg font-semibold text-base-content line-clamp-1">{tuition.title}</h3>
-                  <span className="badge badge-soft badge-warning text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 capitalize shrink-0">
-                    {tuition.status}
-                  </span>
+              {/* top row */}
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="truncate text-base md:text-[17px] font-bold text-base-content">{tuition.title}</h3>
+                  <p className="mt-1 text-sm text-neutral">
+                    <span className="font-semibold text-base-content">Student:</span> {tuition?.name}
+                  </p>
                 </div>
 
-                <p className="text-sm my-2">
-                  <span className="font-semibold">Student Name:</span> <span>{tuition?.name}</span>
-                </p>
-
-                {/* stats - Added min-height to prevent layout break */}
-                <div className="flex flex-wrap gap-2 mt-3 text-[11px] sm:text-xs md:text-sm min-h-[60px]">
-                  <span className="bg-neutral/10 text-base-content px-2.5 py-1 rounded-md self-start">{tuition.classLevel}</span>
-                  <span className="bg-neutral/10 text-base-content px-2.5 py-1 rounded-md self-start">{tuition.subject}</span>
-                  <span className="bg-neutral/10 text-base-content px-2.5 py-1 rounded-md self-start">{tuition.location}</span>
-                </div>
+                {/* status */}
+                <span
+                  className="
+            shrink-0 rounded-full px-3 py-1 text-xs font-semibold
+            bg-warning/10 text-warning border border-warning/20
+          "
+                >
+                  {tuition.status}
+                </span>
               </div>
 
-              {/* Budget + button - Always stays at bottom */}
-              <div className="mt-auto pt-4 flex items-center justify-between gap-3 border-t border-base-200/50">
-                <p className="text-sm sm:text-base md:text-lg font-semibold text-secondary">
-                  <span className="text-xl sm:text-2xl font-bold mr-1">{tuition.budget}</span>
-                  <span className="align-middle text-lg sm:text-xl">&#x09F3;</span>
-                  <span className="text-[10px] sm:text-[11px] md:text-xs text-neutral/90 font-medium ml-1">/ month</span>
-                </p>
+              {/* chips */}
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-lg bg-base-200/60 px-3 py-1 text-xs font-semibold text-base-content">{tuition.classLevel}</span>
+                <span className="rounded-lg bg-base-200/60 px-3 py-1 text-xs font-semibold text-base-content">{tuition.subject}</span>
+                <span className="rounded-lg bg-base-200/60 px-3 py-1 text-xs font-semibold text-base-content">{tuition.location}</span>
+              </div>
+
+              <div className="my-5 h-px w-full bg-base-200/70" />
+
+              {/* bottom */}
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold text-neutral">Monthly Budget</p>
+                  <p className="mt-1 text-2xl font-extrabold text-secondary leading-none">
+                    ৳ {tuition.budget}
+                    <span className="ml-1 text-xs font-semibold text-neutral">/ month</span>
+                  </p>
+                </div>
 
                 <CommonButton
                   onClick={() => handleViewDetails(tuition._id)}
-                  className="rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium hover:shadow-lg shrink-0"
+                  className="
+            shrink-0 rounded-xl px-4 py-2 text-sm font-semibold
+            shadow-sm hover:shadow-md transition
+          "
                 >
                   View details
                 </CommonButton>
