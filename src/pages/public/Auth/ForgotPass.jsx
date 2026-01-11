@@ -105,16 +105,18 @@ const ForgotPass = () => {
 
         {/* Footer */}
         <div className="mt-8 text-center">
-          <Link
-            to="/login"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-[#0f1a33] opacity-70 hover:opacity-100 transition"
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="group inline-flex items-center gap-2 text-sm font-medium text-[#0f1a33] opacity-70 hover:opacity-100 duration-200 transition-all cursor-pointer"
           >
             <span className="text-lg">←</span>
+
             <span className="relative">
-              Back to Login
+              Back
               <span className="absolute left-0 -bottom-0.5 w-0 h-px bg-[#0f1a33] transition-all group-hover:w-full" />
             </span>
-          </Link>
+          </button>
         </div>
       </div>
     </section>

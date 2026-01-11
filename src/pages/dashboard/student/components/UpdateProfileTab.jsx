@@ -93,7 +93,7 @@ const UpdateProfileTab = ({ userDb }) => {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-xl md:text-2xl font-semibold text-[#0f1a33]">Update Your Profile</h2>
-          <p className="mt-1 text-sm text-neutral/60">This information will be visible on your account.</p>
+          <p className="mt-1 text-sm text-neutral/80">This information will be visible on your account.</p>
         </div>
       </div>
 

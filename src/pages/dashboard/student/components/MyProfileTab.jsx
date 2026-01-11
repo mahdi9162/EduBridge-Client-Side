@@ -19,7 +19,7 @@ const MyProfileTab = ({ userDb, setTab }) => {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg font-semibold text-[#0f1a33]">My Profile</h2>
-          <p className="mt-1 text-sm text-neutral/60">Your public profile details (read-only).</p>
+          <p className="mt-1 text-sm text-neutral/80">Your public profile details (read-only).</p>
         </div>
       </div>
 
