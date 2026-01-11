@@ -80,7 +80,9 @@ const Footer = () => {
 
           <nav>
             <h6 className="footer-title text-white/90 tracking-wide">Legal</h6>
-            <a className="link link-hover text-white/65 hover:text-white transition">Terms of use</a>
+            <Link to="terms" className="link link-hover text-white/65 hover:text-white transition">
+              Terms of use
+            </Link>
             <a className="link link-hover text-white/65 hover:text-white transition">Privacy policy</a>
             <a className="link link-hover text-white/65 hover:text-white transition">Cookie policy</a>
           </nav>

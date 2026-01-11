@@ -31,6 +31,9 @@ import ProfileSettings from '../pages/dashboard/profileSettings/ProfileSettings'
 import About from '../pages/public/About/About';
 import TutorOrAdminRoute from './TutorOrAdminRoute';
 import FAQ from '../pages/public/FAQ/FAQ';
+import TermsOfUse from '../pages/public/Legal/TermsOfUse/TermsOfUse';
+import PrivacyPolicy from '../pages/public/Legal/PrivacyPolicy/PrivacyPolicy';
+import CookiePolicy from '../pages/public/Legal/CookiePolicy/CookiePolicy';
 
 export const router = createBrowserRouter([
   // Public site
@@ -46,6 +49,9 @@ export const router = createBrowserRouter([
       { path: 'signup', Component: Signup },
       { path: 'login', Component: Login },
       { path: 'faq', Component: FAQ },
+      { path: 'terms', Component: TermsOfUse },
+      { path: 'privacy-policy', Component: PrivacyPolicy },
+      { path: 'cookie-policy', Component: CookiePolicy },
       {
         path: 'tuition-details/:id',
         element: (
