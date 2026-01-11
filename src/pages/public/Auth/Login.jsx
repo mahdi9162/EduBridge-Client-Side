@@ -18,6 +18,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -46,6 +47,24 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+  // Demo
+  const DEMO_USERS = {
+    student: { email: 'student@demo.com', password: 'Student@123' },
+    tutor: { email: 'tutor@demo.com', password: 'Tutor@123' },
+    admin: { email: 'rupahasan@gmail.com', password: '@Mahdi16' },
+  };
+
+  const handleDemoLogin = (role) => {
+    const demo = DEMO_USERS[role];
+    if (!demo) return;
+
+    // 1) Autofill the form
+    setValue('email', demo.email, { shouldValidate: true });
+    setValue('password', demo.password, { shouldValidate: true });
+
+    // 2) Auto submit 
+    handleSubmit(handleUserSignin)();
   };
 
   return (
@@ -97,8 +116,49 @@ const Login = () => {
                   <CommonButton className="mt-8 rounded-full w-full py-2.5">Sign In</CommonButton>
                 </div>
               </form>
+              {/* Demo login  */}
+              <div className="mt-8 rounded-2xl border border-base-300/50 bg-base-100/60 backdrop-blur px-4 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-px flex-1 bg-linear-to-r from-transparent via-base-300 to-transparent" />
+                  <p className="text-[11px] tracking-widest font-semibold text-base-content/60">DEMO LOGIN</p>
+                  <div className="h-px flex-1 bg-linear-to-r from-transparent via-base-300 to-transparent" />
+                </div>
+
+                <div className="mt-3 grid grid-cols-3 gap-3">
+                  {/* Student */}
+                  <button
+                    onClick={() => handleDemoLogin('student')}
+                    type="button"
+                    className="w-full rounded-xl px-4 py-2.5 text-xs font-semibold text-[#0F1A33] border border-primary/30 bg-[linear-gradient(180deg,#ffffff_0%,rgba(36,76,152,0.06)_100%)] shadow-[0_6px_18px_rgba(36,76,152,0.12)] hover:shadow-[0_10px_26px_rgba(36,76,152,0.18)] hover:border-primary/45 transition-all duration-500 cursor-pointer hover:-translate-y-px active:translate-y-0"
+                  >
+                    Student
+                  </button>
+
+                  {/* tutor */}
+                  <button
+                    onClick={() => handleDemoLogin('tutor')}
+                    type="button"
+                    className="w-full rounded-xl px-4 py-2.5 text-xs font-medium text-[#0F1A33] border border-[#27364B]/20 bg-[linear-gradient(180deg,#ffffff_0%,rgba(15,26,51,0.05)_100%)] shadow-[0_6px_16px_rgba(15,26,51,0.10)] hover:shadow-[0_10px_22px_rgba(15,26,51,0.14)] hover:border-[#27364B]/30 transition-all duration-500 cursor-pointer hover:-translate-y-px active:translate-y-0"
+                  >
+                    Tutor
+                  </button>
+
+                  {/* admin */}
+                  <button
+                    onClick={() => handleDemoLogin('admin')}
+                    type="button"
+                    className="w-full rounded-xl px-4 py-2.5 text-xs font-medium text-[#0F1A33]/90 border border-[#27364B]/15 bg-white shadow-[0_4px_14px_rgba(15,26,51,0.08)] hover:shadow-[0_8px_18px_rgba(15,26,51,0.12)] hover:border-[#27364B]/25 transition-all duration-500 cursor-pointer hover:-translate-y-px active:translate-y-0"
+                  >
+                    Admin
+                  </button>
+                </div>
+
+                <p className="mt-3 text-[11px] text-base-content/50">Tip: Demo accounts are for preview only — don’t use real passwords.</p>
+              </div>
             </div>
           </div>
+
+          {/*  */}
 
           {/* Divider */}
           <div className="divider text-neutral my-4 md:my-0 md:mx-8 lg:divider-horizontal lg:h-[350px]">OR</div>
