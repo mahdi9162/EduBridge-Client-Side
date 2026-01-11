@@ -41,8 +41,8 @@ const LatestTutorsSection = () => {
         className="my-10 lg:my-16 overflow-hidden rounded-3xl px-4 md:px-10 py-10 relative
     border border-base-200/60 shadow-[0_10px_34px_rgba(15,26,51,0.05)] bg-[radial-gradient(circle_at_10%_15%,rgba(15,26,51,0.06),transparent_55%),linear-gradient(180deg,#ffffff_0%,#f6f8ff_60%,#eef3fb_100%)]"
       >
-  {/* subtle sheen */}
-  <div className="pointer-events-none absolute inset-0 opacity-[0.30] bg-[linear-gradient(120deg,rgba(255,255,255,0.55),rgba(255,255,255,0.08),rgba(255,255,255,0.40))]" />
+        {/* subtle sheen */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.30] bg-[linear-gradient(120deg,rgba(255,255,255,0.55),rgba(255,255,255,0.08),rgba(255,255,255,0.40))]" />
 
         {/* header */}
         <div className="relative text-center">
@@ -62,6 +62,7 @@ const LatestTutorsSection = () => {
             const subject = tutor?.subject || 'Subject';
             const teachingClass = tutor?.teachingClass || 'Class';
             const location = tutor?.location || 'Location';
+            const photoURL = tutor?.photoURL;
 
             return (
               <motion.div
@@ -101,16 +102,14 @@ const LatestTutorsSection = () => {
 
                   {/* avatar */}
                   <div
-                    className="
-                  grid h-11 w-11 shrink-0 place-items-center rounded-full
-                  bg-base-200/60 text-base-content font-semibold
-                  ring-1 ring-base-200
-                  group-hover:ring-primary/20
-                  transition
-                "
+                    className="grid h-11 w-11 shrink-0 place-items-center rounded-full overflow-hidden bg-base-200/60 text-base-content font-semibold ring-1 ring-base-200 group-hover:ring-primary/20 transition"
                     title={name}
                   >
-                    {getInitials(name)}
+                    {photoURL ? (
+                      <img className="w-full h-full rounded-full object-cover" src={photoURL} alt="Profile Picture" />
+                    ) : (
+                      getInitials(name)
+                    )}
                   </div>
                 </div>
 

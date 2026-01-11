@@ -172,7 +172,7 @@ const TutorsList = () => {
                     group-hover:ring-primary/20 transition
                   "
                     >
-                      <img src={tutorImg} alt="Tutor avatar" className="w-full h-full object-cover" />
+                      <img src={tutor?.photoURL || tutorImg} alt="Tutor avatar" className="w-full h-full object-cover" />
                     </div>
 
                     <div className="min-w-0">

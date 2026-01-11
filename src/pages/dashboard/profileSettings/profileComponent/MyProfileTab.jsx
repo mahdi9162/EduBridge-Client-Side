@@ -1,9 +1,11 @@
 import React from 'react';
 import CommonButton from '../../../../components/Buttons/CommonButton/CommonButton';
 import { Link } from 'react-router';
+import useRole from '../../../../hooks/useRole';
 
 const MyProfileTab = ({ userDb, setTab }) => {
   const user = userDb;
+  const { role } = useRole();
 
   const initials =
     user?.name
@@ -78,14 +80,24 @@ const MyProfileTab = ({ userDb, setTab }) => {
           <InfoBox label="Email" value={user.email} />
           <InfoBox label="Phone" value={user.phone} />
           <InfoBox label="Location" value={user.location} />
-          <InfoBox label="Class Level" value={user.classLevel} />
+          {
+            role === 'student' ? <InfoBox label="Class Level" value={user.classLevel} />
+            : <InfoBox label="Experience" value={user.experience} />
+          }
           <InfoBox label="Subject" value={user.subject} />
-          <InfoBox label="Student ID" value={user._id} />
+          {
+            role === 'student' ? <InfoBox label="Student ID" value={user._id} />
+            : <InfoBox label="Teaching Class" value={user.teachingClass} />
+          }
         </div>
 
         {/* Footer actions */}
         <div className="mt-6 text-center md:text-right">
-          <CommonButton type="button" onClick={() => setTab('updateProfile')} className="rounded-full px-5 py-2 text-xs md:text-sm font-medium">
+          <CommonButton
+            type="button"
+            onClick={() => setTab('updateProfile')}
+            className="rounded-full px-5 py-2 text-xs md:text-sm font-medium"
+          >
             Update Profile Info →
           </CommonButton>
         </div>

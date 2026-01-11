@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
-import ProfileTab from './components/UpdateProfileTab';
-import SecurityTab from './components/SecurityTab';
-import { TabButton } from './components/TabButton';
-import MyProfileTab from './components/MyProfileTab';
-import UpdateProfileTab from './components/UpdateProfileTab';
+import ProfileTab from './profileComponent/UpdateProfileTab';
+import SecurityTab from './profileComponent/SecurityTab';
+import { TabButton } from './profileComponent/TabButton';
+import MyProfileTab from './profileComponent/MyProfileTab';
+import UpdateProfileTab from './profileComponent/UpdateProfileTab';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
-import DeleteAccount from './components/DeleteAccount';
-import UpdateImg from './components/UpdateImg';
+import DeleteAccount from './profileComponent/DeleteAccount';
+import UpdateImg from './profileComponent/UpdateImg';
 
-const StudentProfileSettings = () => {
+const ProfileSettings = () => {
   const [tab, setTab] = useState('myProfile');
   const axiosSecure = useAxiosSecure();
   const { user, loading: authLoading } = useAuth();
 
-  const { data: userDb = [], isLoading: usersLoading, refetch: userDbRefetch } = useQuery({
+  const {
+    data: userDb = [],
+    isLoading: usersLoading,
+    refetch: userDbRefetch,
+  } = useQuery({
     queryKey: ['user', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/user/me');
@@ -52,9 +56,9 @@ const StudentProfileSettings = () => {
             }}
           >
             {/* Update image */}
-           <div className='rounded-2xl border border-base-200 bg-base-100/70 p-4'>
-             <UpdateImg userDb={userDb} userDbRefetch={userDbRefetch}/>
-           </div>
+            <div className="rounded-2xl border border-base-200 bg-base-100/70 p-4">
+              <UpdateImg userDb={userDb} userDbRefetch={userDbRefetch} />
+            </div>
 
             {/* Tabs */}
             <div className="mt-6">
@@ -81,7 +85,7 @@ const StudentProfileSettings = () => {
             }}
           >
             {tab === 'myProfile' && <MyProfileTab userDb={userDb} setTab={setTab} />}
-            {tab === 'updateProfile' && <UpdateProfileTab userDb={userDb} />}
+            {tab === 'updateProfile' && <UpdateProfileTab userDb={userDb} userDbRefetch={userDbRefetch} />}
             {tab === 'security' && <SecurityTab />}
           </main>
         </div>
@@ -90,4 +94,4 @@ const StudentProfileSettings = () => {
   );
 };
 
-export default StudentProfileSettings;
+export default ProfileSettings;

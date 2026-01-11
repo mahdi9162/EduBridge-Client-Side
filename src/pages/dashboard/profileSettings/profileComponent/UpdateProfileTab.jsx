@@ -2,9 +2,29 @@ import React, { useEffect, useState } from 'react';
 import CommonButton from '../../../../components/Buttons/CommonButton/CommonButton';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useRole from '../../../../hooks/useRole';
+import axios from 'axios';
 
-const UpdateProfileTab = ({ userDb }) => {
+const UpdateProfileTab = ({ userDb, userDbRefetch }) => {
+  const [districts, setDistricts] = useState([]);
   const axiosSecure = useAxiosSecure();
+  const { role } = useRole();
+
+  const phoneRegex = /^01(3|4|5|7|8|9)\d{8}$/;
+
+  const classes = ['Class-6', 'Class-7', 'Class-8', 'Class-9', 'Class-10', 'College 1st Year', 'College 2nd Year', 'Versity Admissoion'];
+  const subjects = ['Accounting', 'Biology', 'Chemistry', 'English', 'Math', 'Physics'];
+
+  useEffect(() => {
+    axios
+      .get('/districts.json')
+      .then((res) => {
+        setDistricts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const [form, setForm] = useState({
     name: userDb?.name || '',
@@ -12,6 +32,7 @@ const UpdateProfileTab = ({ userDb }) => {
     classLevel: userDb?.classLevel || '',
     subject: userDb?.subject || '',
     location: userDb?.location || '',
+    teachingClass: userDb?.teachingClass || '',
   });
 
   useEffect(() => {
@@ -24,6 +45,7 @@ const UpdateProfileTab = ({ userDb }) => {
       classLevel: userDb?.classLevel || '',
       subject: userDb?.subject || '',
       location: userDb?.location || '',
+      teachingClass: userDb?.teachingClass || '',
     });
   }, [userDb]);
 
@@ -40,11 +62,28 @@ const UpdateProfileTab = ({ userDb }) => {
       classLevel: userDb?.classLevel || '',
       subject: userDb?.subject || '',
       location: userDb?.location || '',
+      teachingClass: userDb?.teachingClass || '',
     });
   };
 
   const handleUpdateBtn = async () => {
-    if (!form.name || !form.phone || !form.classLevel || !form.subject || !form.location) {
+    // phone validation
+    if (!phoneRegex.test(form.phone)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid phone number',
+        text: 'Please enter a valid Bangladeshi phone number (01XXXXXXXXX)',
+        confirmButtonColor: '#0f1a33',
+      });
+      return;
+    }
+
+    // role-based required fields
+    const missingStudent = role === 'student' && (!form.name || !form.phone || !form.classLevel || !form.subject || !form.location);
+
+    const missingTutor = role !== 'student' && (!form.name || !form.phone || !form.teachingClass || !form.subject || !form.location);
+
+    if (missingStudent || missingTutor) {
       Swal.fire({
         icon: 'warning',
         title: 'Missing fields',
@@ -76,6 +115,7 @@ const UpdateProfileTab = ({ userDb }) => {
         icon: 'success',
         confirmButtonColor: '#0f1a33',
       });
+      userDbRefetch();
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -122,11 +162,11 @@ const UpdateProfileTab = ({ userDb }) => {
               value={form.name}
               onChange={onChange}
               className={`input w-full rounded-2xl bg-white border border-base-200 focus:border-[#0f1a33]/30 focus:outline-none focus:ring-2 focus:ring-[#0f1a33]/10 ${
-                form.name.length === 0 && 'border-2 border-red-500'
+                form.name?.length === 0 && 'border-2 border-red-500'
               }`}
               placeholder="Your name"
             />
-            <p className="text-[11px] text-neutral/50">This will appear on your profile.</p>
+            <p className="text-[11px] text-neutral/70">This will appear on your profile.</p>
           </div>
 
           {/* Email (readonly) */}
@@ -139,7 +179,7 @@ const UpdateProfileTab = ({ userDb }) => {
               type="email"
               readOnly
             />
-            <p className="text-[11px] text-neutral/50">Email can’t be changed.</p>
+            <p className="text-[11px] text-neutral/70">Email can’t be changed.</p>
           </div>
 
           {/* Phone */}
@@ -151,56 +191,82 @@ const UpdateProfileTab = ({ userDb }) => {
               value={form.phone}
               onChange={onChange}
               className={`input w-full rounded-2xl bg-white border border-base-200 focus:border-[#0f1a33]/30 focus:outline-none focus:ring-2 focus:ring-[#0f1a33]/10 ${
-                form.phone.length === 0 && 'border-2 border-red-500'
+                form.phone?.length === 0 && 'border-2 border-red-500'
               }`}
               placeholder="01XXXXXXXXX"
             />
-            <p className="text-[11px] text-neutral/50">Used for urgent updates.</p>
+            <p className="text-[11px] text-neutral/70">Used for urgent updates.</p>
           </div>
 
-          {/* Class Level */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-[#0f1a33]/70">Class level</label>
-            <input
-              name="classLevel"
-              value={form.classLevel}
-              onChange={onChange}
-              className={`input w-full rounded-2xl bg-white border border-base-200 focus:border-[#0f1a33]/30 focus:outline-none focus:ring-2 focus:ring-[#0f1a33]/10 ${
-                form.classLevel.length === 0 && 'border-2 border-red-500'
-              }`}
-              placeholder="e.g. Varsity Admission"
-            />
-            <p className="text-[11px] text-neutral/50">Helps tutors filter properly.</p>
-          </div>
+          {role === 'student' ? (
+            <>
+              {/* Class Level */}
+              <div className="flex flex-col gap-1.5">
+                <legend className="text-xs font-medium text-[#0f1a33]/70">Class</legend>
+                <select
+                  name="classLevel"
+                  onChange={onChange}
+                  defaultValue={form.classLevel}
+                  className="select w-full rounded-2xl bg-white border border-base-200"
+                >
+                  <option>{form.classLevel}</option>
+                  {classes.map((c, i) => (
+                    <option key={i}>{c}</option>
+                  ))}
+                </select>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Teaching Class */}
+              <div className="flex flex-col gap-1.5">
+                <legend className="text-xs font-medium text-[#0f1a33]/70">Teaching Level</legend>
+                <select
+                  name="teachingClass"
+                  onChange={onChange}
+                  defaultValue={form.teachingClass}
+                  className="select w-full rounded-2xl bg-white border border-base-200"
+                >
+                  <option>{form.teachingClass}</option>
+                  {classes.map((c, i) => (
+                    <option key={i}>{c}</option>
+                  ))}
+                </select>
+                <p className="text-[11px] text-neutral/70">Helps Student filter properly.</p>
+              </div>
+            </>
+          )}
 
           {/* Subject */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-[#0f1a33]/70">Subject</label>
-            <input
+            <legend className="text-xs font-medium text-[#0f1a33]/70">Subject</legend>
+            <select
               name="subject"
-              value={form.subject}
               onChange={onChange}
-              className={`input w-full rounded-2xl bg-white border border-base-200 focus:border-[#0f1a33]/30 focus:outline-none focus:ring-2 focus:ring-[#0f1a33]/10 ${
-                form.subject.length === 0 && 'border-2 border-red-500'
-              }`}
-              placeholder="e.g. Science"
-            />
-            <p className="text-[11px] text-neutral/50">Primary subject you need help with.</p>
+              defaultValue={form.subject}
+              className="select w-full rounded-2xl bg-white border border-base-200"
+            >
+              <option>{form.subject}</option>
+              {subjects.map((s, i) => (
+                <option key={i}>{s}</option>
+              ))}
+            </select>
           </div>
 
           {/* Location */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-medium text-[#0f1a33]/70">Location</label>
-            <input
+            <legend className="text-xs font-medium text-[#0f1a33]/70">Location</legend>
+            <select
               name="location"
-              value={form.location}
               onChange={onChange}
-              className={`input w-full rounded-2xl bg-white border border-base-200 focus:border-[#0f1a33]/30 focus:outline-none focus:ring-2 focus:ring-[#0f1a33]/10 ${
-                form.location.length === 0 && 'border-2 border-red-500'
-              }`}
-              placeholder="City"
-            />
-            <p className="text-[11px] text-neutral/50">Optional, but recommended.</p>
+              defaultValue={form.location}
+              className="select w-full rounded-2xl bg-white border border-base-200"
+            >
+              <option>{form.location}</option>
+              {districts.map((d, i) => (
+                <option key={i}>{d.district}</option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -209,7 +275,7 @@ const UpdateProfileTab = ({ userDb }) => {
 
         {/* Actions */}
         <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-neutral/80">
+          <p className="text-xs text-neutral/70">
             Tip: Use <span className="font-semibold text-[#0f1a33] underline underline-offset-2">Reset</span> to restore last saved data.
           </p>
 
@@ -222,7 +288,11 @@ const UpdateProfileTab = ({ userDb }) => {
               Reset
             </button>
 
-            <CommonButton type="button" className="rounded-full px-6 py-2 text-xs md:text-sm font-medium shadow-md" onClick={handleUpdateBtn}>
+            <CommonButton
+              type="button"
+              className="rounded-full px-6 py-2 text-xs md:text-sm font-medium shadow-md"
+              onClick={handleUpdateBtn}
+            >
               Save Profile
             </CommonButton>
           </div>

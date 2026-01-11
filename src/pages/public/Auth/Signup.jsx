@@ -28,7 +28,7 @@ const Signup = () => {
   }
 
   const handleSignupForm = async (data) => {
-    const { email, password, name, classLevel, teachingClass, location, phone, photo, subject, userType } = data;
+    const { email, password, name, classLevel, teachingClass, location, phone, photo, subject, experience, userType } = data;
 
     try {
       // file extract
@@ -56,6 +56,7 @@ const Signup = () => {
         classLevel: classLevel || '',
         teachingClass: teachingClass || '',
         subject: subject,
+        experience: experience,
         phone: phone,
         photoURL: imageUrl,
         location: location,
@@ -70,6 +71,8 @@ const Signup = () => {
       navigate('/');
     } catch (error) {
       console.error('SIGNUP_ERROR:', error);
+      console.error('SIGNUP_ERROR full:', error);
+      console.error('SIGNUP_ERROR response:', error?.response?.data);
       toast.error(error?.message || 'Signup failed. Please try again.');
     }
   };

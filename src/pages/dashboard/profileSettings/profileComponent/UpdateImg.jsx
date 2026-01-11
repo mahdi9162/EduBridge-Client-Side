@@ -103,7 +103,7 @@ const UpdateImg = ({ userDb, userDbRefetch }) => {
               type="button"
               onClick={handleResetPhoto}
               disabled={saving}
-              className={`rounded-full px-4 py-1 text-xs font-semibold ${saving ? 'opacity-60 cursor-not-allowed' : ''}`}
+              className={`rounded-full px-4 py-1 text-xs font-semibold cursor-pointer ${saving ? 'opacity-60 cursor-not-allowed' : ''}`}
             >
               Reset
             </button>

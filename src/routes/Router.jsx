@@ -17,20 +17,18 @@ import MyTuitions from '../pages/dashboard/student/MyTuitions';
 import PostTuition from '../pages/dashboard/student/PostTuition';
 import AppliedTutors from '../pages/dashboard/student/AppliedTutors';
 import PaymentsHistory from '../pages/dashboard/student/PaymentsHistory';
-import StudentProfileSettings from '../pages/dashboard/student/StudentProfileSettings';
 import MyApplications from '../pages/dashboard/tutor/MyApplications';
 import OngoingTuitions from '../pages/dashboard/tutor/OngoingTuitions';
 import RevenueHistory from '../pages/dashboard/tutor/RevenueHistory';
-import TutorProfileSettings from '../pages/dashboard/tutor/TutorProfileSettings';
 import ManageTuitions from '../pages/dashboard/admin/ManageTuitions';
 import ManageUsers from '../pages/dashboard/admin/ManageUsers';
 import ReportsAnalytics from '../pages/dashboard/admin/ReportsAnalytics';
-import AdminProfileSetting from '../pages/dashboard/admin/AdminProfileSetting';
 import PaymentSuccess from '../pages/dashboard/paymentPages/paymentSuccess';
 import PaymentCancel from '../pages/dashboard/paymentPages/PaymentCancel.Jsx';
-
 import NotFound from '../pages/public/Error/NotFound';
 import ForgotPass from '../pages/public/Auth/ForgotPass';
+import ProfileSettings from '../pages/dashboard/profileSettings/ProfileSettings';
+import About from '../pages/public/Auth/About/About';
 
 export const router = createBrowserRouter([
   // Public site
@@ -41,6 +39,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: 'tuitions', Component: TuitionsList },
       { path: 'tutors', Component: TutorsList },
+      { path: 'about-edubridge', Component: About },
       { path: 'contact', Component: Contact },
       { path: 'signup', Component: Signup },
       { path: 'login', Component: Login },
@@ -106,14 +105,6 @@ export const router = createBrowserRouter([
           </StudentRoute>
         ),
       },
-      {
-        path: 'student-profile',
-        element: (
-          <StudentRoute>
-            <StudentProfileSettings />
-          </StudentRoute>
-        ),
-      },
 
       // Tutor
       {
@@ -140,15 +131,6 @@ export const router = createBrowserRouter([
           </TutorRoute>
         ),
       },
-      {
-        path: 'tutor-profile',
-        element: (
-          <TutorRoute>
-            <TutorProfileSettings />
-          </TutorRoute>
-        ),
-      },
-
       // Admin
       {
         path: 'manage-tuitions',
@@ -174,13 +156,10 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      // all users profile setting
       {
-        path: 'admin-profile',
-        element: (
-          <AdminRoute>
-            <AdminProfileSetting />
-          </AdminRoute>
-        ),
+        path: 'profile-settings',
+        Component: ProfileSettings,
       },
 
       // Payment pages

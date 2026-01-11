@@ -177,7 +177,7 @@ const DashboardLayout = () => {
                 </li>
 
                 <li>
-                  <NavLink to="/dashboard/student-profile" className={navItemClass}>
+                  <NavLink to="/dashboard/profile-settings" className={navItemClass}>
                     {({ isActive }) => (
                       <>
                         <LuSettings2 className={iconClass({ isActive })} />
@@ -226,6 +226,18 @@ const DashboardLayout = () => {
                     )}
                   </NavLink>
                 </li>
+
+                <li>
+                  <NavLink to="/dashboard/profile-settings" className={navItemClass}>
+                    {({ isActive }) => (
+                      <>
+                        <LuSettings2 className={iconClass({ isActive })} />
+                        <span>Profile Setting</span>
+                        {isActive && <span className="ml-auto h-2 w-2 rounded-full bg-secondary" />}
+                      </>
+                    )}
+                  </NavLink>
+                </li>
               </div>
 
               {/* Admin */}
@@ -260,6 +272,18 @@ const DashboardLayout = () => {
                       <>
                         <FaChartLine className={iconClass({ isActive })} />
                         <span>Reports Analytics</span>
+                        {isActive && <span className="ml-auto h-2 w-2 rounded-full bg-secondary" />}
+                      </>
+                    )}
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="/dashboard/profile-settings" className={navItemClass}>
+                    {({ isActive }) => (
+                      <>
+                        <LuSettings2 className={iconClass({ isActive })} />
+                        <span>Profile Setting</span>
                         {isActive && <span className="ml-auto h-2 w-2 rounded-full bg-secondary" />}
                       </>
                     )}
