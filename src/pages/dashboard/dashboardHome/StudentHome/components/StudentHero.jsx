@@ -2,6 +2,8 @@ import React from 'react';
 import useAuth from '../../../../../hooks/useAuth';
 import dashboardImg from '../../../../../assets/studentDashboard.webp';
 import { Link } from 'react-router';
+import Btn from '../../../../../components/Buttons/Btn/btn';
+import BtnSecondary from '../../../../../components/Buttons/BtnSecondary/BtnSecondary';
 
 const StudentHero = () => {
   const { user } = useAuth();
@@ -37,32 +39,12 @@ const StudentHero = () => {
         {/* cta */}
         <div className="mt-6 md:mt-7 w-full flex flex-col items-center lg:items-start gap-4">
           <div className="w-full flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-            <Link
-              to="/dashboard/post-tuition"
-              className="
-                btn btn-primary
-                w-full sm:w-auto
-                h-11 md:h-12
-                px-6
-                rounded-xl
-                text-sm md:text-base
-              "
-            >
-              Create Tuition Post
+            <Link to="/dashboard/post-tuition">
+              <Btn className="btn w-full sm:w-auto h-11 md:h-12 px-6 rounded-xl text-sm md:text-base z-50">Create Tuition Post</Btn>
             </Link>
 
-            <Link
-              to="/dashboard/my-tuitions"
-              className="
-                btn btn-outline
-                w-full sm:w-auto
-                h-11 md:h-12
-                px-6
-                rounded-xl
-                text-sm md:text-base
-              "
-            >
-              My Tuitions
+            <Link to="/dashboard/my-tuitions">
+              <BtnSecondary className="btn w-full sm:w-auto h-11 md:h-12 px-6 rounded-xl text-sm md:text-base z-50">My Tuitions</BtnSecondary>
             </Link>
           </div>
 

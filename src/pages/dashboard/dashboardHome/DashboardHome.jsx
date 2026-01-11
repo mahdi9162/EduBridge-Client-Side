@@ -3,13 +3,13 @@ import AdminDashboardHome from './AdminHome/AdminDashboardHome';
 import useRole from '../../../hooks/useRole';
 import StudentDashboardHome from './StudentHome/StudentDashboardHome';
 import TeacherDashboardHome from './TutorHome/TeacherDashboardHome';
-import Loading from '../../../components/Loading/Loading';
+import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 
 const DashboardHome = () => {
   const { role, roleLoading } = useRole();
 
   if (roleLoading) {
-    return <Loading></Loading>;
+    return <FullScreenLoader></FullScreenLoader>;
   }
 
   if (role === 'admin') {

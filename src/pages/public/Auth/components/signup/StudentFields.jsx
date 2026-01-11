@@ -73,7 +73,7 @@ const StudentFields = ({ setCurrentStep }) => {
             placeholder="Enter your Phone No"
             className="input w-full placeholder:text-xs lg:placeholder:text-sm"
           />
-          {errors.phone && <p className="text-left lg:ml-18 mt-1 text-sm text-red-400/80">{errors.phone.message}</p>}
+          {errors.phone && <p className="text-left mt-1 text-xs text-red-400/80">{errors.phone.message}</p>}
         </div>
 
         {/* Photo */}
@@ -95,7 +95,7 @@ const StudentFields = ({ setCurrentStep }) => {
             name="photo"
             className="file-input file-input-bordered w-full"
           />
-          {errors.photo && <p className="text-left lg:ml-18 mt-1 text-sm text-red-400/80">{errors.photo.message}</p>}
+          {errors.photo && <p className="text-left mt-1 text-xs text-red-400/80">{errors.photo.message}</p>}
         </div>
       </div>
 
