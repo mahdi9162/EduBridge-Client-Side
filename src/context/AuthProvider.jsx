@@ -3,6 +3,7 @@ import { AuthContext } from './AuthContext';
 import { auth } from '../firebase/firebase.config';
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   FacebookAuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -57,6 +58,11 @@ const AuthProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email);
   };
 
+  // Delete user
+  const deleteUserProfile = () => {
+    return deleteUser(user);
+  };
+
   //   Sign Out
   const userSignOut = () => {
     return signOut(auth);
@@ -88,6 +94,7 @@ const AuthProvider = ({ children }) => {
     signInWithGithub,
     signInWithFb,
     resetUserEmail,
+    deleteUserProfile,
     userSignOut,
     updateUserProfile,
   };

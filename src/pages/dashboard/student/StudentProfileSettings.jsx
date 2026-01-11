@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
+import DeleteAccount from './components/DeleteAccount';
 
 const StudentProfileSettings = () => {
   const [tab, setTab] = useState('myProfile');
@@ -26,8 +27,6 @@ const StudentProfileSettings = () => {
   if (authLoading || usersLoading) {
     return <FullScreenLoader />;
   }
-
-  console.log(userDb);
 
   return (
     <section className="min-h-screen px-4 py-10">
@@ -105,14 +104,7 @@ const StudentProfileSettings = () => {
 
             {/* Danger zone */}
             <div className="mt-8 rounded-2xl border border-red-200 bg-red-50 p-4">
-              <p className="text-sm font-semibold text-red-700">Danger zone</p>
-              <p className="mt-1 text-xs text-red-600/80">Remove your account and associated data.</p>
-              <button
-                type="button"
-                className="mt-3 w-full rounded-full border border-red-200 bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-100 transition"
-              >
-                Delete Account
-              </button>
+              <DeleteAccount />
             </div>
           </aside>
 
@@ -125,7 +117,7 @@ const StudentProfileSettings = () => {
             }}
           >
             {tab === 'myProfile' && <MyProfileTab userDb={userDb} setTab={setTab} />}
-            {tab === 'updateProfile' && <UpdateProfileTab userDb={userDb}/>}
+            {tab === 'updateProfile' && <UpdateProfileTab userDb={userDb} />}
             {tab === 'security' && <SecurityTab />}
           </main>
         </div>
