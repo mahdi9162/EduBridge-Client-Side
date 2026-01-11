@@ -58,7 +58,7 @@ const DeleteAccount = () => {
       <button
         onClick={handleDelectBtn}
         type="button"
-        className="mt-3 w-full rounded-full border border-red-200 bg-white px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-500 hover:text-white duration-500 transition-all cursor-pointer"
+        className="mt-3 w-full rounded-full border border-red-200 bg-white px-4 py-2 text-xs md:text-sm font-medium text-red-700 hover:bg-red-500 hover:text-white duration-500 transition-all cursor-pointer"
       >
         Delete Account
       </button>

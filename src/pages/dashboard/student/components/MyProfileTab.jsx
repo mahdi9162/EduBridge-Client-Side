@@ -16,10 +16,10 @@ const MyProfileTab = ({ userDb, setTab }) => {
   return (
     <>
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex md:items-start justify-center md:justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold text-[#0f1a33]">My Profile</h2>
-          <p className="mt-1 text-sm text-neutral/80">Your public profile details (read-only).</p>
+          <h2 className="text-center md:text-left text-lg font-semibold text-[#0f1a33]">My Profile</h2>
+          <p className="mt-1 text-xs md:text-sm text-neutral/80">Your public profile details (read-only).</p>
         </div>
       </div>
 
@@ -35,7 +35,7 @@ const MyProfileTab = ({ userDb, setTab }) => {
             <div className="relative">
               <div className="h-14 w-14 overflow-hidden rounded-2xl bg-[#0f1a33] text-white grid place-items-center font-semibold shadow-md">
                 {user.photoURL ? (
-                  <img src={user.photoURL} alt="Profile" className="h-full w-full object-cover" />
+                  <img src={user.photoURL} alt="Profile" className="h-full w-full object-cover shadow-lg" />
                 ) : (
                   <span className="text-base">{initials}</span>
                 )}
@@ -56,8 +56,8 @@ const MyProfileTab = ({ userDb, setTab }) => {
             </div>
           </div>
 
-          {/* Quick chips */}
-          <div className="flex flex-wrap gap-2">
+          {/* chips */}
+          <div className="flex flex-wrap justify-center md:justify-end gap-2">
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] font-medium text-emerald-700">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               Account Active
@@ -84,9 +84,9 @@ const MyProfileTab = ({ userDb, setTab }) => {
         </div>
 
         {/* Footer actions */}
-        <div className="mt-6 text-right">
-          <CommonButton type="button" onClick={() => setTab('updateProfile')} className="rounded-full px-5 py-2 text-sm font-medium">
-            Update Profile →
+        <div className="mt-6 text-center md:text-right">
+          <CommonButton type="button" onClick={() => setTab('updateProfile')} className="rounded-full px-5 py-2 text-xs md:text-sm font-medium">
+            Update Profile Info →
           </CommonButton>
         </div>
       </div>

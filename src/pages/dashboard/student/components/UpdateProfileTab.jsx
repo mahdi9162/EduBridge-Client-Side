@@ -93,7 +93,7 @@ const UpdateProfileTab = ({ userDb }) => {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-xl md:text-2xl font-semibold text-[#0f1a33]">Update Your Profile</h2>
-          <p className="mt-1 text-sm text-neutral/80">This information will be visible on your account.</p>
+          <p className="mt-1 text-xs md:text-sm text-neutral/80">This information will be visible on your account.</p>
         </div>
       </div>
 
@@ -216,13 +216,13 @@ const UpdateProfileTab = ({ userDb }) => {
           <div className="flex items-center justify-end gap-3">
             <button
               type="button"
-              className="rounded-full border border-base-200 bg-white px-5 py-2 text-sm font-medium text-[#0f1a33] hover:bg-red-400 hover:text-white duration-700 transition-all cursor-pointer"
+              className="rounded-full border border-base-200 bg-white px-5 py-2 text-xs md:text-sm font-medium text-[#0f1a33] hover:bg-red-400 hover:text-white duration-700 transition-all cursor-pointer"
               onClick={handleReset}
             >
               Reset
             </button>
 
-            <CommonButton type="button" className="rounded-full px-6 py-2 text-sm font-medium shadow-md" onClick={handleUpdateBtn}>
+            <CommonButton type="button" className="rounded-full px-6 py-2 text-xs md:text-sm font-medium shadow-md" onClick={handleUpdateBtn}>
               Save Profile
             </CommonButton>
           </div>

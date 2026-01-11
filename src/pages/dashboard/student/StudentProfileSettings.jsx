@@ -10,13 +10,14 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import FullScreenLoader from '../../../components/Loading/FullScreenLoader';
 import DeleteAccount from './components/DeleteAccount';
+import UpdateImg from './components/UpdateImg';
 
 const StudentProfileSettings = () => {
   const [tab, setTab] = useState('myProfile');
   const axiosSecure = useAxiosSecure();
   const { user, loading: authLoading } = useAuth();
 
-  const { data: userDb = [], isLoading: usersLoading } = useQuery({
+  const { data: userDb = [], isLoading: usersLoading, refetch: userDbRefetch } = useQuery({
     queryKey: ['user', user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get('/user/me');
@@ -32,20 +33,11 @@ const StudentProfileSettings = () => {
     <section className="min-h-screen px-4 py-10">
       <div className="mx-auto w-full max-w-6xl">
         {/* Header */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
           <div>
             <p className="text-xs tracking-wide text-neutral/60">Dashboard / Settings</p>
-            <h1 className="mt-1 text-2xl md:text-3xl font-semibold text-[#0f1a33]">Profile Settings</h1>
-            <p className="mt-1 text-sm text-neutral/60">Update your info, photo and preferences.</p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              to="/"
-              className="rounded-full border border-base-200 bg-base-100/70 px-4 py-2 text-sm text-[#0f1a33] shadow-sm backdrop-blur hover:bg-base-100 transition"
-            >
-              Back to Home
-            </Link>
+            <h1 className="mt-1 text-xl md:text-3xl font-semibold text-[#0f1a33]">Profile Settings</h1>
+            <p className="mt-1 text-xs md:text-sm text-neutral/60">Update your info, photo and preferences.</p>
           </div>
         </div>
 
@@ -53,44 +45,16 @@ const StudentProfileSettings = () => {
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* Left Card */}
           <aside
-            className="lg:col-span-4 rounded-3xl p-6 shadow-xl backdrop-blur-xl"
+            className="lg:col-span-4 rounded-3xl p-4 shadow-xl backdrop-blur-xl"
             style={{
               backgroundColor: 'rgba(255,255,255,0.70)',
               border: '1px solid rgba(255,255,255,0.45)',
             }}
           >
-            {/* Avatar */}
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="grid h-16 w-16 place-items-center rounded-2xl bg-[#0f1a33] text-white text-lg font-semibold shadow-md">
-                  MH
-                </div>
-                <span className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-emerald-500 ring-4 ring-white" />
-              </div>
-
-              <div className="min-w-0">
-                <p className="truncate text-base font-semibold text-[#0f1a33]">Mahdi</p>
-                <p className="truncate text-sm text-neutral/60">hasanmahdi</p>
-              </div>
-            </div>
-
-            {/* Upload */}
-            <div className="mt-6">
-              <p className="text-xs font-medium text-neutral/60">Profile photo</p>
-              <div className="mt-2 rounded-2xl border border-base-200 bg-base-100/70 p-4">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-[#0f1a33]">Update photo</p>
-                    <p className="text-xs text-neutral/60">PNG, JPG up to 2MB</p>
-                  </div>
-
-                  <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-[#0f1a33] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition">
-                    Choose File
-                    <input type="file" className="hidden" accept="image/*" />
-                  </label>
-                </div>
-              </div>
-            </div>
+            {/* Update image */}
+           <div className='rounded-2xl border border-base-200 bg-base-100/70 p-4'>
+             <UpdateImg userDb={userDb} userDbRefetch={userDbRefetch}/>
+           </div>
 
             {/* Tabs */}
             <div className="mt-6">
@@ -110,7 +74,7 @@ const StudentProfileSettings = () => {
 
           {/* Right Panel */}
           <main
-            className="lg:col-span-8 rounded-3xl p-6 md:p-8 shadow-xl backdrop-blur-xl"
+            className="lg:col-span-8 rounded-3xl p-4 md:p-8 shadow-xl backdrop-blur-xl"
             style={{
               backgroundColor: 'rgba(255,255,255,0.70)',
               border: '1px solid rgba(255,255,255,0.45)',
