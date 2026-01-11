@@ -21,28 +21,32 @@ const Footer = () => {
             {/* Social icons */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="#"
+                href="https://www.facebook.com/mahdi916/"
+                target="blank"
                 aria-label="Facebook"
                 className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
                 <FaFacebookF />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/rifu91629/?hl=en"
+                target="blank"
                 aria-label="Instagram"
                 className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
                 <FaInstagram />
               </a>
               <a
-                href="#"
+                href="https://x.com/mahdi9162"
+                target="blank"
                 aria-label="X (Twitter)"
                 className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
                 <FaXTwitter />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/mahdi9162/"
+                target="blank"
                 aria-label="LinkedIn"
                 className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/20 hover:shadow-[0_10px_30px_rgba(36,76,152,0.35)] transition"
               >
