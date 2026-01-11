@@ -29,11 +29,11 @@ const LatestTuitionsSection = () => {
   }
 
   const handleViewDetailsBtn = (id) => {
-    if (role !== 'teacher') {
+    if (role !== 'teacher' && role !== 'admin') {
       Swal.fire({
         icon: 'error',
         title: 'Access Denied',
-        text: 'Only tutors can view tuition details.',
+        text: 'Only tutors & admin can view tuition details.',
         confirmButtonText: 'Okay',
       });
 

@@ -29,6 +29,7 @@ import NotFound from '../pages/public/Error/NotFound';
 import ForgotPass from '../pages/public/Auth/ForgotPass';
 import ProfileSettings from '../pages/dashboard/profileSettings/ProfileSettings';
 import About from '../pages/public/Auth/About/About';
+import TutorOrAdminRoute from './TutorOrAdminRoute';
 
 export const router = createBrowserRouter([
   // Public site
@@ -46,9 +47,9 @@ export const router = createBrowserRouter([
       {
         path: 'tuition-details/:id',
         element: (
-          <TutorRoute>
+          <TutorOrAdminRoute>
             <TuitionDetails />
-          </TutorRoute>
+          </TutorOrAdminRoute>
         ),
       },
       {

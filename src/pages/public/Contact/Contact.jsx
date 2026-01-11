@@ -45,194 +45,176 @@ const Contact = () => {
   };
 
   return (
-<Container>
-  {/* OUTER WRAP (modern background instead of plain white) */}
-  <div
-    className="
-      relative my-10 md:my-16 overflow-hidden
-      rounded-3xl border border-base-200/60
-      bg-[radial-gradient(circle_at_18%_20%,rgba(36,76,152,0.10),transparent_55%),radial-gradient(circle_at_85%_15%,rgba(15,26,51,0.08),transparent_50%),linear-gradient(180deg,#ffffff_0%,#f5f8ff_45%,#eef3fb_100%)]
-      px-3 py-4
-      shadow-[0_18px_55px_rgba(15,26,51,0.08)]
-    "
-  >
-    {/* glow blobs */}
-    <div
-      className="
-        pointer-events-none absolute -top-28 -left-24 h-72 w-72 rounded-full blur-3xl opacity-70
-        bg-[radial-gradient(circle,rgba(36,76,152,0.22),transparent_62%)]
-      "
-    />
-    <div
-      className="
-        pointer-events-none absolute -bottom-32 -right-24 h-80 w-80 rounded-full blur-3xl opacity-60
-        bg-[radial-gradient(circle,rgba(15,26,51,0.18),transparent_65%)]
-      "
-    />
+    <Container>
+      <div className="relative my-8 sm:my-10 lg:my-16 overflow-hidden rounded-3xl border border-base-200/60 bg-base-100">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(36,76,152,0.10),transparent_55%),radial-gradient(circle_at_85%_10%,rgba(15,26,51,0.08),transparent_55%),linear-gradient(180deg,#ffffff_0%,#f6f9ff_50%,#eff4fb_100%)]" />
 
-    {/* header */}
-    <section
-      className="
-        relative overflow-hidden
-        rounded-3xl border border-base-200/60
-        bg-base-100/70 backdrop-blur
-        px-4 py-10 md:px-10 md:py-14 lg:px-14 lg:py-16
-        shadow-[0_18px_50px_rgba(15,26,51,0.10)]
-      "
-    >
-      {/* subtle header sheen */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.35] bg-[linear-gradient(120deg,rgba(255,255,255,0.65),rgba(255,255,255,0.10),rgba(255,255,255,0.45))]" />
+        <div className="relative px-3 py-6 sm:px-4 sm:py-8 lg:px-14 lg:py-14">
+          {/* Header */}
+          <section className="relative overflow-hidden rounded-3xl border border-base-200/60 bg-base-100/70 backdrop-blur px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12">
+            <div className="pointer-events-none absolute inset-0 opacity-30 bg-[linear-gradient(120deg,rgba(255,255,255,0.7),rgba(255,255,255,0.08),rgba(255,255,255,0.45))]" />
 
-      <div className="relative">
-        <div className="inline-flex items-center gap-2 rounded-full border border-base-200 bg-base-100/80 px-3 py-2 text-xs md:text-sm text-neutral backdrop-blur">
-          <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-base-200">
-            <HiOutlineShieldCheck className="text-secondary text-base" />
-          </span>
-          We usually reply within 24 hours.
-        </div>
+            <div className="relative text-center md:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border border-base-200 bg-base-100/80 px-3 py-2 text-[11px] sm:text-xs lg:text-sm text-neutral backdrop-blur">
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-base-200">
+                  <HiOutlineShieldCheck className="text-secondary text-base" />
+                </span>
+                We usually reply within 24 hours.
+              </div>
 
-        <h1 className="mt-5 text-xl md:text-3xl lg:text-5xl font-bold text-base-content leading-tight">
-          Contact <span className="text-secondary">EduBridge</span>
-        </h1>
+              <h1 className="mt-4 sm:mt-5 text-xl sm:text-2xl lg:text-5xl font-bold text-base-content leading-tight">
+                Contact <span className="text-secondary">EduBridge</span>
+              </h1>
 
-        <p className="mt-3 max-w-2xl text-xs md:text-base text-neutral">
-          Need help, want to partner, or have a question? Send a message and we’ll get back to you.
-        </p>
-      </div>
-    </section>
+              <p className="mt-2 sm:mt-3 text-[11px] sm:text-sm lg:text-base text-neutral leading-relaxed">
+                Need help, want to partner, or have a question? Send a message and we’ll get back to you.
+              </p>
+            </div>
+          </section>
 
-    {/* body */}
-    <section className="py-10 md:py-14 lg:py-16">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:items-start">
-        {/* left info*/}
-        <div className="space-y-4">
-          {/* CARD style */}
-          <div className="rounded-3xl border border-base-200/70 bg-base-100/80 p-6 backdrop-blur shadow-[0_10px_30px_rgba(15,26,51,0.06)] hover:-translate-y-1 duration-500">
-            <div className="flex gap-3">
-              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-base-200/80 ring-1 ring-secondary/20">
-                <FiMail className="text-base-content/80 animate-pulse" />
-              </span>
-              <div>
-                <p className="font-semibold text-base-content">Email</p>
-                <p className="mt-1 text-xs md:text-sm text-neutral">hasanmahdi6060@gmail.com</p>
+          {/* Body */}
+          <section className="pt-6 sm:pt-8 lg:pt-10">
+            <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:items-start">
+              {/* Left: info */}
+              <div className="space-y-4 sm:space-y-5">
+                <div className="rounded-3xl border border-base-200/70 bg-base-100/75 backdrop-blur p-4 sm:p-5 lg:p-6">
+                  <div className="grid gap-3 sm:gap-4">
+                    <div className="flex items-start gap-3">
+                      <span className="shrink-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-2xl bg-base-200/80 ring-1 ring-secondary/15">
+                        <FiMail className="text-base-content/80 text-[16px] sm:text-lg leading-none" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="font-semibold text-base-content text-sm sm:text-base">Email</p>
+                        <p className="mt-1 text-[11px] sm:text-sm text-neutral wrap-break-word">hasanmahdi6060@gmail.com</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <span className="shrink-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-2xl bg-base-200/80 ring-1 ring-secondary/15">
+                        <FiMapPin className="text-base-content/80 text-[16px] sm:text-lg leading-none" />
+                      </span>
+                      <div>
+                        <p className="font-semibold text-base-content text-sm sm:text-base">Location</p>
+                        <p className="mt-1 text-[11px] sm:text-sm text-neutral">Narsingdi, Bangladesh</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <span className="shrink-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-2xl bg-base-200/80 ring-1 ring-secondary/15">
+                        <FiClock className="text-base-content/80 text-[16px] sm:text-lg leading-none" />
+                      </span>
+                      <div>
+                        <p className="font-semibold text-base-content text-sm sm:text-base">Support Hours</p>
+                        <p className="mt-1 text-[11px] sm:text-sm text-neutral">Sat–Thu • 10:00 AM – 8:00 PM</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 sm:mt-5 flex flex-col gap-3 sm:flex-row">
+                    <Link to="/tuitions" className="w-full sm:w-auto">
+                      <Btn className="w-full sm:w-auto rounded-xl px-5 py-2.5 text-center text-xs sm:text-sm font-semibold">
+                        Browse Tuitions
+                      </Btn>
+                    </Link>
+
+                    <Link to="/tutors" className="w-full sm:w-auto">
+                      <BtnSecondary className="w-full sm:w-auto rounded-xl text-center text-xs sm:text-sm font-semibold">
+                        Explore Tutors
+                      </BtnSecondary>
+                    </Link>
+                  </div>
+
+                  <p className="mt-3 sm:mt-4 text-[10px] sm:text-[11px] lg:text-xs text-neutral/70 leading-relaxed">
+                    Quick tip: Don’t share phone numbers publicly. We keep sensitive info protected.
+                  </p>
+                </div>
+
+                <div className="rounded-3xl border border-base-200/70 bg-base-100/70 backdrop-blur p-4 sm:p-5 lg:p-6">
+                  <p className="font-semibold text-base-content text-sm sm:text-base">What happens next?</p>
+                  <ul className="mt-2 space-y-2 text-[11px] sm:text-sm text-neutral/80">
+                    <li className="flex gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary/70" />
+                      We review your message and reply within 24 hours.
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary/70" />
+                      For urgent issues, we’ll prioritize account security cases first.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right: form */}
+              <div className="rounded-3xl border border-base-200/70 bg-base-100/80 p-4 sm:p-6 lg:p-8 backdrop-blur">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-base-content">Send a message</h2>
+                    <p className="mt-1 text-[11px] sm:text-sm text-neutral/70">Share details so we can help you faster.</p>
+                  </div>
+
+                  <span className="hidden sm:inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] sm:text-xs font-semibold bg-base-200/70 text-base-content ring-1 ring-base-300/50">
+                    <span className="h-1.5 w-1.5 rounded-full bg-secondary/70" />
+                    Secure form
+                  </span>
+                </div>
+
+                <form onSubmit={handleSendMsg} className="mt-5 sm:mt-6 space-y-3 sm:space-y-4">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="Full Name"
+                      className="w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-xs sm:text-sm outline-none transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10"
+                    />
+
+                    <input
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      type="email"
+                      placeholder="Email"
+                      className="w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-xs sm:text-sm outline-none transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10"
+                    />
+                  </div>
+
+                  <input
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Subject"
+                    className="w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-xs sm:text-sm outline-none transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10"
+                  />
+
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows="5"
+                    placeholder="Your message"
+                    className="w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-xs sm:text-sm outline-none transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10"
+                  />
+
+                  <CommonButton
+                    type="submit"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-xs sm:text-sm font-semibold active:scale-[0.99]"
+                  >
+                    <FiSend />
+                    Send Message
+                  </CommonButton>
+
+                  <p className="text-[10px] sm:text-[11px] lg:text-xs text-neutral/60 text-center leading-relaxed">
+                    By sending, you agree not to include passwords or sensitive payment information.
+                  </p>
+                </form>
               </div>
             </div>
-          </div>
-
-          <div className="rounded-3xl border border-base-200/70 bg-base-100/80 p-6 backdrop-blur shadow-[0_10px_30px_rgba(15,26,51,0.06)] hover:-translate-y-1 duration-500">
-            <div className="flex gap-3">
-              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-base-200/80 ring-1 ring-secondary/20">
-                <FiMapPin className="text-base-content/80 animate-pulse" />
-              </span>
-              <div>
-                <p className="font-semibold text-base-content">Location</p>
-                <p className="mt-1 text-xs md:text-sm text-neutral">Narsingdi, Bangladesh</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-base-200/70 bg-base-100/80 p-6 backdrop-blur shadow-[0_10px_30px_rgba(15,26,51,0.06)] hover:-translate-y-1 duration-500">
-            <div className="flex gap-3">
-              <span className="grid h-11 w-11 place-items-center rounded-2xl bg-base-200/80 ring-1 ring-secondary/20">
-                <FiClock className="text-base-content/80 animate-pulse" />
-              </span>
-              <div>
-                <p className="font-semibold text-base-content">Support Hours</p>
-                <p className="mt-1 text-xs md:text-sm text-neutral">Sat–Thu • 10:00 AM – 8:00 PM</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick tip */}
-          <div className="rounded-3xl border border-base-200/70 bg-base-100/70 p-6 backdrop-blur shadow-[0_10px_30px_rgba(15,26,51,0.06)]">
-            <p className="font-semibold text-base-content">Quick tip</p>
-            <p className="mt-2 text-xs md:text-sm text-neutral">
-              Don’t share phone numbers publicly. We keep sensitive info protected.
-            </p>
-
-            <div className="mt-4 flex flex-col gap-3 md:flex-row">
-              <Link to="/tuitions" className="w-full md:w-auto">
-                <Btn className="w-full md:w-auto rounded-xl px-5 py-2.5 text-center text-sm font-semibold">
-                  Browse Tuitions
-                </Btn>
-              </Link>
-
-              <Link to="/tutors" className="w-full md:w-auto">
-                <BtnSecondary className="w-full md:w-auto rounded-xl text-center text-sm font-semibold">
-                  Explore Tutors
-                </BtnSecondary>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* right form */}
-        <div className="rounded-3xl border border-base-200/70 bg-base-100/80 p-6 md:p-8 backdrop-blur shadow-[0_14px_40px_rgba(15,26,51,0.08)]">
-          <h2 className="text-xl md:text-2xl font-bold text-base-content">Send a message</h2>
-
-          <form onSubmit={handleSendMsg} className="mt-6 space-y-4">
-            <input
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              type="text"
-              placeholder="Full Name"
-              className="
-                w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-sm outline-none
-                transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10
-              "
-            />
-
-            <input
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              type="email"
-              placeholder="Email"
-              className="
-                w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-sm outline-none
-                transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10
-              "
-            />
-
-            <input
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              type="text"
-              placeholder="Subject"
-              className="
-                w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-sm outline-none
-                transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10
-              "
-            />
-
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="5"
-              placeholder="Your message"
-              className="
-                w-full rounded-xl border border-base-200 bg-base-100/80 px-4 py-3 text-sm outline-none
-                transition focus:border-secondary/60 focus:ring-4 focus:ring-secondary/10
-              "
-            />
-
-            <CommonButton
-              type="submit"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold active:scale-[0.99]"
-            >
-              <FiSend />
-              Send Message
-            </CommonButton>
-          </form>
+          </section>
         </div>
       </div>
-    </section>
-  </div>
-</Container>
-
+    </Container>
   );
 };
 

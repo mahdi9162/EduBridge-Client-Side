@@ -2,6 +2,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import Container from '../Container/Container';
 import LogoWhite from '../common/LogoWhite';
+import { Link } from 'react-router';
 
 const Footer = () => {
   return (
@@ -53,18 +54,24 @@ const Footer = () => {
           {/* Links */}
           <nav>
             <h6 className="footer-title text-white/90 tracking-wide">Services</h6>
-            <a className="link link-hover text-white/65 hover:text-white transition">Find Tutors</a>
-            <a className="link link-hover text-white/65 hover:text-white transition">Post Tuition</a>
-            <a className="link link-hover text-white/65 hover:text-white transition">Dashboard</a>
-            <a className="link link-hover text-white/65 hover:text-white transition">Payments</a>
+            <Link to="/tutors" className="link link-hover text-white/65 hover:text-white transition">
+              Tutors
+            </Link>
+            <Link to="/tuitions" className="link link-hover text-white/65 hover:text-white transition">
+              Tuition
+            </Link>
+            <Link to="/dashboard" className="link link-hover text-white/65 hover:text-white transition">
+              Dashboard
+            </Link>
           </nav>
 
           <nav>
             <h6 className="footer-title text-white/90 tracking-wide">Company</h6>
-            <a className="link link-hover text-white/65 hover:text-white transition">About us</a>
-            <a className="link link-hover text-white/65 hover:text-white transition">Contact</a>
-            <a className="link link-hover text-white/65 hover:text-white transition">Careers</a>
-            <a className="link link-hover text-white/65 hover:text-white transition">Press</a>
+            <Link to="/about-edubridge" className="link link-hover text-white/65 hover:text-white transition">
+              About Us
+            </Link>
+            <Link to='/contact' className="link link-hover text-white/65 hover:text-white transition">Contact</Link>
+            <Link className="link link-hover text-white/65 hover:text-white transition">FAQ</Link>
           </nav>
 
           <nav>

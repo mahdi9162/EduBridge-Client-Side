@@ -28,11 +28,11 @@ const TuitionsList = () => {
   if (roleLoading || tuitionLoading) return <FullScreenLoader></FullScreenLoader>;
 
   const handleViewDetails = (id) => {
-    if (role !== 'teacher') {
+    if (role !== 'teacher' && role !== 'admin') {
       Swal.fire({
         icon: 'error',
         title: 'Access Denied',
-        text: 'Only tutors can view tuition details.',
+        text: 'Only tutors & admin can view tuition details.',
         confirmButtonText: 'Okay',
       });
 
@@ -43,11 +43,12 @@ const TuitionsList = () => {
 
   const tuitions = allTuitions.filter((tuition) => tuition.postStatus === 'approved');
 
-    const filteredTuitions = (tuitions || []).filter((tuition) => (tuition?.title || '').toLowerCase().includes(searchValue.toLowerCase()));
+  const filteredTuitions = (tuitions || []).filter((tuition) => (tuition?.title || '').toLowerCase().includes(searchValue.toLowerCase()));
 
   return (
     <Container>
-      <section className="
+      <section
+        className="
       relative my-10 lg:my-16 overflow-hidden
       rounded-3xl bg-base-200/35
       border border-base-200/60
@@ -57,7 +58,8 @@ const TuitionsList = () => {
     "
       >
         {/* subtle glow */}
-        <div className="
+        <div
+          className="
         pointer-events-none absolute -top-28 left-1/2 h-56 w-[520px] -translate-x-1/2
         rounded-full blur-3xl opacity-70
         bg-[radial-gradient(circle,rgba(36,76,152,0.14),transparent_60%)]
@@ -112,14 +114,14 @@ const TuitionsList = () => {
           {filteredTuitions.map((tuition) => (
             <div
               key={tuition._id}
-              className="
-        group relative rounded-2xl  border border-[#e3e9f3] bg-linear-to-b from-[#ffffff] via-[#f6f9ff] to-[#eaf0fb] p-5 shadow-[0_10px_28px_rgba(15,26,51,0.08)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(15,26,51,0.14)]
-      "
+              className="group relative rounded-2xl  border border-[#e3e9f3] bg-linear-to-b from-[#ffffff] via-[#f6f9ff] to-[#eaf0fb] p-5 shadow-[0_10px_28px_rgba(15,26,51,0.08)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(15,26,51,0.14)]"
             >
               {/* top row */}
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <h3 className="truncate text-base md:text-[17px] font-bold text-base-content tracking-wide">{tuition.title.toUpperCase()}</h3>
+                  <h3 className="truncate text-base md:text-[17px] font-bold text-base-content tracking-wide">
+                    {tuition.title.toUpperCase()}
+                  </h3>
                   <p className="mt-1 text-sm text-neutral">
                     <span className="font-semibold text-base-content">Student:</span> {tuition?.name}
                   </p>
@@ -157,10 +159,7 @@ const TuitionsList = () => {
 
                 <CommonButton
                   onClick={() => handleViewDetails(tuition._id)}
-                  className="
-            shrink-0 rounded-xl px-4 py-2 text-sm font-semibold
-            shadow-sm hover:shadow-md transition
-          "
+                  className="shrink-0 rounded-xl px-4 py-2 text-sm font-semibold shadow-sm hover:shadow-md transition"
                 >
                   View details
                 </CommonButton>
