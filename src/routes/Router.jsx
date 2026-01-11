@@ -28,8 +28,9 @@ import PaymentCancel from '../pages/dashboard/paymentPages/PaymentCancel.Jsx';
 import NotFound from '../pages/public/Error/NotFound';
 import ForgotPass from '../pages/public/Auth/ForgotPass';
 import ProfileSettings from '../pages/dashboard/profileSettings/ProfileSettings';
-import About from '../pages/public/Auth/About/About';
+import About from '../pages/public/About/About';
 import TutorOrAdminRoute from './TutorOrAdminRoute';
+import FAQ from '../pages/public/FAQ/FAQ';
 
 export const router = createBrowserRouter([
   // Public site
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
       { path: 'contact', Component: Contact },
       { path: 'signup', Component: Signup },
       { path: 'login', Component: Login },
+      { path: 'faq', Component: FAQ },
       {
         path: 'tuition-details/:id',
         element: (

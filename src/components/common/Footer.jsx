@@ -70,8 +70,12 @@ const Footer = () => {
             <Link to="/about-edubridge" className="link link-hover text-white/65 hover:text-white transition">
               About Us
             </Link>
-            <Link to='/contact' className="link link-hover text-white/65 hover:text-white transition">Contact</Link>
-            <Link className="link link-hover text-white/65 hover:text-white transition">FAQ</Link>
+            <Link to="/contact" className="link link-hover text-white/65 hover:text-white transition">
+              Contact
+            </Link>
+            <Link to="/faq" className="link link-hover text-white/65 hover:text-white transition">
+              FAQ
+            </Link>
           </nav>
 
           <nav>

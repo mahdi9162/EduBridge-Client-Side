@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCheckCircle, FaUsers, FaShieldAlt, FaRocket } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router';
-import useAuth from '../../../../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 
 const About = () => {
   const { user } = useAuth();
