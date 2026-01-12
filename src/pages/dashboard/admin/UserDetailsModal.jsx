@@ -22,8 +22,8 @@ const UserDetailsModal = ({ user, onClose }) => {
       <div className="px-6 sm:px-8 py-5 bg-base-200 border-b border-base-300">
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-5">
-            <figure className="w-16">
-              <img src={userProfileImg} alt="User Avater" />
+            <figure className="w-14 h-14">
+              <img className='w-full h-full rounded-full object-cover' src={user?.photoURL || userProfileImg} alt="User Avater" />
             </figure>
             <div className="mt-2">
               <h3 className="text-lg sm:text-xl font-bold text-base-content">{user?.name ? `${user.name}'s Profile` : 'User Profile'}</h3>

@@ -2,6 +2,7 @@ import React from 'react';
 import { FaCheckCircle, FaUsers, FaShieldAlt, FaRocket } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
+import { motion } from 'framer-motion';
 
 const About = () => {
   const { user } = useAuth();
@@ -12,18 +13,53 @@ const About = () => {
     else navigate('/signup');
   };
 
+  const sectionParent = {
+    hidden: { opacity: 0, y: 18 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+        when: 'beforeChildren',
+        staggerChildren: 0.12,
+      },
+    },
+  };
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 14 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+  };
+
+  const cardIn = {
+    hidden: { opacity: 0, y: 16, scale: 0.99 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+  };
+
+  const listStagger = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
+  };
+
+  const listItem = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+  };
+
   return (
-    <section className="relative mt-5 overflow-hidden">
-      {/* soft brand wash */}
-      <div
+    <motion.section className="relative mt-5 overflow-hidden" variants={sectionParent} initial="hidden" animate="visible">
+      <motion.div
         className="pointer-events-none absolute inset-0
           bg-[radial-gradient(circle_at_20%_10%,rgba(36,76,152,0.08),transparent_55%),
               radial-gradient(circle_at_80%_30%,rgba(15,26,51,0.06),transparent_60%)]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       />
 
       <div className="relative mx-auto max-w-6xl px-4 py-10 sm:py-12 md:py-16">
-        {/* Header */}
-        <div className="text-center">
+        <motion.div className="text-center" variants={fadeUp}>
           <p className="text-[10px] sm:text-xs font-semibold tracking-[0.2em] text-neutral uppercase">About EduBridge</p>
 
           <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-base-content">Where trust shapes learning</h2>
@@ -31,12 +67,10 @@ const About = () => {
           <p className="mt-3 mx-auto max-w-2xl text-xs sm:text-sm md:text-base text-neutral/70 leading-relaxed">
             EduBridge helps students connect with the right tutors, stay organized, and learn with confidence — all in one simple platform.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Main grid */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
-          {/* Left */}
-          <div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 md:p-8 shadow-sm">
+        <motion.div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 lg:gap-8" variants={fadeUp}>
+          <motion.div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 md:p-8 shadow-sm" variants={cardIn}>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <h3 className="text-lg sm:text-xl font-semibold text-base-content">Our mission</h3>
@@ -62,32 +96,28 @@ const About = () => {
               </span>
             </div>
 
-            {/* bullets */}
-            <div className="mt-5 sm:mt-6 grid gap-3">
+            <motion.div className="mt-5 sm:mt-6 grid gap-3" variants={listStagger}>
               {[
                 'Simple profiles, clean dashboards, and a smooth learning flow.',
                 'Tutor matching that respects goals, location, and subjects.',
                 'Secure sign-in and account controls built for trust.',
               ].map((text) => (
-                <div key={text} className="flex items-start gap-3">
+                <motion.div key={text} className="flex items-start gap-3" variants={listItem}>
                   <FaCheckCircle className="mt-0.5 shrink-0 text-primary text-sm sm:text-base" />
                   <p className="text-xs sm:text-sm text-neutral/80 leading-relaxed">{text}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* CTA */}
-            <div className="mt-6 sm:mt-7">
+            <motion.div className="mt-6 sm:mt-7" variants={fadeUp}>
               <button onClick={handleGetStarted} className="btn btn-primary rounded-full btn-sm sm:btn-md">
                 Get started
               </button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right */}
-          <div className="grid gap-4">
-            {/* Feature Card */}
-            <div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 shadow-sm">
+          <motion.div className="grid gap-4" variants={listStagger}>
+            <motion.div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 shadow-sm" variants={cardIn}>
               <div className="flex items-start gap-3">
                 <div className="shrink-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-2xl bg-primary text-primary-content">
                   <FaUsers className="text-base sm:text-lg leading-none" />
@@ -98,10 +128,9 @@ const About = () => {
                   <p className="text-xs sm:text-sm text-neutral/70 leading-relaxed">Role-based experience that stays simple.</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Feature Card */}
-            <div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 shadow-sm">
+            <motion.div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 shadow-sm" variants={cardIn}>
               <div className="flex items-start gap-3">
                 <div className="shrink-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-2xl bg-primary text-primary-content">
                   <FaShieldAlt className="text-base sm:text-lg leading-none" />
@@ -112,10 +141,9 @@ const About = () => {
                   <p className="text-xs sm:text-sm text-neutral/70 leading-relaxed">Protected accounts and clean settings control.</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Feature Card */}
-            <div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 shadow-sm">
+            <motion.div className="rounded-3xl bg-base-100 border border-base-300 p-5 sm:p-6 shadow-sm" variants={cardIn}>
               <div className="flex items-start gap-3">
                 <div className="shrink-0 grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-2xl bg-primary text-primary-content">
                   <FaRocket className="text-base sm:text-lg leading-none" />
@@ -127,8 +155,6 @@ const About = () => {
                 </div>
               </div>
 
-              {/* mini stats */}
-              {/* Mobile: grid (no weird wrap), Tablet+: pills */}
               <div className="mt-4 sm:mt-5">
                 <div className="grid grid-cols-1 gap-2 sm:hidden">
                   {[
@@ -168,12 +194,11 @@ const About = () => {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
-        {/* Bottom note */}
-        <div className="mt-8 sm:mt-10 rounded-3xl bg-primary text-primary-content p-5 sm:p-6 md:p-8">
+        <motion.div className="mt-8 sm:mt-10 rounded-3xl bg-primary text-primary-content p-5 sm:p-6 md:p-8" variants={fadeUp}>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h3 className="text-lg sm:text-xl font-semibold">Ready to improve your learning journey?</h3>
@@ -188,9 +213,9 @@ const About = () => {
               </button>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

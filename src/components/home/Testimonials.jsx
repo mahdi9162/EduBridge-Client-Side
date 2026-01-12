@@ -104,7 +104,7 @@ const HomeTestimonials = () => {
               ))}
             </div>
 
-            {/* Optional: tiny note (remove if you don’t want extra text) */}
+            {/* tiny note  */}
             <p className="mt-8 text-center text-xs text-neutral/60">
               Tip: Strong tutor verification keeps the platform safer for everyone.
             </p>
