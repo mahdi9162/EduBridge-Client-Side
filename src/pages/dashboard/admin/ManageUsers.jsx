@@ -153,7 +153,7 @@ const ManageUsers = () => {
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle h-10 w-10 sm:h-12 sm:w-12 border border-base-300 rounded-full">
-                            <img src={userProfileImg} alt="User avatar" />
+                            <img src={user?.photoURL ? user?.photoURL : userProfileImg} alt="User avatar" />
                           </div>
                         </div>
 

@@ -33,7 +33,7 @@ const WhyChooseUsSection = () => {
           <p className="mt-2 text-sm text-neutral md:text-base">Built to make tuition finding simple, fast, and trustworthy.</p>
         </div>
 
-        {/* features grid (UNCHANGED) */}
+        {/* features grid */}
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           {features.map((item, index) => (
             <div

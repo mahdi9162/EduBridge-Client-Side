@@ -86,15 +86,12 @@ const MyApplications = () => {
 
   return (
     <Container>
-      <section className="py-10 lg:py-14 bg-base-200/60 rounded-4xl px-3 sm:px-6 lg:px-0 my-10">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-10 lg:py-14 bg-base-200/60 rounded-4xl px-3 sm:px-6 lg:px-0">
+        <div className="max-w-6xl rounded-xl md:rounded-4xl mx-auto bg-base-200 shadow-sm p-3 md:p-10">
           {/* Header */}
-          <div className="bg-base-100 rounded-full shadow-[0_18px_45px_rgba(15,26,51,0.08)] border border-base-200 px-5 sm:px-8 py-4 sm:py-5 text-center w-full max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-3">
+          <div className="bg-base-100 rounded-2xl md:rounded-full shadow-[0_18px_45px_rgba(15,26,51,0.08)] border border-base-200 px-5 sm:px-8 py-4 sm:py-5 text-center w-full max-w-3xl mx-auto">
+            <div >
               <h3 className="text-xl sm:text-2xl font-semibold text-base-content">My Applications</h3>
-              <span className="w-9 h-9 rounded-full bg-accent/70 flex items-center justify-center text-secondary">
-                <HiClipboardList className="text-xl" />
-              </span>
             </div>
             <p className="mt-1 text-xs sm:text-sm text-neutral">Track all your tuition applications and their status.</p>
           </div>
@@ -127,7 +124,51 @@ const MyApplications = () => {
             <h3 className="text-lg sm:text-xl font-semibold text-base-content px-1">Recent Applications</h3>
           </div>
 
-          {/* Card  */}
+          {/* EMPTY STATE */}
+          {(!pendingApplications || pendingApplications.length === 0) && (
+            <div className="mt-6">
+              <div className="bg-base-100 rounded-3xl border border-base-200 shadow-[0_18px_45px_rgba(15,26,51,0.08)] p-8 sm:p-10">
+                <div className="flex flex-col items-center text-center">
+                  {/* icon */}
+                  <div className="relative">
+                    {/* subtle glow blob */}
+                    <div
+                      className="
+                        pointer-events-none absolute -inset-6 rounded-full blur-2xl opacity-70
+                        bg-[radial-gradient(circle,rgba(36,76,152,0.18),transparent_65%)]
+                      "
+                    />
+                    <div
+                      className="
+                        h-14 w-14 rounded-2xl bg-accent/70
+                        flex items-center justify-center text-secondary
+                        ring-1 ring-secondary/15 shadow-[0_12px_30px_rgba(15,26,51,0.10)]
+                        animate-bounce
+                      "
+                    >
+                      <HiClipboardList className="text-2xl" />
+                    </div>
+                  </div>
+
+                  <h4 className="mt-4 text-lg sm:text-xl font-semibold text-base-content">No applications yet</h4>
+                  <p className="mt-2 text-xs sm:text-sm text-neutral max-w-md leading-relaxed">
+                    You haven’t applied to any tuition posts yet. Start exploring and apply to the best match — your applications will show
+                    up here.
+                  </p>
+
+                  {/* pill */}
+                  <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-base-200/70 border border-base-200 px-4 py-2 text-xs sm:text-sm text-neutral">
+                    <span className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
+                    Waiting for your first application
+                  </div>
+
+                  <p className="mt-3 text-xs text-neutral">Tip: Apply to more tuitions ✨</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Card */}
           <div className="mt-4 sm:mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
             {pendingApplications.map((application, i) => {
               const tuition = tuitionById[application.tuitionId];

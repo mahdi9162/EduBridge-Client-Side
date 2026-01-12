@@ -50,8 +50,8 @@ const Login = () => {
   };
   // Demo
   const DEMO_USERS = {
-    student: { email: 'student@demo.com', password: 'Student@123' },
-    tutor: { email: 'tutor@demo.com', password: 'Tutor@123' },
+    student: { email: 'sharif@gmail.com', password: '@Mahdi9162' },
+    tutor: { email: 'shahinmia@gmail.com', password: '@Mahdi9162' },
     admin: { email: 'rupahasan@gmail.com', password: '@Mahdi16' },
   };
 
@@ -63,7 +63,7 @@ const Login = () => {
     setValue('email', demo.email, { shouldValidate: true });
     setValue('password', demo.password, { shouldValidate: true });
 
-    // 2) Auto submit 
+    // 2) Auto submit
     handleSubmit(handleUserSignin)();
   };
 

@@ -4,6 +4,7 @@ import LatestTuitionsSection from '../../../components/home/LatestTuitionsSectio
 import LatestTutorsSection from '../../../components/home/LatestTutorsSection';
 import HowItWorksSection from '../../../components/home/HowItWorksSection';
 import WhyChooseUsSection from '../../../components/home/WhyChooseUsSection';
+import FaqHome from '../../../components/home/FaqHome';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <LatestTutorsSection></LatestTutorsSection>
       <HowItWorksSection></HowItWorksSection>
       <WhyChooseUsSection></WhyChooseUsSection>
+      <FaqHome></FaqHome>
     </div>
   );
 };
