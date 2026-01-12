@@ -48,7 +48,7 @@ const HomeFAQ = () => {
                 </p>
               </div>
 
-              {/* CTA (desktop) */}
+              {/* CTA */}
               <div className="hidden lg:flex">
                 <Link
                   to="/faq"

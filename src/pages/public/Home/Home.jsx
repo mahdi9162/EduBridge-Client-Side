@@ -5,6 +5,7 @@ import LatestTutorsSection from '../../../components/home/LatestTutorsSection';
 import HowItWorksSection from '../../../components/home/HowItWorksSection';
 import WhyChooseUsSection from '../../../components/home/WhyChooseUsSection';
 import FaqHome from '../../../components/home/FaqHome';
+import Testimonials from '../../../components/home/Testimonials';
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <LatestTutorsSection></LatestTutorsSection>
       <HowItWorksSection></HowItWorksSection>
       <WhyChooseUsSection></WhyChooseUsSection>
+      <Testimonials></Testimonials>
       <FaqHome></FaqHome>
     </div>
   );
