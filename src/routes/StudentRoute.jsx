@@ -1,18 +1,18 @@
 import React from 'react';
 import useRole from '../hooks/useRole';
 import Loading from '../components/Loading/Loading';
-import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router';
 
 const StudentRoute = ({ children }) => {
   const { role, roleLoading } = useRole();
-  const navigate = useNavigate();
+  const location = useLocation();
 
   if (roleLoading) {
     return <Loading></Loading>;
   }
 
   if (role !== 'student') {
-    return navigate('/');
+    return <Navigate to="/" state={{ from: location.pathname }} replace />;
   }
 
   return children;
