@@ -1,7 +1,7 @@
 import React from 'react';
 import useRole from '../hooks/useRole';
 import Loading from '../components/Loading/Loading';
-import { useLocation } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 
 const StudentRoute = ({ children }) => {
   const { role, roleLoading } = useRole();
